@@ -27,6 +27,7 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -36,6 +37,17 @@ import java.util.logging.Logger;
  * @author Sijan
  */
 class UserDB {
+      static boolean tableExistsSQL(Connection connection, String tableName) throws SQLException {
+    PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*) "
+      + "FROM information_schema.tables "
+      + "WHERE table_name = ?"
+      + "LIMIT 1;");
+    preparedStatement.setString(1, tableName);
+
+    ResultSet resultSet = preparedStatement.executeQuery();
+    resultSet.next();
+    return resultSet.getInt(1) != 0;
+}
 
     Connection sqlConn = null;
     PreparedStatement pst = null;

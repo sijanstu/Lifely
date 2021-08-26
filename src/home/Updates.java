@@ -121,22 +121,19 @@ public final class Updates extends javax.swing.JFrame {
     }//GEN-LAST:event_rSButtonRound6ActionPerformed
 String[] mes;int i=0;
     void FetchUpdate(){
-    Connection con;
         try {
             i=0;
             t=new Toaster(jPanel2);
-            con=new SqlConnection().con;
             PreparedStatement ps;
             String queryString = "SELECT * FROM `Updates`";
-            ps = con.prepareStatement(queryString);
+            ps = DB.getConnection().prepareStatement(queryString);
             try ( ResultSet results = ps.executeQuery()) {
                 while (results.next()) {
                     t.error(results.getString("Title")+" : "+results.getString("Message"));
-                   //t.wait();
-                  
+                   
                    
                 }
-                con.close();
+              
             
         } catch (SQLException ex) {
             Logger.getLogger(Updates.class.getName()).log(Level.SEVERE, null, ex);

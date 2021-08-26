@@ -7,14 +7,12 @@ package home;
 
 import java.io.File;
 import java.awt.AWTException;
-import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -396,10 +394,9 @@ public class Passwords extends javax.swing.JFrame {
     void FetchDBs(){
         pass[0]=null;
         try {
-            try ( Connection con = new SqlConnection().con) {
                 PreparedStatement pss;
                 String queryString = "SELECT * FROM Passwords";
-                pss = con.prepareStatement(queryString);
+                pss = DB.getConnection().prepareStatement(queryString);
                 try ( ResultSet results = pss.executeQuery()) {
                      while (results.next()) {
                         pass[i]=results.getString("password");
@@ -433,14 +430,10 @@ public class Passwords extends javax.swing.JFrame {
                     }
                 }
                 i=0;
-                con.close();
-            }
         } catch (SQLException ex) {
             Logger.getLogger(Passwords.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Passwords.class.getName()).log(Level.SEVERE, null, ex);
-        }
 }
+    }
     private void rSButtonRound6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound6ActionPerformed
         Dash.main();
         dispose();

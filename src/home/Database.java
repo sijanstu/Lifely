@@ -5,6 +5,7 @@
  */
 package home;
 
+import java.awt.Color;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
@@ -77,6 +78,7 @@ public class Database extends javax.swing.JFrame {
         name = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
         rSButtonRound1 = new rojeru_san.rsbutton.RSButtonRound();
+        test = new rojeru_san.rsbutton.RSButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,7 +118,7 @@ public class Database extends javax.swing.JFrame {
             }
         });
         login.add(openconf, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
-        login.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 130, 20));
+        login.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 130, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 153, 255));
@@ -179,7 +181,15 @@ public class Database extends javax.swing.JFrame {
                 rSButtonRound1ActionPerformed(evt);
             }
         });
-        login.add(rSButtonRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 90, 20));
+        login.add(rSButtonRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 90, 20));
+
+        test.setText("Test Connection");
+        test.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testActionPerformed(evt);
+            }
+        });
+        login.add(test, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 160, 60));
 
         jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 280));
 
@@ -233,6 +243,17 @@ Database.main();
 dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound1ActionPerformed
 
+    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
+SqlConnection sq=new SqlConnection();
+sq.isconf=1;
+if(sq.Response().equals("Connected to server")){
+    test.setText("Connected");
+}else{
+    test.setForeground(Color.red);
+    test.setText("Not Connected");
+}
+    }//GEN-LAST:event_testActionPerformed
+
     public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -278,6 +299,7 @@ dispose();// TODO add your handling code here:
     private javax.swing.JLabel port;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound1;
     private rojeru_san.rsdate.RSLabelHora rSLabelHora1;
+    private rojeru_san.rsbutton.RSButtonRound test;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }

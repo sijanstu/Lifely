@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -25,21 +22,12 @@ public class main extends javax.swing.JFrame {
      *
      * @throws java.awt.AWTException
      */
-    static boolean tableExistsSQL(Connection connection, String tableName) throws SQLException {
-    PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*) "
-      + "FROM information_schema.tables "
-      + "WHERE table_name = ?"
-      + "LIMIT 1;");
-    preparedStatement.setString(1, tableName);
-
-    ResultSet resultSet = preparedStatement.executeQuery();
-    resultSet.next();
-    return resultSet.getInt(1) != 0;
-}
+    
+    
     public main() throws AWTException {this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
 
         initComponents();
-
+        SqlConnection sqlConnection = new SqlConnection();
         cont.setVisible(false);
         // Error.main();
     }
@@ -110,7 +98,7 @@ public class main extends javax.swing.JFrame {
         jPanel1.add(agree, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 50, 30));
 
         rSLabelHora1.setFont(new java.awt.Font("C059", 1, 18)); // NOI18N
-        jPanel1.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 110, 30));
+        jPanel1.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 120, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grap.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 360, 250));
@@ -123,9 +111,7 @@ public class main extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         try {
-            
             Desktop.getDesktop().browse(new URI("http://termslifely.bhandarisijan.com.np"));
-
         } catch (IOException | URISyntaxException e1) {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2MouseClicked

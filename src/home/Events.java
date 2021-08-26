@@ -7,11 +7,8 @@ package home;
 
 import java.awt.AWTException;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +21,6 @@ import javax.swing.ImageIcon;
  * @author prabinkokali
  */
 public class Events extends javax.swing.JFrame {
-Connection con;
     /**
      * Creates new form Events
      */
@@ -49,10 +45,9 @@ Connection con;
     }
     void FetchEvent(){
     try {
-        con=new SqlConnection().con;
         PreparedStatement ps;
             String queryString = "SELECT * FROM `events` WHERE UID='" + new UserDB().id;
-            ps = con.prepareStatement(queryString);
+            ps = DB.getConnection().prepareStatement(queryString);
             try ( ResultSet results = ps.executeQuery()) {
                 int i=1;
                 while(results.next()) {
@@ -63,7 +58,6 @@ Connection con;
                 }
                 
             }
-             con.close();
     } catch (SQLException ex) {
         Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
     } catch (Exception ex) {

@@ -1,0 +1,12 @@
+localhost
+3306
+root
+
+test
+............................
+format:
+DBHOST
+DBPORT
+DBUSERNAME
+DBPASSWORD
+DBNAME

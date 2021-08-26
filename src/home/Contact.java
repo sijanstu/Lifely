@@ -5,22 +5,16 @@
  */
 package home;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -178,11 +172,8 @@ public class Contact extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
 
         try {
-            SqlConnection sq = new SqlConnection();
-            //int res=sq.contact(name.getText(), email.getText(), message.getText());
-            Connection conn = sq.con;
             String sql = "INSERT INTO contact (Name, Email, message,Image) values (?, ?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = DB.getConnection().prepareStatement(sql);
             statement.setString(1, name.getText());
             statement.setString(2, email.getText());
             statement.setString(3, message.getText());
@@ -192,11 +183,8 @@ public class Contact extends javax.swing.JFrame {
             if (row > 0) {
                 System.out.println("A contact was inserted with photo image.");
             }
-            conn.close();
             System.out.println("uploaded");
-        } catch (SQLException ex) {
-            Logger.getLogger(Contact.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(Contact.class.getName()).log(Level.SEVERE, null, ex);
         }
         Dash.main();

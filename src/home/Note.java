@@ -6,9 +6,7 @@
 package home;
 import java.awt.AWTException;
 import java.awt.HeadlessException;
-import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 import java.sql.ResultSetMetaData;
 import java.text.MessageFormat;
 import java.util.Vector;
@@ -17,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,9 +27,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ubuntuseebee
  */
-public class Note extends javax.swing.JFrame {
-
-    Connection sqlConn = null;
+public final class Note extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     int q, i, id, deleteItem;
@@ -305,9 +300,7 @@ public class Note extends javax.swing.JFrame {
 
         try {
             id = Integer.parseInt(RecordTable.getValueAt(SelectedRows, 0).toString());
-            Class.forName("com.mysql.jdbc.Driver");
-            sqlConn = new SqlConnection().con;
-            pst = sqlConn.prepareStatement("update notes set Subject = ?, Note =?,Date=? where id =?");
+            pst = DB.getConnection().prepareStatement("update notes set Subject = ?, Note =?,Date=? where id =?");
 
             pst.setString(1, subject.getText());
             pst.setString(2, note.getText());
@@ -319,14 +312,10 @@ public class Note extends javax.swing.JFrame {
             upDateDB();
             subject.setText("");
             note.setText("");
-        } catch (ClassNotFoundException ex) {
-
-            System.err.println(ex);
         } catch (SQLException ex) {
 
             System.err.println(ex);
-
-        } catch (Exception ex) {
+        } catch (HeadlessException | NumberFormatException ex) {
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
         }         // TODO add your handling code here:
     }//GEN-LAST:event_updateActionPerformed
@@ -341,8 +330,8 @@ public class Note extends javax.swing.JFrame {
             deleteItem = JOptionPane.showConfirmDialog(null, "Confirm if you want to delete item",
                     "Warning", JOptionPane.YES_NO_OPTION);
             if (deleteItem == JOptionPane.YES_OPTION) {
-                sqlConn = new SqlConnection().con;
-                pst = sqlConn.prepareStatement("delete from notes where id =?");
+              
+                pst = DB.getConnection().prepareStatement("delete from notes where id =?");
 
                 pst.setInt(1, id);
                 pst.executeUpdate();
@@ -358,7 +347,7 @@ public class Note extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.err.println(ex);
 
-        } catch (HeadlessException | IOException | NumberFormatException ex) {
+        } catch (HeadlessException | NumberFormatException ex) {
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -378,8 +367,8 @@ public class Note extends javax.swing.JFrame {
             t.error("Please enter data firsts");
         }else{
         try {
-            Connection sqlConn = new SqlConnection().con;
-            pst = sqlConn.prepareStatement("insert into Notes(UserID,Subject,Note,Date)value(?,?,?,?)");
+     
+            pst = DB.getConnection().prepareStatement("insert into Notes(UserID,Subject,Note,Date)value(?,?,?,?)");
             id = new UserDB().getUserID();
             System.out.println(id);
             pst.setInt(1, id);
@@ -392,7 +381,7 @@ public class Note extends javax.swing.JFrame {
         } //
  catch (SQLException ex) {
             System.err.println(ex);
-        }        catch (Exception ex) {
+        }        catch (HeadlessException ex) {
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
         }            //tn.add
     }
@@ -408,9 +397,9 @@ public class Note extends javax.swing.JFrame {
     public void upDateDB() {
         try {
 
-            sqlConn = new SqlConnection().con;
+     
             id = new UserDB().getUserID();
-            pst = sqlConn.prepareStatement("select * from Notes where UserID=" + id);
+            pst = DB.getConnection().prepareStatement("select * from Notes where UserID=" + id);
 
             rs = pst.executeQuery();
             ResultSetMetaData StData = rs.getMetaData();
@@ -431,10 +420,9 @@ public class Note extends javax.swing.JFrame {
                     columnData.add(rs.getString("Date"));
                 }
                 RecordTable.addRow(columnData);
-
             }
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
 

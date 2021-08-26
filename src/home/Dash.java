@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
  *
  * @author Sijan Bhandari
  */
-public class Dash extends javax.swing.JFrame {
+public final class Dash extends javax.swing.JFrame {
 
     /**
      * Creates new form Dash
@@ -207,17 +208,16 @@ Connection con;
     int count=0;
 
     void FetchEventNo() {
-        try (Connection conn = new SqlConnection().con) {
+        try {
             PreparedStatement ps;
             String queryString = "SELECT ID from Notes Where UserID="+new UserDB().id;
-            ps = conn.prepareStatement(queryString);
+            ps = DB.getConnection().prepareStatement(queryString);
             try (ResultSet results = ps.executeQuery()) {
                 while (results.next()) {
                     count++;
                 }
             }
-            conn.close();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

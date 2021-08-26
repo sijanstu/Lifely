@@ -5,6 +5,7 @@
  */
 package home;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -145,9 +146,7 @@ public class EventEdit extends javax.swing.JFrame {
         }
         if (task.equals("Edit")) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection sqlConn = new SqlConnection().con;
-                PreparedStatement pst = sqlConn.prepareStatement("update events set Event_name = ?, Event_details =?,date=? where UID =?");
+                PreparedStatement pst = DB.getConnection().prepareStatement("update events set Event_name = ?, Event_details =?,date=? where UID =?");
 
                 pst.setString(1, eventt.getText());
                 pst.setString(2, eventd.getText());
@@ -158,17 +157,15 @@ public class EventEdit extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Record Updated");
                 // subject.setText("");
                 //note.setText("");
-            } catch (ClassNotFoundException | SQLException ex) {
+            } catch (SQLException ex) {
 
                 System.err.println(ex);
-            } catch (Exception ex) {
+            } catch (HeadlessException ex) {
                 Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if(task.equals("Add")){
             try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection sqlConn = new SqlConnection().con;
-                PreparedStatement pst = sqlConn.prepareStatement("INSERT INTO `events` (`UID`, `Event_name`, `Event_details`, `date`) VALUES (?,?,?,?)");
+                PreparedStatement pst = DB.getConnection().prepareStatement("INSERT INTO `events` (`UID`, `Event_name`, `Event_details`, `date`) VALUES (?,?,?,?)");
                 pst.setInt(1, new UserDB().getUserID());
                 pst.setString(2, eventt.getText());
                 pst.setString(3, eventd.getText());
@@ -178,10 +175,10 @@ public class EventEdit extends javax.swing.JFrame {
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Record Added");
                 dispose();
-            } catch (ClassNotFoundException | SQLException ex) {
+            } catch (SQLException ex) {
 
                 System.err.println(ex);
-            } catch (Exception ex) {
+            } catch (HeadlessException ex) {
                 Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
