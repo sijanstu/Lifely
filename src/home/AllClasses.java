@@ -54,7 +54,7 @@ class UserDB {
     ResultSet rs = null;
     int q, i, id, deleteItem;
 
-    int getUserID() {
+    static int getUserID() {
         BufferedReader bf;
         try {
             bf = new BufferedReader(new FileReader(new File("user.txt")));

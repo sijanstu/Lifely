@@ -369,7 +369,7 @@ public final class Note extends javax.swing.JFrame {
         try {
      
             pst = DB.getConnection().prepareStatement("insert into Notes(UserID,Subject,Note,Date)value(?,?,?,?)");
-            id = new UserDB().getUserID();
+            id = UserDB.getUserID();
             System.out.println(id);
             pst.setInt(1, id);
             pst.setString(2, subject.getText());
@@ -398,7 +398,7 @@ public final class Note extends javax.swing.JFrame {
         try {
 
      
-            id = new UserDB().getUserID();
+            id = UserDB.getUserID();
             pst = DB.getConnection().prepareStatement("select * from Notes where UserID=" + id);
 
             rs = pst.executeQuery();

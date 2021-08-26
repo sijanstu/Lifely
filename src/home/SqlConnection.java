@@ -7,8 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -115,7 +114,9 @@ public class SqlConnection {
                         fw.write(Crypt.encrypt(fname));
                         fw.newLine();
                         fw.write(Crypt.encrypt(lname));
-                       
+                        fw.newLine();
+                        fw.write(Crypt.encrypt(user));
+                       fw.close();
                         return 1;
                     }
                 } else {
@@ -182,18 +183,20 @@ public class SqlConnection {
         
     }
 
-    int Signup(String em, String ps, String fname, String lname) {
+    int Signup(String em, String ps, String fname, String lname,InputStream inp) {
         try {
             PreparedStatement pss;
-            this.fname = fname;
-            this.lname = lname;
-            String query = "INSERT INTO `Users` (`FirstName`, `LastName`, `Email`, `Password`) VALUES (?,?,?,?)";
+            SqlConnection.fname = fname;
+            SqlConnection.lname = lname;
+            String query = "INSERT INTO `Users` (`FirstName`, `LastName`, `Email`, `Password`,`Image`) VALUES (?,?,?,?,?)";
             System.out.println(query);
             pss = DB.getConnection().prepareStatement(query);
             pss.setString(1, fname);
             pss.setString(2, lname);
             pss.setString(3, em);
             pss.setString(4, Crypt.passcrypt(ps));
+            
+            pss.setBlob(5, inp);
             pss.executeUpdate();
             String queryString = "SELECT ID FROM Users where Email=? and Password=?";
             pss = DB.getConnection().prepareStatement(queryString);
@@ -203,6 +206,18 @@ public class SqlConnection {
                 if (results.next()) {
                     id = results.getInt("ID");
                     System.out.print("id from database:" + id);
+                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File("user.txt")))) {
+                    bw.write(Crypt.encrypt(Integer.toString(id)));
+                    bw.newLine();
+                    bw.write(Crypt.encrypt(fname));
+                    bw.newLine();
+                    bw.write(Crypt.encrypt(lname));
+                    bw.newLine();
+                    bw.write(user);
+                    bw.close();
+                }   catch (Exception ex) {
+                        System.err.print(ex);
+                    }
                   
                 }
             }
@@ -210,7 +225,7 @@ public class SqlConnection {
             System.out.println("Signup success");
             return 0;
         } catch (SQLException ex) {
-            System.out.println("database error");
+            System.out.println(ex);
             return 1;
         }
     }
@@ -255,7 +270,7 @@ class config {
     config() {
         File cf = new File("config.txt");
         if (cf.exists()) {
-            BufferedReader br = null;
+            BufferedReader br;
             try {
                 System.err.println("\nconfig file found\n");
                 br = new BufferedReader(new FileReader(new File("config.txt")));
@@ -264,17 +279,12 @@ class config {
                 dbusername = br.readLine();
                 dbpassword = br.readLine();
                 dbname = br.readLine();
+                br.close();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(config.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(config.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(config.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            } 
         } else {
             System.err.println("\nconfig file not found\nusing default database\n");
             if (islocal) {

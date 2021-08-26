@@ -6,13 +6,21 @@
 package home;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -54,7 +62,6 @@ public class signup extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txt_fnamee = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
         txt_email = new javax.swing.JTextField();
@@ -64,6 +71,7 @@ public class signup extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        usri = new rojeru_san.rslabel.RSLabelBorderRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,12 +99,12 @@ public class signup extends javax.swing.JFrame {
                 rSButtonGradiente1ActionPerformed(evt);
             }
         });
-        login.add(rSButtonGradiente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 100, 40));
+        login.add(rSButtonGradiente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 100, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Last Name");
-        login.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 70, 40));
+        login.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 70, 40));
 
         txt_lname.setForeground(new java.awt.Color(102, 102, 102));
         txt_lname.setBorder(null);
@@ -110,19 +118,19 @@ public class signup extends javax.swing.JFrame {
                 txt_lnameActionPerformed(evt);
             }
         });
-        login.add(txt_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 190, 270, 30));
+        login.add(txt_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 270, 30));
 
         jSeparator1.setBackground(new java.awt.Color(41, 168, 73));
         jSeparator1.setForeground(new java.awt.Color(41, 168, 73));
-        login.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 220, 270, 10));
+        login.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 270, 10));
 
         jSeparator2.setBackground(new java.awt.Color(41, 168, 73));
         jSeparator2.setForeground(new java.awt.Color(41, 168, 73));
-        login.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 320, 270, 10));
+        login.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 270, 10));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/unlock_18px.png"))); // NOI18N
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        login.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 20, 31));
+        login.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 20, 31));
 
         btn_login.setBackground(new java.awt.Color(41, 168, 73));
         btn_login.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -133,7 +141,7 @@ public class signup extends javax.swing.JFrame {
                 btn_loginActionPerformed(evt);
             }
         });
-        login.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 97, 40));
+        login.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 97, 40));
 
         txt_pwd.setForeground(new java.awt.Color(102, 102, 102));
         txt_pwd.setBorder(null);
@@ -142,7 +150,7 @@ public class signup extends javax.swing.JFrame {
                 txt_pwdFocusGained(evt);
             }
         });
-        login.add(txt_pwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 290, 250, 30));
+        login.add(txt_pwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 250, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
@@ -168,17 +176,14 @@ public class signup extends javax.swing.JFrame {
                 txt_fnameeFocusGained(evt);
             }
         });
-        login.add(txt_fnamee, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 140, 270, 30));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grap.png"))); // NOI18N
-        login.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 90));
+        login.add(txt_fnamee, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 270, 30));
 
         jSeparator3.setBackground(new java.awt.Color(41, 168, 73));
         jSeparator3.setForeground(new java.awt.Color(41, 168, 73));
-        login.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 170, 270, 10));
+        login.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 270, 10));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contacts_18px.png"))); // NOI18N
-        login.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 20, 31));
+        login.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 20, 31));
 
         txt_email.setForeground(new java.awt.Color(102, 102, 102));
         txt_email.setBorder(null);
@@ -192,15 +197,15 @@ public class signup extends javax.swing.JFrame {
                 txt_emailActionPerformed(evt);
             }
         });
-        login.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 240, 250, 30));
+        login.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 250, 30));
 
         jSeparator4.setBackground(new java.awt.Color(41, 168, 73));
         jSeparator4.setForeground(new java.awt.Color(41, 168, 73));
-        login.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 270, 270, 10));
+        login.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 270, 10));
 
         error.setForeground(new java.awt.Color(255, 0, 0));
         error.setText("Error Detected");
-        login.add(error, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
+        login.add(error, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, -1, -1));
 
         rSButtonEffect1.setText("Login Instead");
         rSButtonEffect1.addActionListener(new java.awt.event.ActionListener() {
@@ -208,22 +213,31 @@ public class signup extends javax.swing.JFrame {
                 rSButtonEffect1ActionPerformed(evt);
             }
         });
-        login.add(rSButtonEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 130, -1));
+        login.add(rSButtonEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 130, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setText("Username");
-        login.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 70, 30));
+        login.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 70, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(51, 51, 51));
         jLabel11.setText("Password");
-        login.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 70, 30));
+        login.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 70, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(51, 51, 51));
         jLabel12.setText("First Name");
-        login.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 70, 40));
+        login.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 70, 40));
+
+        usri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        usri.setText("Click to Add Image");
+        usri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usriMouseClicked(evt);
+            }
+        });
+        login.add(usri, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 190, 190));
 
         jPanel1.add(login, "card2");
 
@@ -235,7 +249,7 @@ public class signup extends javax.swing.JFrame {
         );
         pnl_bgLayout.setVerticalGroup(
             pnl_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,50 +280,53 @@ public class signup extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_lnameActionPerformed
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        Toaster toaster = new Toaster(login);
-        int isempty = 0;
-        if (txt_email.getText().equals("")) {
-            isempty = 1;
-            jSeparator4.setForeground(Color.red);
-        }
-        if ("".equals(Arrays.toString(txt_pwd.getPassword()))) {
-            isempty = 1;
-            jSeparator2.setForeground(Color.red);
-        }
-        if (txt_fnamee.getText().equals("")) {
-            isempty = 1;
-            jSeparator3.setForeground(Color.red);
-        }
-        if (txt_lname.getText().equals("")) {
-            isempty = 1;
-            jSeparator1.setForeground(Color.red);
-        }
-        error.setVisible(false);
-        if (isempty == 0) {
+        InputStream inputStream = null;
+        
         try {
-            SqlConnection sq = new SqlConnection();
-            int res = sq.Signup(txt_email.getText(), new String(txt_pwd.getPassword()), txt_fnamee.getText(), txt_lname.getText());
             
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File("user.txt")))) {
-                    bw.write(Crypt.encrypt(Integer.toString(sq.id)));
-                    bw.newLine();
-                    bw.write(Crypt.encrypt(txt_fnamee.getText()));
-                    bw.newLine();
-                    bw.write(Crypt.encrypt(txt_lname.getText()));
+            if(jf!=null){
+                inputStream = new FileInputStream(usrimg);
+            }
+            Toaster toaster = new Toaster(login);
+            int isempty = 0;
+            if (txt_email.getText().equals("")) {
+                isempty = 1;
+                jSeparator4.setForeground(Color.red);
+            }   if ("".equals(Arrays.toString(txt_pwd.getPassword()))) {
+                isempty = 1;
+                jSeparator2.setForeground(Color.red);
+            }   if (txt_fnamee.getText().equals("")) {
+                isempty = 1;
+                jSeparator3.setForeground(Color.red);
+            }   if (txt_lname.getText().equals("")) {
+                isempty = 1;
+                jSeparator1.setForeground(Color.red);
+            }   error.setVisible(false);
+            if (isempty == 0) {
+                try {
+                    
+                    SqlConnection sq = new SqlConnection();
+                    int res = sq.Signup(txt_email.getText(), new String(txt_pwd.getPassword()), txt_fnamee.getText(), txt_lname.getText(),inputStream);
+                    if(res==0){
+                        Dash.main();
+                        dispose();}
+                    else{
+                        toaster.error("Error occured");
+                    }
+                } catch (Exception ex) {
+                    
+                    toaster.error("Error occured");
+                    error.setVisible(true);
+                    Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Dash.main();
-                dispose();
-        } catch (Exception ex) {
-            
-            toaster.error("Error occured");
-            error.setVisible(true);
+            } else{
+                toaster.error("Please fill all details");
+                
+                error.setVisible(true);
+            }
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
         }
-         } else{  
-            toaster.error("Please fill all details");
-            
-            error.setVisible(true);
-            }
 
     }//GEN-LAST:event_btn_loginActionPerformed
 
@@ -354,6 +371,25 @@ public class signup extends javax.swing.JFrame {
         Login.main();
         dispose();    
     }//GEN-LAST:event_rSButtonEffect1ActionPerformed
+    File usrimg;
+    JFileChooser jf=null;
+    private void usriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usriMouseClicked
+        jf= new JFileChooser();
+        usrimg = jf.getSelectedFile();
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: "
+                + chooser.getSelectedFile().getName());
+            usrimg = chooser.getSelectedFile();
+            Icon icon = new ImageIcon(usrimg.getPath());
+            BufferedImage img = new ImgUtils().scaleImage(190, 190, usrimg.getPath());
+            usri.setIcon(new ImageIcon(img));
+        }
+    }//GEN-LAST:event_usriMouseClicked
 
     public static void main() {
         /* Set the Nimbus look and feel */
@@ -363,20 +399,16 @@ public class signup extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -394,7 +426,6 @@ public class signup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -412,5 +443,6 @@ public class signup extends javax.swing.JFrame {
     private javax.swing.JTextField txt_fnamee;
     private javax.swing.JTextField txt_lname;
     private javax.swing.JPasswordField txt_pwd;
+    private rojeru_san.rslabel.RSLabelBorderRound usri;
     // End of variables declaration//GEN-END:variables
 }

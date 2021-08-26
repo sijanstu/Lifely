@@ -9,12 +9,19 @@ import java.awt.AWTException;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -22,22 +29,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Sijan
  */
 public final class Userprofile extends javax.swing.JFrame {
-    String fname,lname,email;
+
+    String fname, lname, email;
+
     /**
      * Creates new form Userprofile
      */
     public Userprofile() {
         initComponents();
         EditMode(false);
-        try ( BufferedReader bw = new BufferedReader(new FileReader(new File("admin.txt")))) {
+        
+        try (BufferedReader bw = new BufferedReader(new FileReader(new File("user.txt")))) {
             bw.readLine();
-            fname=Crypt.decrypt(bw.readLine());
-            lname=Crypt.decrypt(bw.readLine());
+            fname = Crypt.decrypt(bw.readLine());
+            lname = Crypt.decrypt(bw.readLine());
             ff.setText(fname);
             ll.setText(lname);
-            email=Crypt.decrypt(bw.readLine());
+            email = Crypt.decrypt(bw.readLine());
             ee.setText(email);
-            bw.close(); 
+            bw.close();
             //name.setText(home.Crypt.decrypt(bw.readLine()) + " " + home.Crypt.decrypt(bw.readLine()));
         } catch (Exception ex) {
             Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,6 +143,11 @@ public final class Userprofile extends javax.swing.JFrame {
         jPanel1.add(rSButtonRoundEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 110, -1));
 
         up1.setText("Update");
+        up1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                up1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(up1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 110, -1));
 
         title.setFont(new java.awt.Font("Aharoni", 1, 18)); // NOI18N
@@ -145,6 +160,11 @@ public final class Userprofile extends javax.swing.JFrame {
         jPanel1.add(ff, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
 
         up2.setText("Update");
+        up2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                up2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(up2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 130, 110, -1));
 
         name.setFont(new java.awt.Font("Aharoni", 0, 18)); // NOI18N
@@ -198,9 +218,9 @@ public final class Userprofile extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-void fetchData(){
-    
-}
+void fetchData() {
+
+    }
     private void rSButtonRound7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound7ActionPerformed
         Contact.main();
         dispose();// TODO add your handling code here:
@@ -216,18 +236,18 @@ void fetchData(){
         Dash.main();
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound9ActionPerformed
-File usrimg;
+    File usrimg;
     private void usriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usriMouseClicked
         JFileChooser jf = new JFileChooser();
         usrimg = jf.getSelectedFile();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & GIF Images", "jpg", "gif");
+                "JPG & GIF Images", "jpg", "gif");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             System.out.println("You chose to open this file: "
-                + chooser.getSelectedFile().getName());
+                    + chooser.getSelectedFile().getName());
             usrimg = chooser.getSelectedFile();
             Icon icon = new ImageIcon(usrimg.getPath());
             BufferedImage img = new ImgUtils().scaleImage(190, 190, usrimg.getPath());
@@ -237,7 +257,7 @@ File usrimg;
     }//GEN-LAST:event_usriMouseClicked
 
     private void rSButtonRoundEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRoundEffect1ActionPerformed
-File f = new File("user.txt");
+        File f = new File("user.txt");
         f.delete();
         TrayIco t = new TrayIco();
         t.mes = "Logged Out";
@@ -251,38 +271,74 @@ File f = new File("user.txt");
     }//GEN-LAST:event_rSButtonRoundEffect1ActionPerformed
 
     private void up4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up4ActionPerformed
-        // TODO add your handling code here:
+ try {
+            String sql = "INSERT INTO users (Image) values (?)";
+            PreparedStatement statement = DB.getConnection().prepareStatement(sql);
+            InputStream inputStream = new FileInputStream(usrimg);
+            statement.setBlob(1, inputStream);
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                System.out.println("Profile Picture Updated");
+            }
+            System.out.println("uploaded Image");
+        } catch (SQLException | FileNotFoundException ex) {
+            Logger.getLogger(Contact.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }//GEN-LAST:event_up4ActionPerformed
 
     private void up3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up3ActionPerformed
-        // TODO add your handling code here:
+  try {
+            Statement stmt = DB.getConnection().createStatement();
+            stmt.execute("update users set Email = '" + ee.getText() + "' where id =" + UserDB.getUserID());
+        } catch (SQLException ex) {
+            Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }//GEN-LAST:event_up3ActionPerformed
-void EditMode(boolean on){
-    if(on){
-        ff.setEditable(true);
-        ll.setEditable(false);
-        ee.setEditable(true);
-        
-        up1.setVisible(true);
-        up2.setVisible(true);
-        up3.setVisible(true);
-        up4.setVisible(true);
-        usri.setText("Click to change");
-    }else{
-        up1.setVisible(false);
-        up2.setVisible(false);
-        up3.setVisible(false);
-        up4.setVisible(false);
-        usri.setText("");
+    void EditMode(boolean on) {
+        if (on) {
+            ff.setEditable(true);
+            ll.setEditable(false);
+            ee.setEditable(true);
+
+            up1.setVisible(true);
+            up2.setVisible(true);
+            up3.setVisible(true);
+            up4.setVisible(true);
+            usri.setText("Click to change");
+        } else {
+            up1.setVisible(false);
+            up2.setVisible(false);
+            up3.setVisible(false);
+            up4.setVisible(false);
+            usri.setText("");
+        }
     }
-}
     private void edtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtActionPerformed
-if(edt.isSelected()){
-    EditMode(true);
-}else{
-    EditMode(false);
-}
+        if (edt.isSelected()) {
+            EditMode(true);
+        } else {
+            EditMode(false);
+        }
     }//GEN-LAST:event_edtActionPerformed
+
+    private void up1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up1ActionPerformed
+        try {
+            Statement stmt = DB.getConnection().createStatement();
+            stmt.execute("update users set FirstName = '" + ff.getText() + "' where id =" + UserDB.getUserID());
+            JOptionPane.showMessageDialog(this, "FirstName Updated");
+        } catch (SQLException ex) {
+            Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_up1ActionPerformed
+
+    private void up2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up2ActionPerformed
+        try {
+            Statement stmt = DB.getConnection().createStatement();
+            stmt.execute("update users set LastName = '" + ll.getText() + "' where id =" + UserDB.getUserID());
+        } catch (SQLException ex) {
+            Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_up2ActionPerformed
     public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -300,7 +356,7 @@ if(edt.isSelected()){
             java.util.logging.Logger.getLogger(Userprofile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
