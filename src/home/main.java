@@ -124,7 +124,7 @@ public class main extends javax.swing.JFrame {
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         try {
             
-            Desktop.getDesktop().browse(new URI("https://www.facebook.com/sijanstu"));
+            Desktop.getDesktop().browse(new URI("http://termslifely.bhandarisijan.com.np"));
 
         } catch (IOException | URISyntaxException e1) {
         }        // TODO add your handling code here:
