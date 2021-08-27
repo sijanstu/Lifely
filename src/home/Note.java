@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package home;
+
 import java.awt.AWTException;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -28,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author ubuntuseebee
  */
 public final class Note extends javax.swing.JFrame {
+
     PreparedStatement pst = null;
     ResultSet rs = null;
     int q, i, id, deleteItem;
@@ -39,6 +41,8 @@ public final class Note extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
         upDateDB();
+        update.setVisible(false);
+        delete.setVisible(false);
     }
 
     /**
@@ -115,7 +119,7 @@ public final class Note extends javax.swing.JFrame {
 
         jLabel7.setForeground(new java.awt.Color(62, 1, 1));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-390, 30, 1320, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 30, 1310, -1));
 
         tn.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         tn.setModel(new javax.swing.table.DefaultTableModel(
@@ -123,7 +127,7 @@ public final class Note extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Title", "Note", "Date"
+                "ID", "Title", "Task", "Date"
             }
         ) {
             Class[] types = new Class [] {
@@ -162,7 +166,7 @@ public final class Note extends javax.swing.JFrame {
             tn.getColumnModel().getColumn(3).setPreferredWidth(45);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 650, 420));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 740, 410));
 
         print.setText("Print");
         print.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +263,8 @@ public final class Note extends javax.swing.JFrame {
     }//GEN-LAST:event_rSButtonRound6ActionPerformed
     int noteid;
     private void tnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tnMouseClicked
-
+        update.setVisible(true);
+        delete.setVisible(true);
         try {
             // if (!tn.isRowSelected(0 - 2000)) {
             //     JOptionPane.showMessageDialog(this, "note is not selected");
@@ -284,7 +289,7 @@ public final class Note extends javax.swing.JFrame {
     }//GEN-LAST:event_tnMouseClicked
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
-        MessageFormat header = new MessageFormat("Notes in Lifely");
+        MessageFormat header = new MessageFormat("notes in Lifely");
         MessageFormat footer = new MessageFormat("Page {0, number, integer}");
 
         try {
@@ -330,12 +335,12 @@ public final class Note extends javax.swing.JFrame {
             deleteItem = JOptionPane.showConfirmDialog(null, "Confirm if you want to delete item",
                     "Warning", JOptionPane.YES_NO_OPTION);
             if (deleteItem == JOptionPane.YES_OPTION) {
-              
+
                 pst = DB.getConnection().prepareStatement("delete from notes where id =?");
 
                 pst.setInt(1, id);
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Record updated");
+                //JOptionPane.showMessageDialog(this, "Record updated");
                 upDateDB();
 
                 subject.setText("");
@@ -362,31 +367,31 @@ public final class Note extends javax.swing.JFrame {
     }//GEN-LAST:event_noteActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        if(subject.getText().equals("")||note.getText().equals("")){
-            Toaster t=new Toaster(jPanel1);
+        if (subject.getText().equals("") || note.getText().equals("")) {
+            Toaster t = new Toaster(jPanel1);
             t.error("Please enter data firsts");
-        }else{
-        try {
-     
-            pst = DB.getConnection().prepareStatement("insert into Notes(UserID,Subject,Note,Date)value(?,?,?,?)");
-            id = UserDB.getUserID();
-            System.out.println(id);
-            pst.setInt(1, id);
-            pst.setString(2, subject.getText());
-            pst.setString(3, note.getText());
-            pst.setString(4, datee.getDatoFecha().getYear() + 1900 + "/" + (datee.getDatoFecha().getMonth() + 1) + "/" + datee.getDatoFecha().getDate());
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(this, "New Note Added");
-            upDateDB();
-        } //
- catch (SQLException ex) {
-            System.err.println(ex);
-        }        catch (HeadlessException ex) {
-            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
-        }            //tn.add
-    }
+        } else {
+            try {
+
+                pst = DB.getConnection().prepareStatement("insert into notes(UserID,Subject,Note,Date)value(?,?,?,?)");
+                id = UserDB.getUserID();
+                System.out.println(id);
+                pst.setInt(1, id);
+                pst.setString(2, subject.getText());
+                pst.setString(3, note.getText());
+                pst.setString(4, datee.getDatoFecha().getYear() + 1900 + "/" + (datee.getDatoFecha().getMonth() + 1) + "/" + datee.getDatoFecha().getDate());
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(this, "New Note Added");
+                upDateDB();
+            } //
+            catch (SQLException ex) {
+                System.err.println(ex);
+            } catch (HeadlessException ex) {
+                Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
+            }            //tn.add
+        }
     }//GEN-LAST:event_addActionPerformed
-    private void tnRightMouseButton(java.awt.event.MouseEvent ev){
+    private void tnRightMouseButton(java.awt.event.MouseEvent ev) {
         delete.doClick();
     }
     private void tnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tnMousePressed
@@ -397,9 +402,8 @@ public final class Note extends javax.swing.JFrame {
     public void upDateDB() {
         try {
 
-     
             id = UserDB.getUserID();
-            pst = DB.getConnection().prepareStatement("select * from Notes where UserID=" + id);
+            pst = DB.getConnection().prepareStatement("select * from notes where UserID=" + id);
 
             rs = pst.executeQuery();
             ResultSetMetaData StData = rs.getMetaData();

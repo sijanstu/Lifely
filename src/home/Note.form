@@ -134,7 +134,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="-390" y="30" width="1320" height="-1"/>
+                  <AbsoluteConstraints x="-290" y="30" width="1310" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -144,7 +144,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="280" y="50" width="650" height="420"/>
+                  <AbsoluteConstraints x="280" y="60" width="740" height="410"/>
                 </Constraint>
               </Constraints>
 
@@ -161,7 +161,7 @@
                       <Table columnCount="4" rowCount="1">
                         <Column editable="false" title="ID" type="java.lang.Integer"/>
                         <Column editable="false" title="Title" type="java.lang.String"/>
-                        <Column editable="false" title="Note" type="java.lang.String"/>
+                        <Column editable="false" title="Task" type="java.lang.String"/>
                         <Column editable="false" title="Date" type="java.lang.String"/>
                       </Table>
                     </Property>

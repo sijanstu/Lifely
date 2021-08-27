@@ -24,6 +24,7 @@ public class DB {
           static String user = conf.dbusername;
             
           static String pass = conf.dbpassword;
+          static int isconf=0;
     static Connection con=null;
     public static Connection getConnection()
     {
@@ -41,6 +42,7 @@ public class DB {
         }
         catch(SQLException e)
         {
+            if(isconf==0)
             Database.main();
             System.err.println(e);
         }

@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -27,7 +26,12 @@ public class main extends javax.swing.JFrame {
     public main() throws AWTException {this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
 
         initComponents();
-        SqlConnection sqlConnection = new SqlConnection();
+        try {
+
+        } catch (Exception ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        SqlThread sq=new SqlThread();
         cont.setVisible(false);
         // Error.main();
     }
@@ -124,15 +128,9 @@ public class main extends javax.swing.JFrame {
             dispose();
             Dash.main();
         } else {
-            try {
-                tester();
-               Login.main();
-                dispose();
-            } catch (IOException ex) {
-                dispose();
-                Database.main();
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //tester();
+            Login.main();
+            dispose();
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_contActionPerformed

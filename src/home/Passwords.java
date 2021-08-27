@@ -401,7 +401,7 @@ public final class Passwords extends javax.swing.JFrame {
     void FetchDBs(){
         try {
                 PreparedStatement pss;
-                String queryString = "SELECT * FROM Passwords Where UID="+UserDB.getUserID();
+                String queryString = "SELECT * FROM passwords Where UID="+UserDB.getUserID();
                 pss = DB.getConnection().prepareStatement(queryString);
                 try ( ResultSet results = pss.executeQuery()) {
                      while (results.next()) {

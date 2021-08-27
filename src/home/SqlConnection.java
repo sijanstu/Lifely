@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -306,14 +307,11 @@ class config {
 
 class SqlThread extends Thread {
     static Object ob;
-    SqlConnection con;
+    Connection con;
 
     @Override
     public void run() {
-
-        SqlConnection sqlConnection = new SqlConnection();
-        con=sqlConnection;
-        System.out.print("Started");
+        con=DB.getConnection();
 
     }
 

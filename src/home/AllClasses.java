@@ -358,6 +358,7 @@ String[] url;
 
 
 class ToasterBody extends JPanel {
+   
     private static final int TOAST_PADDING = 15;
     private final int toastWidth;
     private final String message;
@@ -395,7 +396,7 @@ class ToasterBody extends JPanel {
                 repaint();
                 try {
                     Thread.sleep(5);
-                } catch (Exception ignored) {
+                } catch (InterruptedException ignored) {
                 }
             }
         }).start();

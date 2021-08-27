@@ -238,14 +238,17 @@ dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound1ActionPerformed
 
     private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
-SqlConnection sq=new SqlConnection();
-sq.isconf=1;
-if(sq.Response().equals("Connected to server")){
+DB.isconf=1;
+if(DB.getConnection()!=null){
     test.setText("Connected");
+    Login.main();
+    dispose();
 }else{
-    test.setForeground(Color.red);
+   // test.setForeground(Color.red);
+    test.setColorText(Color.red);
     test.setText("Not Connected");
 }
+DB.isconf=0;
     }//GEN-LAST:event_testActionPerformed
 
     public static void main() {

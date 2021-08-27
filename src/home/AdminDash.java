@@ -5,8 +5,6 @@
  */
 package home;
 
-import home.Dash;
-import home.TrayIco;
 import java.awt.AWTException;
 import java.io.BufferedReader;
 import java.io.File;

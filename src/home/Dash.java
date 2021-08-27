@@ -210,10 +210,10 @@ Connection con;
     void FetchEventNo() {
         try {
             PreparedStatement ps;
-            String queryString = "SELECT ID from Notes Where UserID="+new UserDB().id;
+            String queryString = "SELECT * from notes Where UserID="+UserDB.getUserID();
             ps = DB.getConnection().prepareStatement(queryString);
             try (ResultSet results = ps.executeQuery()) {
-                while (results.next()) {
+                while(results.next()) {
                     count++;
                 }
             }

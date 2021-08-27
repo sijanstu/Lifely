@@ -6,7 +6,6 @@
 package home;
 
 import java.awt.event.AdjustmentEvent;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,7 +124,7 @@ String[] mes;int i=0;
             i=0;
             t=new Toaster(jPanel2);
             PreparedStatement ps;
-            String queryString = "SELECT * FROM `Updates`";
+            String queryString = "SELECT * FROM `updates`";
             ps = DB.getConnection().prepareStatement(queryString);
             try ( ResultSet results = ps.executeQuery()) {
                 while (results.next()) {
