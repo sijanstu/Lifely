@@ -52,6 +52,7 @@ public class main extends javax.swing.JFrame {
         agree = new rojerusan.RSSwitch();
         rSLabelHora1 = new rojeru_san.rsdate.RSLabelHora();
         jLabel1 = new javax.swing.JLabel();
+        rSCheckBox1 = new rojerusan.RSCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Start Lifely App");
@@ -64,14 +65,16 @@ public class main extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 50));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("<html><a href=\"https://www.facebook.com/sijanstu\">Terms and conditions</a></html>");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("<html><a href=\"\">Agree Terms and conditions</a></html>");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 360, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 160, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -88,7 +91,7 @@ public class main extends javax.swing.JFrame {
                 contActionPerformed(evt);
             }
         });
-        jPanel1.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 140, 40));
+        jPanel1.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 140, 40));
 
         agree.setBackground(new java.awt.Color(21, 198, 254));
         agree.setForeground(new java.awt.Color(215, 39, 31));
@@ -99,7 +102,7 @@ public class main extends javax.swing.JFrame {
                 agreeMouseClicked(evt);
             }
         });
-        jPanel1.add(agree, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 50, 30));
+        jPanel1.add(agree, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 50, 30));
 
         rSLabelHora1.setFont(new java.awt.Font("C059", 1, 18)); // NOI18N
         jPanel1.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 120, 30));
@@ -107,7 +110,10 @@ public class main extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grap.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 360, 250));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 310));
+        rSCheckBox1.setText("Use Online database");
+        jPanel1.add(rSCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 340));
 
         pack();
         setLocationRelativeTo(null);
@@ -193,6 +199,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private rojerusan.RSCheckBox rSCheckBox1;
     private rojeru_san.rsdate.RSLabelHora rSLabelHora1;
     // End of variables declaration//GEN-END:variables
   void tester() throws MalformedURLException, IOException {
