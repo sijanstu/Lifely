@@ -3,8 +3,11 @@ package home;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.net.MalformedURLException;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -31,7 +34,7 @@ public class main extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        SqlThread sq=new SqlThread();
+        
         cont.setVisible(false);
         // Error.main();
     }
@@ -111,6 +114,11 @@ public class main extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 360, 250));
 
         rSCheckBox1.setText("Use Online database");
+        rSCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSCheckBox1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(rSCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 340));
@@ -127,7 +135,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
-        
+        SqlThread sq=new SqlThread();
         File f1 = new File("user.txt");
         String gett;
         if (f1.exists()) {
@@ -150,6 +158,15 @@ public class main extends javax.swing.JFrame {
             cont.setVisible(false);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_agreeMouseClicked
+
+    private void rSCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSCheckBox1ActionPerformed
+        try { 
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("ison.txt")));
+            bw.write("on");
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rSCheckBox1ActionPerformed
 
     /**
      * @param args
