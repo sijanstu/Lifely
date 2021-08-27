@@ -55,7 +55,7 @@ public class main extends javax.swing.JFrame {
         agree = new rojerusan.RSSwitch();
         rSLabelHora1 = new rojeru_san.rsdate.RSLabelHora();
         jLabel1 = new javax.swing.JLabel();
-        rSCheckBox1 = new rojerusan.RSCheckBox();
+        rec = new rojerusan.RSCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Start Lifely App");
@@ -113,13 +113,13 @@ public class main extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grap.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 360, 250));
 
-        rSCheckBox1.setText("Use Online database");
-        rSCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        rec.setText("Use Online database");
+        rec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSCheckBox1ActionPerformed(evt);
+                recActionPerformed(evt);
             }
         });
-        jPanel1.add(rSCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+        jPanel1.add(rec, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 340));
 
@@ -135,7 +135,15 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
-        SqlThread sq=new SqlThread();
+        if(rec.isSelected()){
+        try { 
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("ison.txt")));
+            bw.write("on");
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }}
+            SqlThread sq=new SqlThread();
         File f1 = new File("user.txt");
         String gett;
         if (f1.exists()) {
@@ -159,14 +167,9 @@ public class main extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_agreeMouseClicked
 
-    private void rSCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSCheckBox1ActionPerformed
-        try { 
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("ison.txt")));
-            bw.write("on");
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_rSCheckBox1ActionPerformed
+    private void recActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recActionPerformed
+        
+    }//GEN-LAST:event_recActionPerformed
 
     /**
      * @param args
@@ -216,8 +219,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private rojerusan.RSCheckBox rSCheckBox1;
     private rojeru_san.rsdate.RSLabelHora rSLabelHora1;
+    private rojerusan.RSCheckBox rec;
     // End of variables declaration//GEN-END:variables
   void tester() throws MalformedURLException, IOException {
         //URL url = new URL("http://www.google.com");

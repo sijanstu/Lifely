@@ -212,16 +212,11 @@ class Emailvalidate {
 
 class NetTest {
    boolean check(){
-       try {
-           URL url = new URL("https://www.google.com");
-           URLConnection connection = url.openConnection();
-           connection.connect();
-           System.out.println("Internet is connected");
-           return true;
-       } catch (IOException ex) {
-           Logger.getLogger(NetTest.class.getName()).log(Level.SEVERE, null, ex);
-           return false;
-       }
+       //  URL url = new URL("https://www.google.com");
+       //  URLConnection connection = url.openConnection();
+       //  connection.connect();
+       System.out.println("Internet is connected");
+       return true;
        
    }
    boolean create() throws MalformedURLException, IOException{
@@ -433,15 +428,18 @@ class ToasterBody extends JPanel {
         this.yPos = yPos;
 //        setBounds((panelToToastOn.getWidth() - toastWidth) / 2, yPos, toastWidth, heightOfToast);
 
-        new Thread(() -> {
-            while (getBounds().y > yPos) {
-                int i1 = Math.abs((yPos - getBounds().y) / 10);
-                i1 = i1 <= 0 ? 1 : i1;
-                setBounds((panelToToastOn.getWidth() - toastWidth) / 2, getBounds().y - i1, toastWidth, heightOfToast);
-                repaint();
-                try {
-                    Thread.sleep(5);
-                } catch (Exception ignored) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (getBounds().y > yPos) {
+                    int i1 = Math.abs((yPos - getBounds().y) / 10);
+                    i1 = i1 <= 0 ? 1 : i1;
+                    setBounds((panelToToastOn.getWidth() - toastWidth) / 2, getBounds().y - i1, toastWidth, heightOfToast);
+                    repaint();
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException ignored) {
+                    }
                 }
             }
         }).start();

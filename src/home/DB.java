@@ -40,23 +40,27 @@ public class DB {
     static void OnlineDB(){
          if(new File("ison.txt").exists()){
              try {
-                 DB.server=Crypt.decrypt("cmVtb3RlbXlzcWwuY29t");
-                 DB.port="3306";
-                 DB.user=Crypt.decrypt("N01FWldUWWhkcg==");
-                 DB.pass=Crypt.decrypt("NEdLbkhpUjZMcg==");
+                 DB.server=GETAPI.server();
+                 DB.port=GETAPI.port();
+                 DB.user=GETAPI.username();
+                 DB.pass=GETAPI.password();
+                
              } catch (Exception ex) {
                  Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
              }
             
-        }
+        }else{
+             server=conf.dbhost;  
+             port=conf.dbport;
+             user=conf.dbusername;
+             pass=conf.dbpassword;
+         }
     }
     private static Connection getConnection(String server,String db_name,String user_name,String password)
     {
-       
+       OnlineDB();
         try
-        {
-            
-         
+        {         
             con=DriverManager.getConnection("jdbc:mysql://"+server+"/"+db_name+"?user="+user_name+"&password="+password);
         }
         catch(SQLException e)

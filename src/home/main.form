@@ -158,12 +158,12 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="rojerusan.RSCheckBox" name="rSCheckBox1">
+        <Component class="rojerusan.RSCheckBox" name="rec">
           <Properties>
             <Property name="text" type="java.lang.String" value="Use Online database"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rSCheckBox1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
