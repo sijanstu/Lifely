@@ -5,8 +5,6 @@
  */
 package home;
 
-import home.Login;
-import home.TrayIco;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,7 +131,7 @@ public class AdminLogin extends javax.swing.JFrame {
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         try {
-            int res = new home.SqlConnection().AdminLogin(txt_email.getText(), new String(txt_pwd.getPassword()));
+            int res = SqlConnection.AdminLogin(txt_email.getText(), new String(txt_pwd.getPassword()));
             if (res == 1) {
                 TrayIco t = new TrayIco();
                 t.mes = "Logged In";

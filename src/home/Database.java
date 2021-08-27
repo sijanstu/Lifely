@@ -28,7 +28,7 @@ public class Database extends javax.swing.JFrame {
     public Database() {
          initComponents();
          this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
-        BufferedReader bw=null;
+        BufferedReader bw;
         try {
            
             bw = new BufferedReader(new FileReader(new File("config.txt")));
@@ -41,12 +41,6 @@ public class Database extends javax.swing.JFrame {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                bw.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 

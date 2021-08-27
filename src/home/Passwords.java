@@ -7,21 +7,22 @@ package home;
 
 import java.io.File;
 import java.awt.AWTException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author prabinkokali
  */
-public class Passwords extends javax.swing.JFrame {
+public final class Passwords extends javax.swing.JFrame {
 
-    int id;int[] shid;
+    int id;int[] shid=new int[2000];int cid[]=new int[5];int rcount=0;
 
     /**
      * Creates new form Passwords
@@ -29,8 +30,10 @@ public class Passwords extends javax.swing.JFrame {
     public Passwords() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
-        id = new UserDB().getUserID();
-
+        id = UserDB.getUserID();
+        FetchDBs();
+        
+        
     }
 
     /**
@@ -49,7 +52,6 @@ public class Passwords extends javax.swing.JFrame {
         rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         p2 = new javax.swing.JPanel();
         eye4 = new javax.swing.JLabel();
         s4 = new javax.swing.JLabel();
@@ -71,13 +73,14 @@ public class Passwords extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         rSButtonRound3 = new rojeru_san.rsbutton.RSButtonRound();
-        jLabel10 = new javax.swing.JLabel();
+        no = new javax.swing.JLabel();
         p5 = new javax.swing.JPanel();
         eye3 = new javax.swing.JLabel();
         s3 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         ps3 = new javax.swing.JLabel();
+        rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound17 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound21 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound4 = new rojeru_san.rsbutton.RSButtonRound();
@@ -88,6 +91,7 @@ public class Passwords extends javax.swing.JFrame {
         passt = new RSMaterialComponent.RSTextFieldMaterial();
         sitet = new RSMaterialComponent.RSTextFieldMaterial();
         rSButtonRound5 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound8 = new rojeru_san.rsbutton.RSButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,10 +132,6 @@ public class Passwords extends javax.swing.JFrame {
         jLabel1.setText("Version 1.0");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 50));
 
-        jLabel4.setForeground(new java.awt.Color(52, 170, 231));
-        jLabel4.setText("Beta");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 0, 50, 40));
-
         p2.setBackground(new java.awt.Color(254, 254, 254));
         p2.setForeground(new java.awt.Color(62, 157, 254));
         p2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,7 +147,6 @@ public class Passwords extends javax.swing.JFrame {
 
         s4.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         s4.setForeground(new java.awt.Color(39, 144, 250));
-        s4.setText("Empty");
         p2.add(s4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 320, 40));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/passi.png"))); // NOI18N
@@ -159,7 +158,6 @@ public class Passwords extends javax.swing.JFrame {
 
         ps4.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps4.setForeground(new java.awt.Color(39, 144, 250));
-        ps4.setText("*****************************");
         p2.add(ps4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 240, 40));
 
         jPanel1.add(p2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 670, 60));
@@ -184,7 +182,6 @@ public class Passwords extends javax.swing.JFrame {
 
         s2.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         s2.setForeground(new java.awt.Color(39, 144, 250));
-        s2.setText("Empty");
         p3.add(s2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 320, 40));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/passi.png"))); // NOI18N
@@ -196,7 +193,6 @@ public class Passwords extends javax.swing.JFrame {
 
         ps2.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps2.setForeground(new java.awt.Color(39, 144, 250));
-        ps2.setText("*****************************");
         p3.add(ps2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 240, 40));
 
         jPanel1.add(p3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 670, 60));
@@ -228,12 +224,10 @@ public class Passwords extends javax.swing.JFrame {
 
         s1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         s1.setForeground(new java.awt.Color(39, 144, 250));
-        s1.setText("Empty");
         p1.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 320, 40));
 
         ps1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps1.setForeground(new java.awt.Color(39, 144, 250));
-        ps1.setText("*****************************");
         p1.add(ps1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 240, 40));
 
         jPanel1.add(p1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 670, 60));
@@ -255,10 +249,10 @@ public class Passwords extends javax.swing.JFrame {
         });
         jPanel1.add(rSButtonRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 130, 30));
 
-        jLabel10.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(39, 144, 250));
-        jLabel10.setText("0 Sites And Apps");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 140, 50));
+        no.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        no.setForeground(new java.awt.Color(39, 144, 250));
+        no.setText("0 Sites And Apps");
+        jPanel1.add(no, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 140, 50));
 
         p5.setBackground(new java.awt.Color(254, 254, 254));
         p5.setForeground(new java.awt.Color(62, 157, 254));
@@ -275,7 +269,6 @@ public class Passwords extends javax.swing.JFrame {
 
         s3.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         s3.setForeground(new java.awt.Color(39, 144, 250));
-        s3.setText("Empty");
         p5.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 320, 40));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/passi.png"))); // NOI18N
@@ -287,10 +280,17 @@ public class Passwords extends javax.swing.JFrame {
 
         ps3.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps3.setForeground(new java.awt.Color(39, 144, 250));
-        ps3.setText("*****************************");
         p5.add(ps3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 240, 40));
 
         jPanel1.add(p5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 670, 60));
+
+        rSButtonRound9.setText("Reset");
+        rSButtonRound9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSButtonRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 70, 30));
 
         rSButtonRound17.setText("Previous");
         rSButtonRound17.setFont(new java.awt.Font("Roboto Bold", 1, 12)); // NOI18N
@@ -362,13 +362,21 @@ public class Passwords extends javax.swing.JFrame {
         });
         jPanel1.add(sitet, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 40));
 
-        rSButtonRound5.setText("Delete");
+        rSButtonRound5.setText("Refresh");
         rSButtonRound5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonRound5ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 90, 30));
+        jPanel1.add(rSButtonRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 90, 30));
+
+        rSButtonRound8.setText("Delete");
+        rSButtonRound8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSButtonRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 90, 30));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -386,52 +394,54 @@ public class Passwords extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    String[] pass;
+    String[] pass=new String[2000];
   
-    String[] site;
-    int[] uid;
+    String[] site=new String[2000];
     int i=0;
     void FetchDBs(){
-        pass[0]=null;
         try {
                 PreparedStatement pss;
-                String queryString = "SELECT * FROM Passwords";
+                String queryString = "SELECT * FROM Passwords Where UID="+UserDB.getUserID();
                 pss = DB.getConnection().prepareStatement(queryString);
                 try ( ResultSet results = pss.executeQuery()) {
                      while (results.next()) {
+                         
                         pass[i]=results.getString("password");
                         site[i]=results.getString("SiteName");
-                        uid[i]=results.getInt("UID");
+                        shid[i]=results.getInt("ID");
                         i++;
                         
                     }
                      
                 }
-                if(pass!=null){
-                    if(i>=0){
+                no.setText(i+"Sites And Apps");
+                    if(i>=1){
                         ps1.setText(pass[0]);
                         s1.setText(site[0]);
-                        shid[0]=uid[0];
+                        cid[1]=shid[0];
+                        rcount++;
                     }
                     if(i>=1){
                         ps2.setText(pass[1]);
                         s2.setText(site[1]);
-                        shid[1]=uid[1];
+                        cid[2]=shid[1];
+                        rcount++;
                     }
-                    if(i>=1){
+                    if(i>=2){
                         ps3.setText(pass[2]);
                         s3.setText(site[2]);
-                        shid[2]=uid[2];
+                       cid[3]=shid[2];
+                       rcount++;
                     }
-                    if(i>=1){
+                    if(i>=3){
                         ps4.setText(pass[3]);
-                        s3.setText(site[3]);
-                        shid[3]=uid[3];
+                        s4.setText(site[3]);
+                        cid[4]=shid[3];
+                        rcount++;
                     }
-                }
                 i=0;
         } catch (SQLException ex) {
-            Logger.getLogger(Passwords.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
 }
     }
     private void rSButtonRound6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound6ActionPerformed
@@ -461,8 +471,18 @@ public class Passwords extends javax.swing.JFrame {
 
 
     private void rSButtonRound3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound3ActionPerformed
-
+  try {
+            Statement stmt = DB.getConnection().createStatement();
+            stmt.execute("INSERT INTO `passwords`(`UID`, `SiteName`, `Password`) VALUES ("+UserDB.getUserID()+",'"+sitet.getText()+"','"+passt.getText()+"')");
+            JOptionPane.showMessageDialog(this, "Password Added");
+            FetchDBs();
+        } catch (SQLException ex) {
+           System.err.println(ex);
+        }
     }//GEN-LAST:event_rSButtonRound3ActionPerformed
+void AddPass(){
+    
+}
 
     private void rSButtonRound17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound17ActionPerformed
         // TODO add your handling code here:
@@ -473,7 +493,16 @@ public class Passwords extends javax.swing.JFrame {
     }//GEN-LAST:event_rSButtonRound21ActionPerformed
 
     private void rSButtonRound4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound4ActionPerformed
-        // TODO add your handling code here:
+try {
+            Statement stmt = DB.getConnection().createStatement();
+            stmt.execute("INSERT INTO `passwords`(`UID`, `SiteName`, `Password`) VALUES ("+UserDB.getUserID()+",'"+sitet.getText()+"','"+passt.getText()+"')");
+            stmt.execute("UPDATE `passwords` SET `SiteName`='"+sitet.getText()+"',`Password`='"+passt.getText()+"' WHERE ID=");
+            JOptionPane.showMessageDialog(this, "Password Added");
+            FetchDBs();
+        } catch (SQLException ex) {
+           System.err.println(ex);
+        }
+             // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound4ActionPerformed
 
     private void sel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sel2ActionPerformed
@@ -529,15 +558,21 @@ selectpass(1);        // TODO add your handling code here:
     }//GEN-LAST:event_p1MouseEntered
 
     private void p3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p3MouseEntered
-selectpass(2);        // TODO add your handling code here:
+selectpass(2);   
+sitet.setText(s2.getText());
+       passt.setText(ps2.getText());// TODO add your handling code here:
     }//GEN-LAST:event_p3MouseEntered
 
     private void p5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p5MouseEntered
-selectpass(3);        // TODO add your handling code here:
+selectpass(3);  
+sitet.setText(s3.getText());
+       passt.setText(ps3.getText());// TODO add your handling code here:
     }//GEN-LAST:event_p5MouseEntered
 
     private void p2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p2MouseEntered
-selectpass(4);        // TODO add your handling code here:
+selectpass(4);   
+sitet.setText(s4.getText());
+       passt.setText(ps4.getText());// TODO add your handling code here:
     }//GEN-LAST:event_p2MouseEntered
 int e1=1,e2=1,e3=1,e4=1;
 void passinvisible(int n){
@@ -593,8 +628,17 @@ if(e2==1){
     }//GEN-LAST:event_sitetActionPerformed
 
     private void rSButtonRound5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound5ActionPerformed
-        // TODO add your handling code here:
+Passwords.main();
+dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound5ActionPerformed
+
+    private void rSButtonRound8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRound8ActionPerformed
+
+    private void rSButtonRound9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRound9ActionPerformed
 
     /**
      */
@@ -630,13 +674,11 @@ if(e2==1){
     private javax.swing.JLabel eye3;
     private javax.swing.JLabel eye4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -644,6 +686,7 @@ if(e2==1){
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel no;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel p3;
@@ -661,6 +704,8 @@ if(e2==1){
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound5;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound6;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
+    private rojeru_san.rsbutton.RSButtonRound rSButtonRound8;
+    private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
     private rojeru_san.efectos.Roboto roboto1;
     private javax.swing.JLabel s1;
     private javax.swing.JLabel s2;
