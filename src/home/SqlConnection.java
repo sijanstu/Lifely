@@ -1,10 +1,6 @@
 package home;
-
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -259,51 +253,6 @@ public class SqlConnection {
 
 }
 
-class config {
-
-    String dbhost;
-    String dbport;
-    String dbusername;
-    String dbpassword;
-    String dbname;
-    boolean islocal = true;
-
-    config() {
-        File cf = new File("config.txt");
-        if (cf.exists()) {
-            BufferedReader br;
-            try {
-                System.err.println("\nconfig file found\n");
-                br = new BufferedReader(new FileReader(new File("config.txt")));
-                dbhost = br.readLine();
-                dbport = br.readLine();
-                dbusername = br.readLine();
-                dbpassword = br.readLine();
-                dbname = br.readLine();
-                br.close();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(config.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(config.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        } else {
-            System.err.println("\nconfig file not found\nusing default database\n");
-            if (islocal) {
-                dbhost = "localhost";
-                dbport = "3306";
-                dbusername = "root";
-                dbpassword = "";
-                dbname = "test";
-            } else {
-                dbhost = "remotemysql.com";
-                dbport = "3306";
-                dbusername = "7MEZWTYhdr";
-                dbpassword = "4GKnHiR6Lr";
-                dbname = "7MEZWTYhdr";
-            }
-        }
-    }
-}
 
 class SqlThread extends Thread {
     static Object ob;

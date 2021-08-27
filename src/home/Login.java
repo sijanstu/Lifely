@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 /**
  *
@@ -90,7 +89,7 @@ public class Login extends javax.swing.JFrame {
         login.add(rSButtonGradiente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 110, 40));
 
         txt_email.setForeground(new java.awt.Color(102, 102, 102));
-        txt_email.setText("Email");
+        txt_email.setText("Username");
         txt_email.setBorder(null);
         txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -131,7 +130,6 @@ public class Login extends javax.swing.JFrame {
         login.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 97, 40));
 
         txt_pwd.setForeground(new java.awt.Color(102, 102, 102));
-        txt_pwd.setText("jPasswordField1");
         txt_pwd.setBorder(null);
         txt_pwd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

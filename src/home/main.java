@@ -1,43 +1,46 @@
-
 package home;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.net.MalformedURLException;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author Finally
  */
 public class main extends javax.swing.JFrame {
+
     /**
      * Creates new form Splash
      *
      * @throws java.awt.AWTException
      */
-    
-    
-    public main() throws AWTException {this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
+
+    public main() throws AWTException {
+        this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
 
         initComponents();
         try {
-
+            File f=new File("user.txt");
+            if(f.exists()){
+                Dash.main();
+                dispose();
+            }
         } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         cont.setVisible(false);
         // Error.main();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,13 +52,13 @@ public class main extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cont = new rojeru_san.rsbutton.RSButtonRound();
         agree = new rojerusan.RSSwitch();
         rSLabelHora1 = new rojeru_san.rsdate.RSLabelHora();
         jLabel1 = new javax.swing.JLabel();
-        rec = new rojerusan.RSCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Start Lifely App");
@@ -65,8 +68,13 @@ public class main extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(102, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 50));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 40));
+
+        jLabel5.setForeground(new java.awt.Color(62, 1, 1));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 360, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
@@ -77,12 +85,12 @@ public class main extends javax.swing.JFrame {
                 jLabel2MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 160, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 160, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Read all Terms and Conditions");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 370, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 360, -1));
 
         cont.setText("Continue");
         cont.setBorderPainted(false);
@@ -94,7 +102,7 @@ public class main extends javax.swing.JFrame {
                 contActionPerformed(evt);
             }
         });
-        jPanel1.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 140, 40));
+        jPanel1.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 360, 40));
 
         agree.setBackground(new java.awt.Color(21, 198, 254));
         agree.setForeground(new java.awt.Color(215, 39, 31));
@@ -105,23 +113,15 @@ public class main extends javax.swing.JFrame {
                 agreeMouseClicked(evt);
             }
         });
-        jPanel1.add(agree, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 50, 30));
+        jPanel1.add(agree, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 50, 30));
 
-        rSLabelHora1.setFont(new java.awt.Font("C059", 1, 18)); // NOI18N
-        jPanel1.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 120, 30));
+        rSLabelHora1.setFont(new java.awt.Font("C059", 1, 12)); // NOI18N
+        jPanel1.add(rSLabelHora1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 110, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grap.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 360, 250));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 360, 250));
 
-        rec.setText("Use Online database");
-        rec.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rec, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 340));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 400));
 
         pack();
         setLocationRelativeTo(null);
@@ -135,15 +135,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
-        if(rec.isSelected()){
-        try { 
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("ison.txt")));
-            bw.write("on");
-            bw.close();
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }}
-            SqlThread sq=new SqlThread();
+       // SqlThread sq = new SqlThread();
+       DB.getConnection();
         File f1 = new File("user.txt");
         String gett;
         if (f1.exists()) {
@@ -167,19 +160,11 @@ public class main extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_agreeMouseClicked
 
-    private void recActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recActionPerformed
-        
-    }//GEN-LAST:event_recActionPerformed
-
     /**
      * @param args
      */
     public static void main(String[] args) {
-        File f1 = new File("user.txt");
-        if (f1.exists()) {
-            Dash.main();
-
-        } else {
+      
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -208,7 +193,7 @@ public class main extends javax.swing.JFrame {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -218,14 +203,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private rojeru_san.rsdate.RSLabelHora rSLabelHora1;
-    private rojerusan.RSCheckBox rec;
     // End of variables declaration//GEN-END:variables
   void tester() throws MalformedURLException, IOException {
-        //URL url = new URL("http://www.google.com");
-       // URLConnection connection = url.openConnection();
-        //connection.connect();
-        //System.out.println("Internet is connected");
     }
 }

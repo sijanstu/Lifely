@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,7 +66,7 @@ class UserDB {
         } catch (Exception ex) {
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 10;
+        return 500;
 
     }
 }

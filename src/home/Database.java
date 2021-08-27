@@ -5,6 +5,7 @@
  */
 package home;
 
+
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -27,6 +28,9 @@ public class Database extends javax.swing.JFrame {
      */
     public Database() {
          initComponents();
+         if(!config.islocal){
+             dbs.setText("You're using Online database");
+         }
          this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         BufferedReader bw;
         try {
@@ -55,7 +59,7 @@ public class Database extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         login = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        dbs = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         openconf = new rojeru_san.complementos.RSButtonHover();
@@ -92,10 +96,10 @@ public class Database extends javax.swing.JFrame {
         });
         login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel6.setText("Database Settings");
-        login.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 0, 210, 40));
+        dbs.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
+        dbs.setForeground(new java.awt.Color(51, 102, 255));
+        dbs.setText("Database Settings");
+        login.add(dbs, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 0, 210, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jLabel1.setText("Version 1.0");
@@ -185,7 +189,7 @@ public class Database extends javax.swing.JFrame {
         });
         login.add(test, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 160, 60));
 
-        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 280));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,7 +201,7 @@ public class Database extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,13 +282,13 @@ DB.isconf=0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dbs;
     private javax.swing.JLabel host;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

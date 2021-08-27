@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
+import static java.lang.System.exit;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -134,6 +135,7 @@ public final class Userprofile extends javax.swing.JFrame {
         ll.setPlaceholder("Last Name");
         jPanel1.add(ll, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
 
+        rSButtonRoundEffect1.setBackground(new java.awt.Color(0, 153, 153));
         rSButtonRoundEffect1.setText("Log Out");
         rSButtonRoundEffect1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +196,7 @@ public final class Userprofile extends javax.swing.JFrame {
                 up4ActionPerformed(evt);
             }
         });
-        jPanel1.add(up4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 110, -1));
+        jPanel1.add(up4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 110, -1));
 
         up3.setText("Update");
         up3.addActionListener(new java.awt.event.ActionListener() {
@@ -257,14 +259,14 @@ void fetchData() {
     }//GEN-LAST:event_usriMouseClicked
 
     private void rSButtonRoundEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRoundEffect1ActionPerformed
-        File f = new File("user.txt");
+    File f = new File("user.txt");
         f.delete();
         TrayIco t = new TrayIco();
         t.mes = "Logged Out";
         try {
             t.main();
         } catch (AWTException ex) {
-            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
         }
         Login.main();
         dispose();        // TODO add your handling code here:
