@@ -7,10 +7,8 @@ package home;
 
 import java.awt.AWTException;
 import java.io.File;
-import static java.lang.Thread.sleep;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -43,13 +41,13 @@ public class PSchange extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        np = new RSMaterialComponent.RSTextFieldIconUno();
-        cp = new RSMaterialComponent.RSTextFieldIconUno();
+        currentpas = new RSMaterialComponent.RSTextFieldIconUno();
+        conpass = new RSMaterialComponent.RSTextFieldIconUno();
         submit = new rojeru_san.rsbutton.RSButtonRoundEffect();
         rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel3 = new javax.swing.JLabel();
-        p = new RSMaterialComponent.RSTextFieldIconUno();
-        rSButtonRoundEffect1 = new rojeru_san.rsbutton.RSButtonRoundEffect();
+        newpass = new RSMaterialComponent.RSTextFieldIconUno();
+        logout = new rojeru_san.rsbutton.RSButtonRoundEffect();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Change password");
@@ -67,13 +65,13 @@ public class PSchange extends javax.swing.JFrame {
         title.setText("Change Password");
         jPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 240, 50));
 
-        np.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCK);
-        np.setPlaceholder("Current Password");
-        jPanel1.add(np, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 40));
+        currentpas.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCK);
+        currentpas.setPlaceholder("Current Password");
+        jPanel1.add(currentpas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 40));
 
-        cp.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCK);
-        cp.setPlaceholder("Confirm Password");
-        jPanel1.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
+        conpass.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCK);
+        conpass.setPlaceholder("Confirm Password");
+        jPanel1.add(conpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
 
         submit.setBackground(new java.awt.Color(255, 102, 153));
         submit.setText("Change Password");
@@ -98,18 +96,18 @@ public class PSchange extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-670, 30, 1150, -1));
 
-        p.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCK);
-        p.setPlaceholder("New Password");
-        jPanel1.add(p, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        newpass.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCK);
+        newpass.setPlaceholder("New Password");
+        jPanel1.add(newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
-        rSButtonRoundEffect1.setBackground(new java.awt.Color(0, 153, 153));
-        rSButtonRoundEffect1.setText("Log Out");
-        rSButtonRoundEffect1.addActionListener(new java.awt.event.ActionListener() {
+        logout.setBackground(new java.awt.Color(0, 153, 153));
+        logout.setText("Log Out");
+        logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRoundEffect1ActionPerformed(evt);
+                logoutActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRoundEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 110, -1));
+        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 110, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 300));
 
@@ -118,19 +116,29 @@ public class PSchange extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 Toaster t;
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        if (p.getText().equals(cp.getText())) {
-            if (Crypt.passcrypt(np.getText()).equals(getUserData.pass)) {
-                JOptionPane.showMessageDialog(this, "Password Updated");
-                
+        if (newpass.getText().equals("") || currentpas.getText().equals("") || conpass.getText().equals("")) {
+            t.error("please enter all details");
+        } else {
+            if (newpass.getText().equals(conpass.getText())) {
+                if (Crypt.passcrypt(currentpas.getText()).equals(getUserData.pass)) {
+                    try {
+                        Statement stmt = DB.getConnection().createStatement();
+                        stmt.execute("update users set Password = '" + Crypt.passcrypt(newpass.getText()) + "' where id =" + UserDB.getUserID());
+                        JOptionPane.showMessageDialog(this, "password Updated");
+                        logout.doClick();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PSchange.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    t.error("Incorrect password");
+                }
 
             } else {
-                t.error("Incorrect password");
+                t.error("Please Confirm Password Correctly");
+                conpass.setText("");
+
             }
-
-        } else {
-            t.error("Please Confirm Password Correctly");
-            cp.setText("");
-
         }
     }//GEN-LAST:event_submitActionPerformed
 
@@ -141,15 +149,15 @@ Toaster t;
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound9ActionPerformed
 
-    private void rSButtonRoundEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRoundEffect1ActionPerformed
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         File f = new File("user.txt");
 
         if (f.exists()) {
 
             f.delete();
         }
-        File ff=new File("user.png");
-        if(ff.exists()){
+        File ff = new File("user.png");
+        if (ff.exists()) {
             ff.delete();
         }
         TrayIco tr = new TrayIco();
@@ -161,7 +169,7 @@ Toaster t;
         }
         Login.main();
         dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRoundEffect1ActionPerformed
+    }//GEN-LAST:event_logoutActionPerformed
 
     public static void main() {
         /* Set the Nimbus look and feel */
@@ -190,14 +198,14 @@ Toaster t;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private RSMaterialComponent.RSTextFieldIconUno cp;
+    private RSMaterialComponent.RSTextFieldIconUno conpass;
+    private RSMaterialComponent.RSTextFieldIconUno currentpas;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private RSMaterialComponent.RSTextFieldIconUno np;
-    private RSMaterialComponent.RSTextFieldIconUno p;
+    private rojeru_san.rsbutton.RSButtonRoundEffect logout;
+    private RSMaterialComponent.RSTextFieldIconUno newpass;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
-    private rojeru_san.rsbutton.RSButtonRoundEffect rSButtonRoundEffect1;
     private rojeru_san.rsbutton.RSButtonRoundEffect submit;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

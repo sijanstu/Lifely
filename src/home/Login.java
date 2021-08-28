@@ -227,7 +227,7 @@ public class Login extends javax.swing.JFrame {
                 int res = new SqlConnection().Login(txt_email.getText(), new String(txt_pwd.getPassword()));
                 if (res == 1) {
                     TrayIco t = new TrayIco();
-                    t.mes = "Logged In";
+                    TrayIco.mes = "Logged In";
                     Dash.main();
                     dispose();
                 } else {

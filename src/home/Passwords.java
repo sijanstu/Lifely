@@ -29,6 +29,10 @@ public final class Passwords extends javax.swing.JFrame {
     public Passwords() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
+        p1.setVisible(false);
+        p2.setVisible(false);
+        p3.setVisible(false);
+        p4.setVisible(false);
         avatar.setImage(new ImageIcon(Getuserpic.image));
         name.setText(getUserData.fname + " " + getUserData.lname);
         isv[1]=true;isv[2]=true;isv[3]=true;isv[4]=true;
@@ -56,6 +60,14 @@ public final class Passwords extends javax.swing.JFrame {
         rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel1 = new javax.swing.JLabel();
+        p1 = new javax.swing.JPanel();
+        eye1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        s1 = new javax.swing.JLabel();
+        ps1i = new javax.swing.JLabel();
+        ps1 = new javax.swing.JLabel();
+        sel1 = new rojerusan.RSRadioButton();
         p2 = new javax.swing.JPanel();
         sel4 = new rojerusan.RSRadioButton();
         eye4 = new javax.swing.JLabel();
@@ -72,18 +84,10 @@ public final class Passwords extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         ps2 = new javax.swing.JLabel();
         ps2i = new javax.swing.JLabel();
-        p1 = new javax.swing.JPanel();
-        eye1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        s1 = new javax.swing.JLabel();
-        ps1i = new javax.swing.JLabel();
-        ps1 = new javax.swing.JLabel();
-        sel1 = new rojerusan.RSRadioButton();
         jLabel5 = new javax.swing.JLabel();
         rSButtonRound3 = new rojeru_san.rsbutton.RSButtonRound();
         no = new javax.swing.JLabel();
-        p5 = new javax.swing.JPanel();
+        p4 = new javax.swing.JPanel();
         sel3 = new rojerusan.RSRadioButton();
         eye3 = new javax.swing.JLabel();
         s3 = new javax.swing.JLabel();
@@ -130,6 +134,56 @@ public final class Passwords extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jLabel1.setText("Version 1.0");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 50));
+
+        p1.setBackground(new java.awt.Color(254, 254, 254));
+        p1.setForeground(new java.awt.Color(62, 157, 254));
+        p1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                p1MouseEntered(evt);
+            }
+        });
+        p1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eye1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eye1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eyeoff.png"))); // NOI18N
+        eye1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eye1MouseClicked(evt);
+            }
+        });
+        p1.add(eye1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 50, 40));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/passi.png"))); // NOI18N
+        p1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, -10, -1, 50));
+
+        jLabel3.setForeground(new java.awt.Color(62, 1, 1));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
+        p1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-330, 30, 1060, 20));
+
+        s1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        s1.setForeground(new java.awt.Color(39, 144, 250));
+        p1.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 320, 40));
+
+        ps1i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        ps1i.setForeground(new java.awt.Color(39, 144, 250));
+        ps1i.setText("*********************************");
+        p1.add(ps1i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
+
+        ps1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        ps1.setForeground(new java.awt.Color(39, 144, 250));
+        p1.add(ps1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 240, 40));
+
+        sel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sel1ActionPerformed(evt);
+            }
+        });
+        p1.add(sel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 30, 50));
+
+        jPanel1.add(p1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 700, 60));
 
         p2.setBackground(new java.awt.Color(254, 254, 254));
         p2.setForeground(new java.awt.Color(62, 157, 254));
@@ -231,56 +285,6 @@ public final class Passwords extends javax.swing.JFrame {
 
         jPanel1.add(p3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 700, 60));
 
-        p1.setBackground(new java.awt.Color(254, 254, 254));
-        p1.setForeground(new java.awt.Color(62, 157, 254));
-        p1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                p1MouseEntered(evt);
-            }
-        });
-        p1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eye1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eye1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eyeoff.png"))); // NOI18N
-        eye1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eye1MouseClicked(evt);
-            }
-        });
-        p1.add(eye1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 50, 40));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/passi.png"))); // NOI18N
-        p1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, -10, -1, 50));
-
-        jLabel3.setForeground(new java.awt.Color(62, 1, 1));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        p1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-330, 30, 1060, 20));
-
-        s1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
-        s1.setForeground(new java.awt.Color(39, 144, 250));
-        p1.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 320, 40));
-
-        ps1i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
-        ps1i.setForeground(new java.awt.Color(39, 144, 250));
-        ps1i.setText("*********************************");
-        p1.add(ps1i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
-
-        ps1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
-        ps1.setForeground(new java.awt.Color(39, 144, 250));
-        p1.add(ps1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 240, 40));
-
-        sel1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sel1ActionPerformed(evt);
-            }
-        });
-        p1.add(sel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 30, 50));
-
-        jPanel1.add(p1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 700, 60));
-
         jLabel5.setFont(new java.awt.Font("Roboto Slab", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(39, 144, 250));
         jLabel5.setText("Password Manager");
@@ -299,24 +303,24 @@ public final class Passwords extends javax.swing.JFrame {
         no.setText("0 Sites And Apps");
         jPanel1.add(no, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 140, 50));
 
-        p5.setBackground(new java.awt.Color(254, 254, 254));
-        p5.setForeground(new java.awt.Color(62, 157, 254));
-        p5.addMouseListener(new java.awt.event.MouseAdapter() {
+        p4.setBackground(new java.awt.Color(254, 254, 254));
+        p4.setForeground(new java.awt.Color(62, 157, 254));
+        p4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p5MouseClicked(evt);
+                p4MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                p5MouseEntered(evt);
+                p4MouseEntered(evt);
             }
         });
-        p5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        p4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sel3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sel3ActionPerformed(evt);
             }
         });
-        p5.add(sel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 50));
+        p4.add(sel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 50));
 
         eye3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eye3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eyeoff.png"))); // NOI18N
@@ -325,29 +329,29 @@ public final class Passwords extends javax.swing.JFrame {
                 eye3MouseClicked(evt);
             }
         });
-        p5.add(eye3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 50, 50));
+        p4.add(eye3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 50, 50));
 
         s3.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         s3.setForeground(new java.awt.Color(39, 144, 250));
-        p5.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 320, 40));
+        p4.add(s3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 320, 40));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/passi.png"))); // NOI18N
-        p5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
+        p4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
 
         jLabel20.setForeground(new java.awt.Color(62, 1, 1));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        p5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(-430, 30, 1140, -1));
+        p4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(-430, 30, 1140, -1));
 
         ps3.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps3.setForeground(new java.awt.Color(39, 144, 250));
-        p5.add(ps3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
+        p4.add(ps3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
 
         ps3i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps3i.setForeground(new java.awt.Color(39, 144, 250));
         ps3i.setText("*********************************");
-        p5.add(ps3i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 230, 40));
+        p4.add(ps3i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 230, 40));
 
-        jPanel1.add(p5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 700, 60));
+        jPanel1.add(p4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 700, 60));
 
         rSButtonRound17.setText("Previous");
         rSButtonRound17.setFont(new java.awt.Font("Roboto Bold", 1, 12)); // NOI18N
@@ -417,7 +421,7 @@ public final class Passwords extends javax.swing.JFrame {
 
         jLabel6.setForeground(new java.awt.Color(62, 1, 1));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-320, 41, 1310, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-320, 40, 1320, -1));
 
         name.setFont(new java.awt.Font("Aharoni", 0, 18)); // NOI18N
         name.setForeground(new java.awt.Color(29, 161, 255));
@@ -464,24 +468,28 @@ public final class Passwords extends javax.swing.JFrame {
             }
             no.setText(i + "Sites And Apps");
             if (i >= 1) {
+                p1.setVisible(true);
                 ps1.setText(pass[0]);
                 s1.setText(site[0]);
                 cid[1] = shid[0];
                 rcount++;
             }
             if (i >= 1) {
+                p2.setVisible(false);
                 ps2.setText(pass[1]);
                 s2.setText(site[1]);
                 cid[2] = shid[1];
                 rcount++;
             }
             if (i >= 2) {
+                p3.setVisible(false);
                 ps3.setText(pass[2]);
                 s3.setText(site[2]);
                 cid[3] = shid[2];
                 rcount++;
             }
             if (i >= 3) {
+                p4.setVisible(false);
                 ps4.setText(pass[3]);
                 s4.setText(site[3]);
                 cid[4] = shid[3];
@@ -597,9 +605,9 @@ void Next(){
         // TODO add your handling code here:
     }//GEN-LAST:event_p3MouseEntered
 
-    private void p5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p5MouseEntered
+    private void p4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p4MouseEntered
       // TODO add your handling code here:
-    }//GEN-LAST:event_p5MouseEntered
+    }//GEN-LAST:event_p4MouseEntered
 
     private void p2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p2MouseEntered
       // TODO add your handling code here:
@@ -731,11 +739,11 @@ selectpass(2);
         passt.setText(ps2.getText());        // TODO add your handling code here:
     }//GEN-LAST:event_p3MouseClicked
 
-    private void p5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p5MouseClicked
+    private void p4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p4MouseClicked
   selectpass(3);
         sitet.setText(s3.getText());
         passt.setText(ps3.getText());        // TODO add your handling code here:
-    }//GEN-LAST:event_p5MouseClicked
+    }//GEN-LAST:event_p4MouseClicked
 
     private void p2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p2MouseClicked
   selectpass(4);
@@ -800,7 +808,7 @@ selectpass(2);
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel p3;
-    private javax.swing.JPanel p5;
+    private javax.swing.JPanel p4;
     private RSMaterialComponent.RSTextFieldMaterial passt;
     private javax.swing.JLabel ps1;
     private javax.swing.JLabel ps1i;
