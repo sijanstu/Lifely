@@ -8,6 +8,8 @@ package home;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,6 +19,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -33,6 +36,7 @@ public class signup extends javax.swing.JFrame {
      */
     public signup() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
+        
         initComponents();
         error.setVisible(false);
     }
@@ -281,51 +285,64 @@ public class signup extends javax.swing.JFrame {
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         InputStream inputStream = null;
-        
-        try {
-            
-            if(jf!=null){
-                inputStream = new FileInputStream(usrimg);
-            }
-            Toaster toaster = new Toaster(login);
-            int isempty = 0;
-            if (txt_email.getText().equals("")) {
-                isempty = 1;
-                jSeparator4.setForeground(Color.red);
-            }   if ("".equals(Arrays.toString(txt_pwd.getPassword()))) {
-                isempty = 1;
-                jSeparator2.setForeground(Color.red);
-            }   if (txt_fnamee.getText().equals("")) {
-                isempty = 1;
-                jSeparator3.setForeground(Color.red);
-            }   if (txt_lname.getText().equals("")) {
-                isempty = 1;
-                jSeparator1.setForeground(Color.red);
-            }   error.setVisible(false);
-            if (isempty == 0) {
-                try {
-                    
-                    SqlConnection sq = new SqlConnection();
-                    int res = sq.Signup(txt_email.getText(), new String(txt_pwd.getPassword()), txt_fnamee.getText(), txt_lname.getText(),inputStream);
-                    if(res==0){
-                        Dash.main();
-                        dispose();}
-                    else{
-                        toaster.error("Error occured");
-                    }
-                } catch (Exception ex) {
-                    
-                    toaster.error("Error occured");
-                    error.setVisible(true);
-                    Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else{
-                toaster.error("Please fill all details");
+
+        if (jf != null) {
+            //
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            try {                       
+                ImageIO.write(img, "jpeg", os);
                 
-                error.setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
+            inputStream = new ByteArrayInputStream(os.toByteArray());
+        }else{
+            try {
+                inputStream = new FileInputStream(new File("/icons/usrimg.png"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        Toaster toaster = new Toaster(login);
+        int isempty = 0;
+        if (txt_email.getText().equals("")) {
+            isempty = 1;
+            jSeparator4.setForeground(Color.red);
+        }
+        if ("".equals(Arrays.toString(txt_pwd.getPassword()))) {
+            isempty = 1;
+            jSeparator2.setForeground(Color.red);
+        }
+        if (txt_fnamee.getText().equals("")) {
+            isempty = 1;
+            jSeparator3.setForeground(Color.red);
+        }
+        if (txt_lname.getText().equals("")) {
+            isempty = 1;
+            jSeparator1.setForeground(Color.red);
+        }
+        error.setVisible(false);
+        if (isempty == 0) {
+            try {
+
+                SqlConnection sq = new SqlConnection();
+                int res = sq.Signup(txt_email.getText(), new String(txt_pwd.getPassword()), txt_fnamee.getText(), txt_lname.getText(), inputStream);
+                if (res == 0) {
+                    Dash.main();
+                    dispose();
+                } else {
+                    toaster.error("Error occured");
+                }
+            } catch (Exception ex) {
+
+                toaster.error("Error occured");
+                error.setVisible(true);
+                Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            toaster.error("Please fill all details");
+
+            error.setVisible(true);
         }
 
     }//GEN-LAST:event_btn_loginActionPerformed
@@ -360,33 +377,34 @@ public class signup extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_emailFocusGained
 
     private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
-  
+
     }//GEN-LAST:event_txt_emailActionPerformed
 
     private void rSButtonGradiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonGradiente1ActionPerformed
-        Database.main();        
+        Database.main();
     }//GEN-LAST:event_rSButtonGradiente1ActionPerformed
 
     private void rSButtonEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonEffect1ActionPerformed
         Login.main();
-        dispose();    
+        dispose();
     }//GEN-LAST:event_rSButtonEffect1ActionPerformed
     File usrimg;
-    JFileChooser jf=null;
+    BufferedImage img;
+    JFileChooser jf = null;
     private void usriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usriMouseClicked
-        jf= new JFileChooser();
+        jf = new JFileChooser();
         usrimg = jf.getSelectedFile();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & GIF Images", "jpg", "gif");
+                "JPG & GIF Images", "jpg", "gif");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             System.out.println("You chose to open this file: "
-                + chooser.getSelectedFile().getName());
+                    + chooser.getSelectedFile().getName());
             usrimg = chooser.getSelectedFile();
             Icon icon = new ImageIcon(usrimg.getPath());
-            BufferedImage img = new ImgUtils().scaleImage(190, 190, usrimg.getPath());
+            img = new ImgUtils().scaleImage(190, 190, usrimg.getPath());
             usri.setIcon(new ImageIcon(img));
         }
     }//GEN-LAST:event_usriMouseClicked
@@ -408,7 +426,7 @@ public class signup extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */

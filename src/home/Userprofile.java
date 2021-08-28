@@ -7,18 +7,17 @@ package home;
 
 import java.awt.AWTException;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
-import static java.lang.System.exit;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -37,22 +36,19 @@ public final class Userprofile extends javax.swing.JFrame {
      * Creates new form Userprofile
      */
     public Userprofile() {
-        initComponents();
+        initComponents();this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         EditMode(false);
-        
-        try (BufferedReader bw = new BufferedReader(new FileReader(new File("user.txt")))) {
-            bw.readLine();
-            fname = Crypt.decrypt(bw.readLine());
-            lname = Crypt.decrypt(bw.readLine());
+        ImageIcon im=new ImageIcon(Getuserpic.image);
+        avatar.setImage(im);
+        usri.setIcon(im);
+        getUserData userData = new getUserData();
+            fname = getUserData.fname;
+            lname = getUserData.lname;
             ff.setText(fname);
             ll.setText(lname);
-            email = Crypt.decrypt(bw.readLine());
+            email = getUserData.email;
             ee.setText(email);
-            bw.close();
-            //name.setText(home.Crypt.decrypt(bw.readLine()) + " " + home.Crypt.decrypt(bw.readLine()));
-        } catch (Exception ex) {
-            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            name.setText(fname+" "+lname);
     }
 
     /**
@@ -65,8 +61,7 @@ public final class Userprofile extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound8 = new rojeru_san.rsbutton.RSButtonRound();
+        avatar = new home.ImageAvatar();
         rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
         usri = new rojeru_san.rslabel.RSLabelBorderRound();
         ee = new RSMaterialComponent.RSTextFieldIconUno();
@@ -82,6 +77,7 @@ public final class Userprofile extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         up4 = new rojeru_san.rsbutton.RSButtonRoundEffect();
         up3 = new rojeru_san.rsbutton.RSButtonRoundEffect();
+        rSButtonRoundEffect2 = new rojeru_san.rsbutton.RSButtonRoundEffect();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Profile");
@@ -89,25 +85,13 @@ public final class Userprofile extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        rSButtonRound7.setText("Contact Us");
-        rSButtonRound7.setBorderPainted(false);
-        rSButtonRound7.setFocusable(false);
-        rSButtonRound7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound7ActionPerformed(evt);
+        avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
+        avatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avatarMouseClicked(evt);
             }
         });
-        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 110, 30));
-
-        rSButtonRound8.setText("About Us");
-        rSButtonRound8.setBorderPainted(false);
-        rSButtonRound8.setFocusable(false);
-        rSButtonRound8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound8ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 90, 30));
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 50, 50));
 
         rSButtonRound9.setText("Back");
         rSButtonRound9.setBorderPainted(false);
@@ -142,7 +126,7 @@ public final class Userprofile extends javax.swing.JFrame {
                 rSButtonRoundEffect1ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRoundEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 110, -1));
+        jPanel1.add(rSButtonRoundEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 110, -1));
 
         up1.setText("Update");
         up1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +157,7 @@ public final class Userprofile extends javax.swing.JFrame {
         name.setForeground(new java.awt.Color(29, 161, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 60, 30));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 280, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
@@ -188,7 +172,7 @@ public final class Userprofile extends javax.swing.JFrame {
 
         jLabel3.setForeground(new java.awt.Color(62, 1, 1));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 590, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-400, 30, 1170, 40));
 
         up4.setText("Upload");
         up4.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +189,15 @@ public final class Userprofile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(up3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 110, -1));
+
+        rSButtonRoundEffect2.setBackground(new java.awt.Color(255, 102, 153));
+        rSButtonRoundEffect2.setText("Change Password");
+        rSButtonRoundEffect2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRoundEffect2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSButtonRoundEffect2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,16 +216,6 @@ public final class Userprofile extends javax.swing.JFrame {
 void fetchData() {
 
     }
-    private void rSButtonRound7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound7ActionPerformed
-        Contact.main();
-        dispose();// TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound7ActionPerformed
-
-    private void rSButtonRound8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound8ActionPerformed
-        About.main();
-        dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound8ActionPerformed
-
     private void rSButtonRound9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound9ActionPerformed
 
         Dash.main();
@@ -259,12 +242,18 @@ void fetchData() {
     }//GEN-LAST:event_usriMouseClicked
 
     private void rSButtonRoundEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRoundEffect1ActionPerformed
-    File f = new File("user.txt");
-        f.delete();
+        File f = new File("user.txt");
+        File fff=new File("user.png");
+        if (f.exists()) {
+            f.delete();
+        }
+        if (fff.exists()) {
+            fff.delete();
+        }
         TrayIco t = new TrayIco();
-        t.mes = "Logged Out";
+        TrayIco.mes = "Logged Out";
         try {
-            t.main();
+            TrayIco.main();
         } catch (AWTException ex) {
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -273,28 +262,42 @@ void fetchData() {
     }//GEN-LAST:event_rSButtonRoundEffect1ActionPerformed
 
     private void up4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up4ActionPerformed
- try {
-            String sql = "INSERT INTO users (Image) values (?)";
+        try {
+            String sql = "update users set Image = ? where id =" + UserDB.getUserID();
             PreparedStatement statement = DB.getConnection().prepareStatement(sql);
             InputStream inputStream = new FileInputStream(usrimg);
             statement.setBlob(1, inputStream);
             int row = statement.executeUpdate();
             if (row > 0) {
-                System.out.println("Profile Picture Updated");
+                JOptionPane.showMessageDialog(this, "Profile Picture Updated, Relogin to see changes");
+                Getuserpic.image = ImageIO.read(usrimg);
+                    Getuserpic.userimg = new File("user.png");
+                    if(Getuserpic.userimg.exists())Getuserpic.userimg.delete();
+                    ImageIO.write(Getuserpic.image, "png", Getuserpic.userimg);
+                    Userprofile.main();
+                    dispose();
             }
+                    
+                    
             System.out.println("uploaded Image");
         } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(Contact.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        } catch (IOException ex) {
+            Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_up4ActionPerformed
 
     private void up3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up3ActionPerformed
-  try {
+        try {
             Statement stmt = DB.getConnection().createStatement();
             stmt.execute("update users set Email = '" + ee.getText() + "' where id =" + UserDB.getUserID());
+            JOptionPane.showMessageDialog(this, "Username Updated");
+            getUserData.isset=0;
+            Userprofile.main();
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        }
     }//GEN-LAST:event_up3ActionPerformed
     void EditMode(boolean on) {
         if (on) {
@@ -328,6 +331,9 @@ void fetchData() {
             Statement stmt = DB.getConnection().createStatement();
             stmt.execute("update users set FirstName = '" + ff.getText() + "' where id =" + UserDB.getUserID());
             JOptionPane.showMessageDialog(this, "FirstName Updated");
+            getUserData.isset=0;
+            Userprofile.main();
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -337,10 +343,24 @@ void fetchData() {
         try {
             Statement stmt = DB.getConnection().createStatement();
             stmt.execute("update users set LastName = '" + ll.getText() + "' where id =" + UserDB.getUserID());
+            JOptionPane.showMessageDialog(this, "LastName Updated");
+            getUserData.isset=0;
+            Userprofile.main();
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_up2ActionPerformed
+
+    private void rSButtonRoundEffect2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRoundEffect2ActionPerformed
+PSchange.main();
+dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRoundEffect2ActionPerformed
+
+    private void avatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avatarMouseClicked
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_avatarMouseClicked
     public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -368,6 +388,7 @@ void fetchData() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private home.ImageAvatar avatar;
     private rojerusan.RSCheckBox edt;
     private RSMaterialComponent.RSTextFieldIconUno ee;
     private RSMaterialComponent.RSTextFieldIconUno ff;
@@ -376,10 +397,9 @@ void fetchData() {
     private javax.swing.JPanel jPanel1;
     private RSMaterialComponent.RSTextFieldIconUno ll;
     private javax.swing.JLabel name;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound8;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
     private rojeru_san.rsbutton.RSButtonRoundEffect rSButtonRoundEffect1;
+    private rojeru_san.rsbutton.RSButtonRoundEffect rSButtonRoundEffect2;
     private javax.swing.JLabel title;
     private rojeru_san.rsbutton.RSButtonRoundEffect up1;
     private rojeru_san.rsbutton.RSButtonRoundEffect up2;

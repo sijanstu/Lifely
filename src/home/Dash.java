@@ -5,9 +5,7 @@
  */
 package home;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,21 +20,24 @@ import javax.swing.ImageIcon;
  */
 public final class Dash extends javax.swing.JFrame {
 
+    Getuserpic userpic;
+
     /**
      * Creates new form Dash
      */
     public Dash() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
+         userpic = new Getuserpic();
+        avatar.setImage(new ImageIcon(Getuserpic.image));
+        getUserData userData = new getUserData();
+        name.setText(getUserData.fname + " " + getUserData.lname);
+        
+        
         
         FetchEventNo();
-        notification.setText("You have "+count+" Task ToDo");
-        try (BufferedReader bw = new BufferedReader(new FileReader(new File("user.txt")))) {
-            bw.readLine();
-            name.setText(Crypt.decrypt(bw.readLine()) + " " + Crypt.decrypt(bw.readLine()));
-        } catch (Exception ex) {
-            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        notification.setText("You have " + count + " Task ToDo");
+       
     }
 
     /**
@@ -50,19 +51,20 @@ public final class Dash extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        avatar = new home.ImageAvatar();
+        jLabel1 = new javax.swing.JLabel();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel5 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
-        rSButtonRound1 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound2 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel2 = new javax.swing.JLabel();
         rSButtonRound3 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound4 = new rojeru_san.rsbutton.RSButtonRound();
-        jLabel1 = new javax.swing.JLabel();
         rSButtonRound5 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         notification = new javax.swing.JLabel();
         rSButtonRound8 = new rojeru_san.rsbutton.RSButtonRound();
+        prof = new rojeru_san.rsbutton.RSButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +74,18 @@ public final class Dash extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
+        avatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avatarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 50, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
+        jLabel1.setText("Version 1.0");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 60));
+
         rSButtonRound6.setText("Admin Section");
         rSButtonRound6.setBorderPainted(false);
         rSButtonRound6.setFocusable(false);
@@ -80,7 +94,7 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound6ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 130, 30));
+        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 130, 30));
 
         jLabel5.setForeground(new java.awt.Color(62, 1, 1));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
@@ -90,17 +104,7 @@ public final class Dash extends javax.swing.JFrame {
         name.setForeground(new java.awt.Color(29, 161, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 290, 30));
-
-        rSButtonRound1.setText("Profile");
-        rSButtonRound1.setBorderPainted(false);
-        rSButtonRound1.setFocusable(false);
-        rSButtonRound1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, 30));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 270, 50));
 
         rSButtonRound2.setBackground(new java.awt.Color(0, 153, 255));
         rSButtonRound2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_available_updates_96px.png"))); // NOI18N
@@ -112,11 +116,11 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound2ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 160, 130));
+        jPanel1.add(rSButtonRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 160, 130));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/output-onlinepngtools.png"))); // NOI18N
         jLabel2.setMaximumSize(new java.awt.Dimension(1829, 509));
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 240));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 710, 240));
 
         rSButtonRound3.setBackground(new java.awt.Color(0, 153, 255));
         rSButtonRound3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_schedule_80px.png"))); // NOI18N
@@ -128,7 +132,7 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound3ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 160, 130));
+        jPanel1.add(rSButtonRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 160, 130));
 
         rSButtonRound4.setBackground(new java.awt.Color(0, 153, 255));
         rSButtonRound4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_show_password_96px.png"))); // NOI18N
@@ -140,11 +144,7 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound4ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 160, 130));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
-        jLabel1.setText("Version 1.0");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 50));
+        jPanel1.add(rSButtonRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 160, 130));
 
         rSButtonRound5.setBackground(new java.awt.Color(0, 153, 255));
         rSButtonRound5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_checklist_96px.png"))); // NOI18N
@@ -156,7 +156,7 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound5ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 160, 130));
+        jPanel1.add(rSButtonRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 160, 130));
 
         rSButtonRound7.setText("Contact Us");
         rSButtonRound7.setBorderPainted(false);
@@ -166,13 +166,13 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound7ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 110, 30));
+        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 110, 30));
 
         notification.setFont(new java.awt.Font("Aharoni", 0, 18)); // NOI18N
         notification.setForeground(new java.awt.Color(29, 161, 255));
         notification.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         notification.setText("You have 0 Task ToDo");
-        jPanel1.add(notification, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 230, 30));
+        jPanel1.add(notification, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 230, 30));
 
         rSButtonRound8.setText("About");
         rSButtonRound8.setBorderPainted(false);
@@ -182,7 +182,17 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound8ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 90, 30));
+        jPanel1.add(rSButtonRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 80, 30));
+
+        prof.setText("Profile");
+        prof.setBorderPainted(false);
+        prof.setFocusable(false);
+        prof.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profActionPerformed(evt);
+            }
+        });
+        jPanel1.add(prof, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 80, 30));
 
         jScrollPane2.setViewportView(jPanel1);
 
@@ -194,26 +204,22 @@ public final class Dash extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 Connection con;
-    private void rSButtonRound1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound1ActionPerformed
-        Userprofile.main();
-        dispose();// TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound1ActionPerformed
-    int count=0;
+    int count = 0;
 
     void FetchEventNo() {
         try {
             PreparedStatement ps;
-            String queryString = "SELECT * from notes Where UserID="+UserDB.getUserID();
+            String queryString = "SELECT * from notes Where UserID=" + UserDB.getUserID();
             ps = DB.getConnection().prepareStatement(queryString);
             try (ResultSet results = ps.executeQuery()) {
-                while(results.next()) {
+                while (results.next()) {
                     count++;
                 }
             }
@@ -265,6 +271,16 @@ Connection con;
         dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound8ActionPerformed
 
+    private void avatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avatarMouseClicked
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_avatarMouseClicked
+
+    private void profActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profActionPerformed
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_profActionPerformed
+
     /**
      */
     public static void main() {
@@ -299,6 +315,7 @@ Connection con;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private home.ImageAvatar avatar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -306,7 +323,7 @@ Connection con;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel name;
     private javax.swing.JLabel notification;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound1;
+    private rojeru_san.rsbutton.RSButtonRound prof;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound2;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound3;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound4;

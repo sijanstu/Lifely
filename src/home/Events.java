@@ -27,12 +27,7 @@ public class Events extends javax.swing.JFrame {
     public Events() {this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
         //id.setText(bw.readLine());
-        try (BufferedReader bw = new BufferedReader(new FileReader(new File("user.txt")))) {
-            bw.readLine();
-            name.setText(Crypt.decrypt(bw.readLine())+" "+Crypt.decrypt(bw.readLine()));
-        } catch (Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        name.setText(getUserData.fname+" "+getUserData.lname);
         
     }
     int[] EventUID;

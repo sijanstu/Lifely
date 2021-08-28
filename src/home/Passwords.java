@@ -5,14 +5,10 @@
  */
 package home;
 
-import java.io.File;
-import java.awt.AWTException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -33,6 +29,8 @@ public final class Passwords extends javax.swing.JFrame {
     public Passwords() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
+        avatar.setImage(new ImageIcon(Getuserpic.image));
+        name.setText(getUserData.fname + " " + getUserData.lname);
         isv[1]=true;isv[2]=true;isv[3]=true;isv[4]=true;
         ps1.setVisible(false);
         ps2.setVisible(false);
@@ -55,7 +53,6 @@ public final class Passwords extends javax.swing.JFrame {
         roboto1 = new rojeru_san.efectos.Roboto();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        rSButtonRound1 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel1 = new javax.swing.JLabel();
@@ -84,7 +81,6 @@ public final class Passwords extends javax.swing.JFrame {
         ps1 = new javax.swing.JLabel();
         sel1 = new rojerusan.RSRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         rSButtonRound3 = new rojeru_san.rsbutton.RSButtonRound();
         no = new javax.swing.JLabel();
         p5 = new javax.swing.JPanel();
@@ -102,21 +98,14 @@ public final class Passwords extends javax.swing.JFrame {
         sitet = new RSMaterialComponent.RSTextFieldMaterial();
         rSButtonRound5 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound8 = new rojeru_san.rsbutton.RSButtonRound();
+        avatar = new home.ImageAvatar();
+        jLabel6 = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonRound1.setText("Log Out");
-        rSButtonRound1.setBorderPainted(false);
-        rSButtonRound1.setFocusable(false);
-        rSButtonRound1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 90, 30));
 
         rSButtonRound7.setText("Contact Us");
         rSButtonRound7.setBorderPainted(false);
@@ -297,10 +286,6 @@ public final class Passwords extends javax.swing.JFrame {
         jLabel5.setText("Password Manager");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 190, 50));
 
-        jLabel6.setForeground(new java.awt.Color(62, 1, 1));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-320, 50, 1310, 20));
-
         rSButtonRound3.setText("Add Password");
         rSButtonRound3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,6 +407,24 @@ public final class Passwords extends javax.swing.JFrame {
         });
         jPanel1.add(rSButtonRound8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 90, 30));
 
+        avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
+        avatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avatarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 40, 40));
+
+        jLabel6.setForeground(new java.awt.Color(62, 1, 1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-320, 41, 1310, -1));
+
+        name.setFont(new java.awt.Font("Aharoni", 0, 18)); // NOI18N
+        name.setForeground(new java.awt.Color(29, 161, 255));
+        name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        name.setText("Name");
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 280, 40));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -500,20 +503,6 @@ public final class Passwords extends javax.swing.JFrame {
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound7ActionPerformed
 
-    private void rSButtonRound1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound1ActionPerformed
-        File f = new File("user.txt");
-        f.delete();
-        TrayIco t = new TrayIco();
-        t.mes = "Logged Out";
-        try {
-            t.main();
-        } catch (AWTException ex) {
-            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Login.main();
-        dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound1ActionPerformed
-
 
     private void rSButtonRound3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound3ActionPerformed
         try {
@@ -532,7 +521,9 @@ public final class Passwords extends javax.swing.JFrame {
     private void rSButtonRound17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound17ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound17ActionPerformed
-
+void Next(){
+    
+}
     private void rSButtonRound21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound21ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound21ActionPerformed
@@ -752,6 +743,11 @@ selectpass(2);
         passt.setText(ps4.getText());        // TODO add your handling code here:
     }//GEN-LAST:event_p2MouseClicked
 
+    private void avatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avatarMouseClicked
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_avatarMouseClicked
+
     /**
      */
     public static void main() {
@@ -781,6 +777,7 @@ selectpass(2);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private home.ImageAvatar avatar;
     private javax.swing.JLabel eye1;
     private javax.swing.JLabel eye2;
     private javax.swing.JLabel eye3;
@@ -798,6 +795,7 @@ selectpass(2);
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel name;
     private javax.swing.JLabel no;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
@@ -812,7 +810,6 @@ selectpass(2);
     private javax.swing.JLabel ps3i;
     private javax.swing.JLabel ps4;
     private javax.swing.JLabel ps4i;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound1;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound17;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound21;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound3;

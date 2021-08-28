@@ -5,9 +5,7 @@
  */
 package home;
 
-import java.awt.AWTException;
 import java.awt.HeadlessException;
-import java.io.File;
 import java.sql.ResultSetMetaData;
 import java.text.MessageFormat;
 import java.util.Vector;
@@ -40,6 +38,8 @@ public final class Note extends javax.swing.JFrame {
     public Note() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
+        avatar.setImage(new ImageIcon(Getuserpic.image));
+        name.setText(getUserData.fname + " " + getUserData.lname);
         upDateDB();
         update.setVisible(false);
         delete.setVisible(false);
@@ -56,8 +56,9 @@ public final class Note extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        name = new javax.swing.JLabel();
+        avatar = new home.ImageAvatar();
         jLabel1 = new javax.swing.JLabel();
-        rSButtonRound1 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel5 = new javax.swing.JLabel();
@@ -78,21 +79,25 @@ public final class Note extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        name.setFont(new java.awt.Font("Aharoni", 0, 18)); // NOI18N
+        name.setForeground(new java.awt.Color(29, 161, 255));
+        name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        name.setText("Name");
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 270, 50));
+
+        avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
+        avatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avatarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 50, 50));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jLabel1.setText("Version 1.0");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 50));
 
-        rSButtonRound1.setText("Log Out");
-        rSButtonRound1.setBorderPainted(false);
-        rSButtonRound1.setFocusable(false);
-        rSButtonRound1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 90, 30));
-
-        rSButtonRound7.setText("Contact Us");
+        rSButtonRound7.setText("About Us");
         rSButtonRound7.setBorderPainted(false);
         rSButtonRound7.setFocusable(false);
         rSButtonRound7.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +105,7 @@ public final class Note extends javax.swing.JFrame {
                 rSButtonRound7ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 110, 30));
+        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 110, 30));
 
         rSButtonRound6.setText("Back");
         rSButtonRound6.setBorderPainted(false);
@@ -110,7 +115,7 @@ public final class Note extends javax.swing.JFrame {
                 rSButtonRound6ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 80, 30));
+        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 10, 80, 30));
 
         jLabel5.setFont(new java.awt.Font("Roboto Slab", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(39, 144, 250));
@@ -236,20 +241,6 @@ public final class Note extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rSButtonRound1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound1ActionPerformed
-        File f = new File("user.txt");
-        f.delete();
-        TrayIco t = new TrayIco();
-        t.mes = "Logged Out";
-        try {
-            t.main();
-        } catch (AWTException ex) {
-            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Login.main();
-        dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound1ActionPerformed
 
     private void rSButtonRound7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound7ActionPerformed
         Contact.main();
@@ -399,6 +390,11 @@ public final class Note extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tnMousePressed
+
+    private void avatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avatarMouseClicked
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_avatarMouseClicked
     public void upDateDB() {
         try {
 
@@ -462,6 +458,7 @@ public final class Note extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.rsbutton.RSButtonRound add;
+    private home.ImageAvatar avatar;
     private rojeru_san.rsdate.RSDateChooser datee;
     private rojeru_san.rsbutton.RSButtonRound delete;
     private javax.swing.JLabel jLabel1;
@@ -470,9 +467,9 @@ public final class Note extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel name;
     private RSMaterialComponent.RSTextFieldMaterial note;
     private rojeru_san.rsbutton.RSButtonRound print;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound1;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound6;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
     private RSMaterialComponent.RSTextFieldMaterial subject;

@@ -43,13 +43,13 @@ public class About extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel15 = new javax.swing.JLabel();
+        imageAvatar2 = new home.ImageAvatar();
+        imageAvatar1 = new home.ImageAvatar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,7 +69,7 @@ public class About extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Roboto Slab", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(39, 144, 250));
         jLabel6.setText("Nirajan KC");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 140, 50));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 170, 50));
 
         jLabel7.setFont(new java.awt.Font("Roboto Slab", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(39, 144, 250));
@@ -78,26 +78,18 @@ public class About extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Roboto Slab", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(39, 144, 250));
-        jLabel9.setText("Developers:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 100, 50));
+        jLabel9.setText("Developers");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 100, 50));
 
         jSeparator1.setForeground(new java.awt.Color(0, 204, 255));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 10, 170));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nirajan.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
-        jLabel3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 130, 129));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sijan.png"))); // NOI18N
-        jLabel4.setText("jLabel3");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 130, 129));
-
         jLabel11.setFont(new java.awt.Font("Roboto Slab", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(39, 144, 250));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Sijan Bhandari");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 140, 50));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 170, 40));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -107,7 +99,7 @@ public class About extends javax.swing.JFrame {
                 jLabel13MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, 140, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 190, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -117,7 +109,7 @@ public class About extends javax.swing.JFrame {
                 jLabel14MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 140, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 150, -1));
 
         rSButtonRound6.setText("Back");
         rSButtonRound6.setBorderPainted(false);
@@ -137,7 +129,13 @@ public class About extends javax.swing.JFrame {
                 jLabel15MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 140, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 200, -1));
+
+        imageAvatar2.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/nirajan.png"))); // NOI18N
+        jPanel1.add(imageAvatar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 150, 150));
+
+        imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/sijan.png"))); // NOI18N
+        jPanel1.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 150, 150));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -236,14 +234,14 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private home.ImageAvatar imageAvatar1;
+    private home.ImageAvatar imageAvatar2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

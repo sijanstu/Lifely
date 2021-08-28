@@ -30,46 +30,11 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 /**
  *
  * @author Sijan
  */
-class UserDB {
-      static boolean tableExistsSQL(Connection connection, String tableName) throws SQLException {
-    PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*) "
-      + "FROM information_schema.tables "
-      + "WHERE table_name = ?"
-      + "LIMIT 1;");
-    preparedStatement.setString(1, tableName);
-
-    ResultSet resultSet = preparedStatement.executeQuery();
-    resultSet.next();
-    return resultSet.getInt(1) != 0;
-}
-
-    Connection sqlConn = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-    int q, i, id, deleteItem;
-
-    static int getUserID() {
-        BufferedReader bf;
-        try {
-            bf = new BufferedReader(new FileReader(new File("user.txt")));
-            int id=Integer.parseInt(Crypt.decrypt(bf.readLine()));
-            System.err.println("returned ID:"+id);
-            return id;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 500;
-
-    }
-}
 
 
 
@@ -80,8 +45,8 @@ class UserDB {
 
 
 class TrayIco {
-public String mes=null,err=null;
-    public void main() throws AWTException {
+public static String mes=null,err=null;
+    public static void main() throws AWTException {
         
         if (SystemTray.isSupported()) {
             if(mes!=null){
@@ -92,7 +57,7 @@ public String mes=null,err=null;
             System.err.println("System tray not supported!");
         }
     }
-    public void displayTray() throws AWTException {
+    public static void displayTray() throws AWTException {
         //Obtain only one instance of the SystemTray object
         SystemTray tray = SystemTray.getSystemTray();
         //If the icon is a file
@@ -109,15 +74,20 @@ public String mes=null,err=null;
         tray.add(trayIcon);
         trayIcon.displayMessage(mes, "Life Management Software", TrayIcon.MessageType.WARNING);
     }
-    void displayerror() throws AWTException{
+    static void displayerror() throws AWTException{
+    try {
         SystemTray tray = SystemTray.getSystemTray();
-       
-        Image image = Toolkit.getDefaultToolkit().getImage("/home/icons/lifely.png");
-        TrayIcon trayIcon = new TrayIcon(image, "Lifely");
-         trayIcon.setImageAutoSize(true);
-         trayIcon.setToolTip("Lifely Error");
-         tray.add(trayIcon);
-         trayIcon.displayMessage(err, "Life Management Software", TrayIcon.MessageType.NONE);
+        BufferedImage img = ImageIO.read(TrayIco.class.getResource("/home/icons/lifely.png"));
+       ImageIcon image = new ImageIcon(img);
+       // Image image = Toolkit.getDefaultToolkit().getImage("/home/icons/lifely.png");
+        TrayIcon trayIcon = new TrayIcon(img, "Lifely");
+        trayIcon.setImageAutoSize(true);
+        trayIcon.setToolTip("Lifely Error");
+        tray.add(trayIcon);
+        trayIcon.displayMessage(err, "Life Management Software", TrayIcon.MessageType.NONE);
+    } catch (IOException ex) {
+        Logger.getLogger(TrayIco.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 }
 
@@ -316,7 +286,7 @@ String[] url;
                 }
             });
             
-            panelToToastOn.add(toasterBody, 0);
+            Component add = panelToToastOn.add(toasterBody, 0);
             panelToToastOn.repaint();
             //Thread.sleep(6000);
             //removeToast(toasterBody);

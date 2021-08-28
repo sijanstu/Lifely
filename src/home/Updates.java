@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,7 +23,7 @@ public final class Updates extends javax.swing.JFrame {
      */
     public Updates() {
         initComponents();
-    
+    avatar.setImage(new ImageIcon(Getuserpic.image));
         
         FetchUpdate();
     }
@@ -37,6 +38,7 @@ public final class Updates extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        avatar = new home.ImageAvatar();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
@@ -49,6 +51,14 @@ public final class Updates extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
+        avatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avatarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 50, 50));
 
         jLabel1.setForeground(new java.awt.Color(0, 153, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
@@ -126,6 +136,11 @@ public final class Updates extends javax.swing.JFrame {
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void avatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avatarMouseClicked
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_avatarMouseClicked
 String[] mes;int i=0;
     void FetchUpdate(){
         try {
@@ -184,6 +199,7 @@ String[] mes;int i=0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private home.ImageAvatar avatar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
