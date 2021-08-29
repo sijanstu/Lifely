@@ -37,6 +37,8 @@ public class AdminLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        name1 = new javax.swing.JLabel();
+        rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         jLabel3 = new javax.swing.JLabel();
         txt_email = new javax.swing.JTextField();
         txt_pwd = new javax.swing.JPasswordField();
@@ -44,6 +46,8 @@ public class AdminLogin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btn_login = new java.awt.Button();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Login");
@@ -51,11 +55,26 @@ public class AdminLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        name1.setFont(new java.awt.Font("Aharoni", 1, 18)); // NOI18N
+        name1.setForeground(new java.awt.Color(29, 161, 255));
+        name1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        name1.setText("Admin Login");
+        jPanel1.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 120, 50));
+
+        rSButtonRound7.setText("Back");
+        rSButtonRound7.setBorderPainted(false);
+        rSButtonRound7.setFocusable(false);
+        rSButtonRound7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 70, 30));
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contacts_18px.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 30, 30));
 
         txt_email.setForeground(new java.awt.Color(102, 102, 102));
-        txt_email.setText("Email");
         txt_email.setBorder(null);
         txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -67,29 +86,28 @@ public class AdminLogin extends javax.swing.JFrame {
                 txt_emailActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 302, 20));
+        jPanel1.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 302, 30));
 
         txt_pwd.setForeground(new java.awt.Color(102, 102, 102));
-        txt_pwd.setText("jPasswordField1");
         txt_pwd.setBorder(null);
         txt_pwd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_pwdFocusGained(evt);
             }
         });
-        jPanel1.add(txt_pwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 302, 20));
+        jPanel1.add(txt_pwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 302, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/unlock_18px.png"))); // NOI18N
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 91, 30, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 30, 20));
 
         jSeparator1.setBackground(new java.awt.Color(41, 168, 73));
         jSeparator1.setForeground(new java.awt.Color(41, 168, 73));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 302, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 302, -1));
 
         jSeparator2.setBackground(new java.awt.Color(41, 168, 73));
         jSeparator2.setForeground(new java.awt.Color(41, 168, 73));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 302, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 302, -1));
 
         btn_login.setBackground(new java.awt.Color(41, 168, 73));
         btn_login.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -100,17 +118,24 @@ public class AdminLogin extends javax.swing.JFrame {
                 btn_loginActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 97, 30));
+        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 97, 30));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
+
+        jLabel5.setForeground(new java.awt.Color(62, 1, 1));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-390, 29, 780, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -134,19 +159,22 @@ public class AdminLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_pwdFocusGained
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+       Toaster tt=new Toaster(jPanel1);
         try {
             int res = SqlConnection.AdminLogin(txt_email.getText(), new String(txt_pwd.getPassword()));
             if (res == 1) {
-                TrayIco t = new TrayIco();
+                TrayIco ttt = new TrayIco();
                 TrayIco.mes = "Logged In";
                 try {
             Desktop.getDesktop().browse(new URI("http://lifely.bhandarisijan.com.np"));
             Dash.main();
             dispose();
         } catch (IOException | URISyntaxException e1) {
+             tt.error("I/O error");
         } 
                 dispose();
             } else {
+                 tt.error("Wrong Credentials  X");
                 txt_email.setForeground(Color.red);
                 txt_pwd.setForeground(Color.red);
                 
@@ -158,6 +186,12 @@ public class AdminLogin extends javax.swing.JFrame {
            
         }
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void rSButtonRound7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound7ActionPerformed
+
+        Dash.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRound7ActionPerformed
 
     /**
      */
@@ -192,9 +226,13 @@ public class AdminLogin extends javax.swing.JFrame {
     private java.awt.Button btn_login;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel name1;
+    private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
     private javax.swing.JTextField txt_email;
     private javax.swing.JPasswordField txt_pwd;
     // End of variables declaration//GEN-END:variables
