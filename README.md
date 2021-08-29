@@ -64,4 +64,4 @@ Check Updates:
 
 About Us:
 
-![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/About.PNG?raw=true)
+![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/Aboutfull.PNG?raw=true)
