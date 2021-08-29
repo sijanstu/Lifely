@@ -4,18 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/AdminLogin.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Dash.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Login.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Userprofile.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Crypt.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Getuserpic.java</file>
             <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/DB.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/EventEdit.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/config.java</file>
+            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Note.java</file>
             <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/main.java</file>
             <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/PSchange.java</file>
             <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/SqlConnection.java</file>
-            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/About.java</file>
+            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Contact.java</file>
+            <file>file:/C:/Users/Sijan/Documents/GitHub/Lifely/src/home/Userprofile.java</file>
         </group>
     </open-files>
 </project-private>
