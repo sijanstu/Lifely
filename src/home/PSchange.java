@@ -150,7 +150,8 @@ Toaster t;
     }//GEN-LAST:event_rSButtonRound9ActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        File f = new File("user.txt");
+getUserData.isset=0;
+        Getuserpic.isset=0;        File f = new File("user.txt");
 
         if (f.exists()) {
 

@@ -6,6 +6,10 @@
 package home;
 
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -134,8 +138,13 @@ public class AdminLogin extends javax.swing.JFrame {
             int res = SqlConnection.AdminLogin(txt_email.getText(), new String(txt_pwd.getPassword()));
             if (res == 1) {
                 TrayIco t = new TrayIco();
-                t.mes = "Logged In";
-                AdminDash.main();
+                TrayIco.mes = "Logged In";
+                try {
+            Desktop.getDesktop().browse(new URI("http://lifely.bhandarisijan.com.np"));
+            Dash.main();
+            dispose();
+        } catch (IOException | URISyntaxException e1) {
+        } 
                 dispose();
             } else {
                 txt_email.setForeground(Color.red);

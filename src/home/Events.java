@@ -6,59 +6,77 @@
 package home;
 
 import java.awt.AWTException;
-import java.io.BufferedReader;
+import java.awt.HeadlessException;
 import java.io.File;
-import java.io.FileReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.MessageFormat;
+import javax.swing.JTable;
 
 /**
  *
  * @author prabinkokali
  */
-public class Events extends javax.swing.JFrame {
+public final class Events extends javax.swing.JFrame {
     /**
      * Creates new form Events
      */
-    public Events() {this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
+    public Events() {
+        this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
+        jp1.setVisible(false);jp2.setVisible(false);jp3.setVisible(false);jp4.setVisible(false);jp5.setVisible(false);
+        upDateDB();
+        avatar.setImage(new ImageIcon(Getuserpic.image));
         //id.setText(bw.readLine());
         name.setText(getUserData.fname+" "+getUserData.lname);
         
     }
-    int[] EventUID;
-    String[] EventTitle;
-    String[] EventDetails;
-    String[] EventDate;
-    int next=0;
-    void next(){
-        
-    }
-    void FetchEvent(){
-    try {
-        PreparedStatement ps;
-            String queryString = "SELECT * FROM `events` WHERE UID='" + new UserDB().id;
-            ps = DB.getConnection().prepareStatement(queryString);
-            try ( ResultSet results = ps.executeQuery()) {
-                int i=1;
-                while(results.next()) {
-                    EventUID[i]=results.getInt("UID");
-                    EventTitle[i]=results.getString("Event_name");
-                    EventDetails[i]=results.getString("Event_details");
-                    EventDate[i]=results.getString("date");
-                }
+    PreparedStatement pst;ResultSet rs;int q,i;
+   public void upDateDB() {
+        try {
                 
+            id = UserDB.getUserID();
+            
+            pst = DB.getConnection().prepareStatement("select * from events where UID=" + id);
+
+            rs = pst.executeQuery();
+            ResultSetMetaData StData = rs.getMetaData();
+
+            q = StData.getColumnCount();
+
+            DefaultTableModel RecordTable = (DefaultTableModel) tn.getModel();
+            RecordTable.setRowCount(0);
+
+            while (rs.next()) {
+
+                Vector columnData = new Vector();
+
+                for (i = 1; i <= q; i++) {
+                    columnData.add(rs.getInt("ID"));
+                    columnData.add(rs.getString("Event_name"));
+                   // columnData.add(rs.getString("Note"));
+                    columnData.add(rs.getString("Date"));
+                }
+                RecordTable.addRow(columnData);
             }
-    } catch (SQLException ex) {
-        Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (Exception ex) {
-        Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
     }
-    }
+    
 void hideedit(){
     ed1.setVisible(false);
         ed2.setVisible(false);
@@ -103,53 +121,60 @@ void showedit(int c){
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        avatar = new home.ImageAvatar();
         jLabel1 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
-        rSButtonRound1 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound7 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound6 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound3 = new rojeru_san.rsbutton.RSButtonRound();
-        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tn = new rojeru_san.complementos.TableMetro();
+        subject = new RSMaterialComponent.RSTextFieldMaterial();
+        datee = new rojeru_san.rsdate.RSDateChooser();
+        add = new rojeru_san.rsbutton.RSButtonRound();
+        update = new rojeru_san.rsbutton.RSButtonRound();
+        delete = new rojeru_san.rsbutton.RSButtonRound();
+        print = new rojeru_san.rsbutton.RSButtonRound();
+        jp1 = new javax.swing.JPanel();
+        ed2 = new javax.swing.JPanel();
+        rSButtonRound25 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound26 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound27 = new rojeru_san.rsbutton.RSButtonRound();
+        daysleft1 = new javax.swing.JLabel();
+        e2 = new javax.swing.JLabel();
+        previous = new rojeru_san.rsbutton.RSButtonRound();
+        nxt = new rojeru_san.rsbutton.RSButtonRound();
+        jPanel6 = new javax.swing.JPanel();
+        jp2 = new javax.swing.JPanel();
+        ed3 = new javax.swing.JPanel();
+        rSButtonRound31 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound32 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound33 = new rojeru_san.rsbutton.RSButtonRound();
+        daysleft2 = new javax.swing.JLabel();
+        e3 = new javax.swing.JLabel();
+        jp3 = new javax.swing.JPanel();
+        ed5 = new javax.swing.JPanel();
+        rSButtonRound18 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound19 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound20 = new rojeru_san.rsbutton.RSButtonRound();
+        daysleft4 = new javax.swing.JLabel();
+        e5 = new javax.swing.JLabel();
+        jp4 = new javax.swing.JPanel();
+        ed4 = new javax.swing.JPanel();
+        rSButtonRound28 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound29 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound30 = new rojeru_san.rsbutton.RSButtonRound();
+        daysleft3 = new javax.swing.JLabel();
+        e4 = new javax.swing.JLabel();
+        jp5 = new javax.swing.JPanel();
         ed1 = new javax.swing.JPanel();
         rSButtonRound22 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound23 = new rojeru_san.rsbutton.RSButtonRound();
         rSButtonRound24 = new rojeru_san.rsbutton.RSButtonRound();
         e1 = new javax.swing.JLabel();
         daysleft = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        ed4 = new javax.swing.JPanel();
-        rSButtonRound28 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound29 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound30 = new rojeru_san.rsbutton.RSButtonRound();
-        daysleft3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        ed5 = new javax.swing.JPanel();
-        rSButtonRound18 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound19 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound20 = new rojeru_san.rsbutton.RSButtonRound();
-        daysleft4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        ed3 = new javax.swing.JPanel();
-        rSButtonRound31 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound32 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound33 = new rojeru_san.rsbutton.RSButtonRound();
-        daysleft2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        ed2 = new javax.swing.JPanel();
-        rSButtonRound25 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound26 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound27 = new rojeru_san.rsbutton.RSButtonRound();
-        daysleft1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        rSButtonRound17 = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound21 = new rojeru_san.rsbutton.RSButtonRound();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        rSButtonRound4 = new rojeru_san.rsbutton.RSButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Events");
@@ -164,6 +189,14 @@ void showedit(int c){
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
+        avatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avatarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 40, 40));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jLabel1.setText("Version 1.0");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 50));
@@ -172,17 +205,7 @@ void showedit(int c){
         name.setForeground(new java.awt.Color(29, 161, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 230, 30));
-
-        rSButtonRound1.setText("Log Out");
-        rSButtonRound1.setBorderPainted(false);
-        rSButtonRound1.setFocusable(false);
-        rSButtonRound1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, 30));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 250, 40));
 
         rSButtonRound7.setText("Contact Us");
         rSButtonRound7.setBorderPainted(false);
@@ -192,7 +215,7 @@ void showedit(int c){
                 rSButtonRound7ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 110, 30));
+        jPanel1.add(rSButtonRound7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 110, 30));
 
         rSButtonRound6.setText("Back");
         rSButtonRound6.setBorderPainted(false);
@@ -202,7 +225,7 @@ void showedit(int c){
                 rSButtonRound6ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 80, 30));
+        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, 80, 30));
 
         rSButtonRound3.setText("Refresh");
         rSButtonRound3.addActionListener(new java.awt.event.ActionListener() {
@@ -210,11 +233,355 @@ void showedit(int c){
                 rSButtonRound3ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 110, 30));
+        jPanel1.add(rSButtonRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 110, 30));
 
-        jPanel3.setBackground(new java.awt.Color(222, 227, 249));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel2.setFont(new java.awt.Font("Roboto Slab", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(39, 144, 250));
+        jLabel2.setText("Events");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 90, 50));
+
+        jLabel7.setForeground(new java.awt.Color(62, 1, 1));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-240, 39, -1, 20));
+
+        tn.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        tn.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Event", "Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tn.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        tn.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        tn.setDragEnabled(true);
+        tn.setRowHeight(30);
+        tn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tnMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tnMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tn);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 620, 410));
+
+        subject.setPlaceholder("Enter Event");
+        subject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subjectActionPerformed(evt);
+            }
+        });
+        jPanel1.add(subject, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 60));
+
+        datee.setLanguage(rojeru_san.rsdate.RSDateChooser.Language.ENGLISH);
+        datee.setPlaceholder("Select Date");
+        jPanel1.add(datee, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 200, -1));
+
+        add.setText("Add");
+        add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 110, -1));
+
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 90, -1));
+
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 90, -1));
+
+        print.setText("Print");
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
+        jPanel1.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 90, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 470));
+
+        jp1.setBackground(new java.awt.Color(222, 227, 249));
+        jp1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        jp1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ed2.setBackground(new java.awt.Color(222, 227, 249));
+        ed2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        ed2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        rSButtonRound25.setText("Edit");
+        rSButtonRound25.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        ed2.add(rSButtonRound25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
+
+        rSButtonRound26.setText("Delete");
+        rSButtonRound26.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound26ActionPerformed(evt);
+            }
+        });
+        ed2.add(rSButtonRound26, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
+
+        rSButtonRound27.setText("Done");
+        rSButtonRound27.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound27ActionPerformed(evt);
+            }
+        });
+        ed2.add(rSButtonRound27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
+
+        jp1.add(ed2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
+
+        daysleft1.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        daysleft1.setForeground(new java.awt.Color(52, 170, 231));
+        daysleft1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        daysleft1.setText("O days left");
+        daysleft1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
+        daysleft1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                daysleft1MouseEntered(evt);
+            }
+        });
+        jp1.add(daysleft1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
+
+        e2.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        e2.setForeground(new java.awt.Color(52, 170, 231));
+        e2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        e2.setText("Event 2");
+        e2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                e2MouseEntered(evt);
+            }
+        });
+        jp1.add(e2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
+
+        getContentPane().add(jp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, -1, -1));
+
+        previous.setText("Previous");
+        previous.setFont(new java.awt.Font("Roboto Bold", 1, 12)); // NOI18N
+        previous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousActionPerformed(evt);
+            }
+        });
+        getContentPane().add(previous, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 110, 20));
+
+        nxt.setText("Next");
+        nxt.setFont(new java.awt.Font("Roboto Bold", 1, 12)); // NOI18N
+        nxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nxtActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 340, 90, 20));
+
+        jPanel6.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 630, 410));
+
+        jp2.setBackground(new java.awt.Color(222, 227, 249));
+        jp2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        jp2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ed3.setBackground(new java.awt.Color(222, 227, 249));
+        ed3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        ed3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        rSButtonRound31.setText("Edit");
+        rSButtonRound31.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        ed3.add(rSButtonRound31, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
+
+        rSButtonRound32.setText("Delete");
+        rSButtonRound32.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound32ActionPerformed(evt);
+            }
+        });
+        ed3.add(rSButtonRound32, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
+
+        rSButtonRound33.setText("Done");
+        rSButtonRound33.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound33ActionPerformed(evt);
+            }
+        });
+        ed3.add(rSButtonRound33, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
+
+        jp2.add(ed3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
+
+        daysleft2.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        daysleft2.setForeground(new java.awt.Color(52, 170, 231));
+        daysleft2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        daysleft2.setText("O days left");
+        daysleft2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
+        daysleft2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                daysleft2MouseEntered(evt);
+            }
+        });
+        jp2.add(daysleft2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
+
+        e3.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        e3.setForeground(new java.awt.Color(52, 170, 231));
+        e3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        e3.setText("Event 3");
+        e3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                e3MouseEntered(evt);
+            }
+        });
+        jp2.add(e3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
+
+        getContentPane().add(jp2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
+
+        jp3.setBackground(new java.awt.Color(222, 227, 249));
+        jp3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        jp3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ed5.setBackground(new java.awt.Color(222, 227, 249));
+        ed5.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        ed5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        rSButtonRound18.setText("Edit");
+        rSButtonRound18.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        ed5.add(rSButtonRound18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
+
+        rSButtonRound19.setText("Delete");
+        rSButtonRound19.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound19ActionPerformed(evt);
+            }
+        });
+        ed5.add(rSButtonRound19, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
+
+        rSButtonRound20.setText("Done");
+        rSButtonRound20.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound20ActionPerformed(evt);
+            }
+        });
+        ed5.add(rSButtonRound20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
+
+        jp3.add(ed5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
+
+        daysleft4.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        daysleft4.setForeground(new java.awt.Color(52, 170, 231));
+        daysleft4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        daysleft4.setText("O days left");
+        daysleft4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
+        daysleft4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                daysleft4MouseEntered(evt);
+            }
+        });
+        jp3.add(daysleft4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
+
+        e5.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        e5.setForeground(new java.awt.Color(52, 170, 231));
+        e5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        e5.setText("Event 5");
+        e5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                e5MouseEntered(evt);
+            }
+        });
+        jp3.add(e5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 40));
+
+        getContentPane().add(jp3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, -1, -1));
+
+        jp4.setBackground(new java.awt.Color(222, 227, 249));
+        jp4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        jp4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ed4.setBackground(new java.awt.Color(222, 227, 249));
+        ed4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        ed4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        rSButtonRound28.setText("Edit");
+        rSButtonRound28.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        ed4.add(rSButtonRound28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
+
+        rSButtonRound29.setText("Delete");
+        rSButtonRound29.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound29ActionPerformed(evt);
+            }
+        });
+        ed4.add(rSButtonRound29, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
+
+        rSButtonRound30.setText("Done");
+        rSButtonRound30.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
+        rSButtonRound30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound30ActionPerformed(evt);
+            }
+        });
+        ed4.add(rSButtonRound30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
+
+        jp4.add(ed4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
+
+        daysleft3.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        daysleft3.setForeground(new java.awt.Color(52, 170, 231));
+        daysleft3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        daysleft3.setText("O days left");
+        daysleft3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
+        daysleft3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                daysleft3MouseEntered(evt);
+            }
+        });
+        jp4.add(daysleft3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
+
+        e4.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
+        e4.setForeground(new java.awt.Color(52, 170, 231));
+        e4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        e4.setText("Event 4");
+        e4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                e4MouseEntered(evt);
+            }
+        });
+        jp4.add(e4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
+
+        getContentPane().add(jp4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
+
+        jp5.setBackground(new java.awt.Color(222, 227, 249));
+        jp5.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
+        jp5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ed1.setBackground(new java.awt.Color(222, 227, 249));
         ed1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
@@ -247,18 +614,21 @@ void showedit(int c){
         });
         ed1.add(rSButtonRound24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
 
-        jPanel3.add(ed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
+        jp5.add(ed1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
 
         e1.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
         e1.setForeground(new java.awt.Color(52, 170, 231));
         e1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         e1.setText("Event 1");
         e1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                e1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 e1MouseEntered(evt);
             }
         });
-        jPanel3.add(e1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
+        jp5.add(e1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
 
         daysleft.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
         daysleft.setForeground(new java.awt.Color(52, 170, 231));
@@ -270,296 +640,13 @@ void showedit(int c){
                 daysleftMouseEntered(evt);
             }
         });
-        jPanel3.add(daysleft, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
+        jp5.add(daysleft, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 640, 40));
-
-        jPanel5.setBackground(new java.awt.Color(222, 227, 249));
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ed4.setBackground(new java.awt.Color(222, 227, 249));
-        ed4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        ed4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonRound28.setText("Edit");
-        rSButtonRound28.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        ed4.add(rSButtonRound28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
-
-        rSButtonRound29.setText("Delete");
-        rSButtonRound29.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound29.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound29ActionPerformed(evt);
-            }
-        });
-        ed4.add(rSButtonRound29, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
-
-        rSButtonRound30.setText("Done");
-        rSButtonRound30.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound30ActionPerformed(evt);
-            }
-        });
-        ed4.add(rSButtonRound30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
-
-        jPanel5.add(ed4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
-
-        daysleft3.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        daysleft3.setForeground(new java.awt.Color(52, 170, 231));
-        daysleft3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        daysleft3.setText("O days left");
-        daysleft3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
-        daysleft3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                daysleft3MouseEntered(evt);
-            }
-        });
-        jPanel5.add(daysleft3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
-
-        jLabel6.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(52, 170, 231));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Event 4");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
-            }
-        });
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 640, 40));
-
-        jPanel7.setBackground(new java.awt.Color(222, 227, 249));
-        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ed5.setBackground(new java.awt.Color(222, 227, 249));
-        ed5.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        ed5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonRound18.setText("Edit");
-        rSButtonRound18.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        ed5.add(rSButtonRound18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
-
-        rSButtonRound19.setText("Delete");
-        rSButtonRound19.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound19ActionPerformed(evt);
-            }
-        });
-        ed5.add(rSButtonRound19, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
-
-        rSButtonRound20.setText("Done");
-        rSButtonRound20.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound20ActionPerformed(evt);
-            }
-        });
-        ed5.add(rSButtonRound20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
-
-        jPanel7.add(ed5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
-
-        daysleft4.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        daysleft4.setForeground(new java.awt.Color(52, 170, 231));
-        daysleft4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        daysleft4.setText("O days left");
-        daysleft4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
-        daysleft4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                daysleft4MouseEntered(evt);
-            }
-        });
-        jPanel7.add(daysleft4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
-
-        jLabel9.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(52, 170, 231));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Event 5");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel9MouseEntered(evt);
-            }
-        });
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 40));
-
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 640, 40));
-
-        jPanel2.setBackground(new java.awt.Color(222, 227, 249));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ed3.setBackground(new java.awt.Color(222, 227, 249));
-        ed3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        ed3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonRound31.setText("Edit");
-        rSButtonRound31.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        ed3.add(rSButtonRound31, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
-
-        rSButtonRound32.setText("Delete");
-        rSButtonRound32.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound32ActionPerformed(evt);
-            }
-        });
-        ed3.add(rSButtonRound32, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
-
-        rSButtonRound33.setText("Done");
-        rSButtonRound33.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound33ActionPerformed(evt);
-            }
-        });
-        ed3.add(rSButtonRound33, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
-
-        jPanel2.add(ed3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
-
-        daysleft2.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        daysleft2.setForeground(new java.awt.Color(52, 170, 231));
-        daysleft2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        daysleft2.setText("O days left");
-        daysleft2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
-        daysleft2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                daysleft2MouseEntered(evt);
-            }
-        });
-        jPanel2.add(daysleft2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
-
-        jLabel5.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(52, 170, 231));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Event 3");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
-            }
-        });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 640, 40));
-
-        jPanel4.setBackground(new java.awt.Color(222, 227, 249));
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ed2.setBackground(new java.awt.Color(222, 227, 249));
-        ed2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(111, 196, 248), new java.awt.Color(61, 69, 242)));
-        ed2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonRound25.setText("Edit");
-        rSButtonRound25.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        ed2.add(rSButtonRound25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 20));
-
-        rSButtonRound26.setText("Delete");
-        rSButtonRound26.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound26.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound26ActionPerformed(evt);
-            }
-        });
-        ed2.add(rSButtonRound26, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 70, 20));
-
-        rSButtonRound27.setText("Done");
-        rSButtonRound27.setFont(new java.awt.Font("Roboto Bold", 0, 11)); // NOI18N
-        rSButtonRound27.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound27ActionPerformed(evt);
-            }
-        });
-        ed2.add(rSButtonRound27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
-
-        jPanel4.add(ed2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 240, 40));
-
-        daysleft1.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        daysleft1.setForeground(new java.awt.Color(52, 170, 231));
-        daysleft1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        daysleft1.setText("O days left");
-        daysleft1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)), new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true)));
-        daysleft1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                daysleft1MouseEntered(evt);
-            }
-        });
-        jPanel4.add(daysleft1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 120, 40));
-
-        jLabel3.setFont(new java.awt.Font("Roboto Slab", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(52, 170, 231));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Event 2");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
-            }
-        });
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 640, 40));
-
-        rSButtonRound17.setText("Previous");
-        rSButtonRound17.setFont(new java.awt.Font("Roboto Bold", 1, 12)); // NOI18N
-        rSButtonRound17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound17ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound17, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, 110, 20));
-
-        rSButtonRound21.setText("Next");
-        rSButtonRound21.setFont(new java.awt.Font("Roboto Bold", 1, 12)); // NOI18N
-        rSButtonRound21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound21ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound21, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 90, 20));
-
-        jLabel4.setForeground(new java.awt.Color(52, 170, 231));
-        jLabel4.setText("Beta");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 0, 50, 40));
-
-        jLabel2.setFont(new java.awt.Font("Roboto Slab", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(39, 144, 250));
-        jLabel2.setText("Events");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 90, 50));
-
-        jLabel7.setForeground(new java.awt.Color(62, 1, 1));
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-390, 30, 1100, -1));
-
-        rSButtonRound4.setText("New Event");
-        rSButtonRound4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 30));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 380));
+        getContentPane().add(jp5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rSButtonRound1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound1ActionPerformed
-        File f=new File("user.txt");
-        f.delete();
-        TrayIco t = new TrayIco();
-        t.mes="Logged Out";
-        try {
-            t.main();
-        } catch (AWTException ex) {
-            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Login.main();
-        dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound1ActionPerformed
 
     private void rSButtonRound7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound7ActionPerformed
         Contact.main();
@@ -572,17 +659,17 @@ void showedit(int c){
         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound6ActionPerformed
 
-    private void rSButtonRound17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound17ActionPerformed
+    private void previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousActionPerformed
+      // TODO add your handling code here:
+    }//GEN-LAST:event_previousActionPerformed
 
     private void rSButtonRound20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound20ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound20ActionPerformed
 
-    private void rSButtonRound21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound21ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound21ActionPerformed
+    private void nxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nxtActionPerformed
+
+    }//GEN-LAST:event_nxtActionPerformed
 
     private void rSButtonRound19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound19ActionPerformed
         // TODO add your handling code here:
@@ -624,36 +711,30 @@ void showedit(int c){
 showedit(1);        // TODO add your handling code here:
     }//GEN-LAST:event_e1MouseEntered
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void e2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e2MouseEntered
 showedit(2);        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_e2MouseEntered
 
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+    private void e3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e3MouseEntered
 showedit(3);        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseEntered
+    }//GEN-LAST:event_e3MouseEntered
 
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+    private void e4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e4MouseEntered
 showedit(4);        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel6MouseEntered
+    }//GEN-LAST:event_e4MouseEntered
 
-    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
+    private void e5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e5MouseEntered
 showedit(5);        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel9MouseEntered
+    }//GEN-LAST:event_e5MouseEntered
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
 hideedit();        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1MouseEntered
 
-    private void rSButtonRound4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound4ActionPerformed
-        EventEdit.title="New Event";
-        EventEdit.task="Add";
-        EventEdit.main();
-    }//GEN-LAST:event_rSButtonRound4ActionPerformed
-
     private void rSButtonRound22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound22ActionPerformed
-        EventEdit.title="Edit Event";
-        EventEdit.task="Edit";
-        EventEdit.main();         // TODO add your handling code here:
+       // EventEdit.title="Edit Event";
+       // EventEdit.task="Edit";
+       // EventEdit.main();         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound22ActionPerformed
 
     private void daysleftMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_daysleftMouseEntered
@@ -679,8 +760,143 @@ hideedit();        // TODO add your handling code here:
     private void rSButtonRound3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound3ActionPerformed
         Events.main();
         dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound3ActionPerformed
+
+    private void e1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_e1MouseClicked
+
+    }//GEN-LAST:event_e1MouseClicked
+int eventid;
+    private void tnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tnMouseClicked
+        try {
+            // if (!tn.isRowSelected(0 - 2000)) {
+                //     JOptionPane.showMessageDialog(this, "note is not selected");
+                /// } else {
+                DefaultTableModel RecordTable = (DefaultTableModel) tn.getModel();
+                int SelectedRows = tn.getSelectedRow();
+                eventid = Integer.parseInt(RecordTable.getValueAt(SelectedRows, 0).toString());
+                subject.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
+                //note.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
+                String d = RecordTable.getValueAt(SelectedRows, 2).toString();
+                Date dd;
+                dd = (Date) formatter.parse(d);
+                datee.setDatoFecha(dd);
+                //jtxtPostCode.setText(RecordTable.getValueAt(SelectedRows, 5).toString());
+                //jtxtTelephone.setText(RecordTable.getValueAt(SelectedRows, 6).toString());
+                // }
+        } catch (ParseException ex) {
+            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tnMouseClicked
+
+    private void tnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tnMousePressed
+        //delete.doClick();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tnMousePressed
+
+    private void subjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subjectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_subjectActionPerformed
+int id;
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        if (subject.getText().equals("")) {
+            Toaster t = new Toaster(jPanel1);
+            t.error("Please enter data first");
+        } else {
+            try {
+
+                pst = DB.getConnection().prepareStatement("insert into events(UID,Event_name,Date)value(?,?,?)");
+                id = UserDB.getUserID();
+                System.out.println(id);
+                pst.setInt(1, id);
+                pst.setString(2, subject.getText());
+               // pst.setString(3, note.getText());
+                pst.setString(3, datee.getDatoFecha().getYear() + 1900 + "/" + (datee.getDatoFecha().getMonth() + 1) + "/" + datee.getDatoFecha().getDate());
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(this, "New Event Added");
+                upDateDB();
+            } //
+            catch (SQLException ex) {
+                System.err.println(ex);
+            } catch (HeadlessException ex) {
+                Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
+            }            //tn.add
+        }
+    }//GEN-LAST:event_addActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        DefaultTableModel RecordTable = (DefaultTableModel) tn.getModel();
+        int SelectedRows = tn.getSelectedRow();
+
+        try {
+            id = Integer.parseInt(RecordTable.getValueAt(SelectedRows, 0).toString());
+            pst = DB.getConnection().prepareStatement("update events set Event_name = ?, Date=? where id =?");
+            pst.setString(1, subject.getText());
+            //pst.setString(2, note.getText());
+            pst.setString(2, datee.getDatoFecha().getYear() + 1900 + "/" + (datee.getDatoFecha().getMonth() + 1) + "/" + datee.getDatoFecha().getDate());
+            pst.setInt(3, eventid);
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Event Updated");
+            upDateDB();
+            subject.setText("");
+           // note.setText("");
+        } catch (SQLException ex) {
+
+            System.err.println(ex);
+        } catch (HeadlessException | NumberFormatException ex) {
+            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        DefaultTableModel RecordTable = (DefaultTableModel) tn.getModel();
+        int SelectedRows = tn.getSelectedRow();
+
+        try {
+            id = Integer.parseInt(RecordTable.getValueAt(SelectedRows, 0).toString());
+            int deleteItem;
+            deleteItem = JOptionPane.showConfirmDialog(null, "Confirm if you want to delete Event",
+                "Warning", JOptionPane.YES_NO_OPTION);
+            if (deleteItem == JOptionPane.YES_OPTION) {
+
+                pst = DB.getConnection().prepareStatement("delete from events where id =?");
+
+                pst.setInt(1, id);
+                pst.executeUpdate();
+                //JOptionPane.showMessageDialog(this, "Record updated");
+                upDateDB();
+
+                subject.setText("");
+               // note.setText("");
+                subject.requestFocus();
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+
+        } catch (HeadlessException | NumberFormatException ex) {
+            Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+        MessageFormat header = new MessageFormat("Events in Lifely: "+getUserData.fname+" "+getUserData.lname);
+        MessageFormat footer = new MessageFormat("Page {0, number, integer}");
+
+        try {
+            tn.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (java.awt.print.PrinterException e) {
+            System.err.format("No Printer found", e.getMessage());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_printActionPerformed
+
+    private void avatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avatarMouseClicked
+        Userprofile.main();
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_avatarMouseClicked
 
     /**
      */
@@ -711,12 +927,20 @@ hideedit();        // TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojeru_san.rsbutton.RSButtonRound add;
+    private home.ImageAvatar avatar;
+    private rojeru_san.rsdate.RSDateChooser datee;
     private javax.swing.JLabel daysleft;
     private javax.swing.JLabel daysleft1;
     private javax.swing.JLabel daysleft2;
     private javax.swing.JLabel daysleft3;
     private javax.swing.JLabel daysleft4;
+    private rojeru_san.rsbutton.RSButtonRound delete;
     private javax.swing.JLabel e1;
+    private javax.swing.JLabel e2;
+    private javax.swing.JLabel e3;
+    private javax.swing.JLabel e4;
+    private javax.swing.JLabel e5;
     private javax.swing.JPanel ed1;
     private javax.swing.JPanel ed2;
     private javax.swing.JPanel ed3;
@@ -724,25 +948,22 @@ hideedit();        // TODO add your handling code here:
     private javax.swing.JPanel ed5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jp1;
+    private javax.swing.JPanel jp2;
+    private javax.swing.JPanel jp3;
+    private javax.swing.JPanel jp4;
+    private javax.swing.JPanel jp5;
     private javax.swing.JLabel name;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound1;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound17;
+    private rojeru_san.rsbutton.RSButtonRound nxt;
+    private rojeru_san.rsbutton.RSButtonRound previous;
+    private rojeru_san.rsbutton.RSButtonRound print;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound18;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound19;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound20;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound21;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound22;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound23;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound24;
@@ -756,8 +977,10 @@ hideedit();        // TODO add your handling code here:
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound31;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound32;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound33;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound4;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound6;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
+    private RSMaterialComponent.RSTextFieldMaterial subject;
+    private rojeru_san.complementos.TableMetro tn;
+    private rojeru_san.rsbutton.RSButtonRound update;
     // End of variables declaration//GEN-END:variables
 }

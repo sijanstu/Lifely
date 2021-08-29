@@ -328,7 +328,7 @@ public class signup extends javax.swing.JFrame {
                 SqlConnection sq = new SqlConnection();
                 int res = sq.Signup(txt_email.getText(), new String(txt_pwd.getPassword()), txt_fnamee.getText(), txt_lname.getText(), inputStream);
                 if (res == 0) {
-                    Dash.main();
+                    Login.main();
                     dispose();
                 } else {
                     toaster.error("Error occured");

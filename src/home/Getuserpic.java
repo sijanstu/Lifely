@@ -41,11 +41,17 @@ public class Getuserpic {
                     ps = DB.getConnection().prepareStatement(queryString);
                     try (ResultSet results = ps.executeQuery()) {
                         while (results.next()) {
+                            if(results.getBlob("Image")==null){
+                                userimg=new File("/icons/usrimg.PNG");
+                                image = ImageIO.read(userimg);
+                                
+                            }
                             Blob aBlob = results.getBlob("Image");
                             try (InputStream is = aBlob.getBinaryStream(1, aBlob.length())) {
                                 
                                 image = ImageIO.read(is);
                                 userimg = new File("user.png");
+                                if(userimg.exists())userimg.delete();
                                 ImageIO.write(image, "png", userimg);
                                 isset=1;
                             }

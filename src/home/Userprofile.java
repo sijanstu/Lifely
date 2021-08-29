@@ -66,7 +66,7 @@ public final class Userprofile extends javax.swing.JFrame {
         usri = new rojeru_san.rslabel.RSLabelBorderRound();
         ee = new RSMaterialComponent.RSTextFieldIconUno();
         ll = new RSMaterialComponent.RSTextFieldIconUno();
-        rSButtonRoundEffect1 = new rojeru_san.rsbutton.RSButtonRoundEffect();
+        logout = new rojeru_san.rsbutton.RSButtonRoundEffect();
         up1 = new rojeru_san.rsbutton.RSButtonRoundEffect();
         title = new javax.swing.JLabel();
         ff = new RSMaterialComponent.RSTextFieldIconUno();
@@ -91,7 +91,7 @@ public final class Userprofile extends javax.swing.JFrame {
                 avatarMouseClicked(evt);
             }
         });
-        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 50, 50));
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 40, 40));
 
         rSButtonRound9.setText("Back");
         rSButtonRound9.setBorderPainted(false);
@@ -119,14 +119,14 @@ public final class Userprofile extends javax.swing.JFrame {
         ll.setPlaceholder("Last Name");
         jPanel1.add(ll, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
 
-        rSButtonRoundEffect1.setBackground(new java.awt.Color(0, 153, 153));
-        rSButtonRoundEffect1.setText("Log Out");
-        rSButtonRoundEffect1.addActionListener(new java.awt.event.ActionListener() {
+        logout.setBackground(new java.awt.Color(0, 153, 153));
+        logout.setText("Log Out");
+        logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRoundEffect1ActionPerformed(evt);
+                logoutActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRoundEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 110, -1));
+        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 110, -1));
 
         up1.setText("Update");
         up1.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +157,7 @@ public final class Userprofile extends javax.swing.JFrame {
         name.setForeground(new java.awt.Color(29, 161, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 280, 30));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 280, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
@@ -241,7 +241,7 @@ void fetchData() {
 
     }//GEN-LAST:event_usriMouseClicked
 
-    private void rSButtonRoundEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRoundEffect1ActionPerformed
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         File f = new File("user.txt");
         File fff=new File("user.png");
         if (f.exists()) {
@@ -250,6 +250,8 @@ void fetchData() {
         if (fff.exists()) {
             fff.delete();
         }
+        getUserData.isset=0;
+        Getuserpic.isset=0;
         TrayIco t = new TrayIco();
         TrayIco.mes = "Logged Out";
         try {
@@ -259,7 +261,7 @@ void fetchData() {
         }
         Login.main();
         dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRoundEffect1ActionPerformed
+    }//GEN-LAST:event_logoutActionPerformed
 
     private void up4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up4ActionPerformed
         try {
@@ -270,11 +272,14 @@ void fetchData() {
             int row = statement.executeUpdate();
             if (row > 0) {
                 JOptionPane.showMessageDialog(this, "Profile Picture Updated, Relogin to see changes");
+                Getuserpic.isset=0;
+                Getuserpic userpic = new Getuserpic();
                 Getuserpic.image = ImageIO.read(usrimg);
+                    
                     Getuserpic.userimg = new File("user.png");
                     if(Getuserpic.userimg.exists())Getuserpic.userimg.delete();
                     ImageIO.write(Getuserpic.image, "png", Getuserpic.userimg);
-                    Userprofile.main();
+                    logout.doClick();
                     dispose();
             }
                     
@@ -396,9 +401,9 @@ dispose();// TODO add your handling code here:
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private RSMaterialComponent.RSTextFieldIconUno ll;
+    private rojeru_san.rsbutton.RSButtonRoundEffect logout;
     private javax.swing.JLabel name;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
-    private rojeru_san.rsbutton.RSButtonRoundEffect rSButtonRoundEffect1;
     private rojeru_san.rsbutton.RSButtonRoundEffect rSButtonRoundEffect2;
     private javax.swing.JLabel title;
     private rojeru_san.rsbutton.RSButtonRoundEffect up1;

@@ -80,7 +80,7 @@ public final class Dash extends javax.swing.JFrame {
                 avatarMouseClicked(evt);
             }
         });
-        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 50, 50));
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 40, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jLabel1.setText("Version 1.0");
@@ -104,7 +104,7 @@ public final class Dash extends javax.swing.JFrame {
         name.setForeground(new java.awt.Color(29, 161, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 270, 50));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 270, 40));
 
         rSButtonRound2.setBackground(new java.awt.Color(0, 153, 255));
         rSButtonRound2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_available_updates_96px.png"))); // NOI18N
@@ -228,15 +228,9 @@ Connection con;
         }
     }
     private void rSButtonRound6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound6ActionPerformed
-        File f1 = new File("admin.txt");
-        String gett;
-        if (f1.exists()) {
-            dispose();
-            AdminDash.main();
-        } else {
             home.AdminLogin.main();
             this.dispose();
-        }
+        
 // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound6ActionPerformed
 

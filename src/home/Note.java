@@ -83,7 +83,7 @@ public final class Note extends javax.swing.JFrame {
         name.setForeground(new java.awt.Color(29, 161, 255));
         name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 270, 50));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 270, 40));
 
         avatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
         avatar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -91,7 +91,7 @@ public final class Note extends javax.swing.JFrame {
                 avatarMouseClicked(evt);
             }
         });
-        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 50, 50));
+        jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 10, 40, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lifely.png"))); // NOI18N
         jLabel1.setText("Version 1.0");
@@ -124,7 +124,7 @@ public final class Note extends javax.swing.JFrame {
 
         jLabel7.setForeground(new java.awt.Color(62, 1, 1));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 30, 1310, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 39, 1310, 20));
 
         tn.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         tn.setModel(new javax.swing.table.DefaultTableModel(
@@ -171,7 +171,7 @@ public final class Note extends javax.swing.JFrame {
             tn.getColumnModel().getColumn(3).setPreferredWidth(45);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 740, 410));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 620, 410));
 
         print.setText("Print");
         print.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +207,7 @@ public final class Note extends javax.swing.JFrame {
 
         datee.setLanguage(rojeru_san.rsdate.RSDateChooser.Language.ENGLISH);
         datee.setPlaceholder("Select Date");
-        jPanel1.add(datee, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 150, -1));
+        jPanel1.add(datee, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 200, -1));
 
         subject.setPlaceholder("Title");
         subject.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +217,8 @@ public final class Note extends javax.swing.JFrame {
         });
         jPanel1.add(subject, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 60));
 
-        note.setPlaceholder("Note");
+        note.setName(""); // NOI18N
+        note.setPlaceholder("Task");
         note.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 noteActionPerformed(evt);
@@ -264,7 +265,7 @@ public final class Note extends javax.swing.JFrame {
             int SelectedRows = tn.getSelectedRow();
             noteid = Integer.parseInt(RecordTable.getValueAt(SelectedRows, 0).toString());
             subject.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
-            note.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
+            //note.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
             String d = RecordTable.getValueAt(SelectedRows, 3).toString();
             Date dd;
@@ -284,7 +285,7 @@ public final class Note extends javax.swing.JFrame {
         MessageFormat footer = new MessageFormat("Page {0, number, integer}");
 
         try {
-            tn.print(JTable.PrintMode.NORMAL, header, footer);
+            tn.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (java.awt.print.PrinterException e) {
             System.err.format("No Printer found", e.getMessage());
         }        // TODO add your handling code here:

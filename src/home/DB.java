@@ -102,7 +102,7 @@ class getUserData {
     static String lname;
     static String email;
     static String pass;
-    static int isset = 0;
+    static int isset;
 
     getUserData() {
         if (isset == 0) {
