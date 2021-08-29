@@ -227,7 +227,7 @@ void fetchData() {
         usrimg = jf.getSelectedFile();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG & GIF Images", "jpg", "gif");
+                "JPG, PNG & GIF Images", "jpg","png", "gif");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -286,6 +286,8 @@ void fetchData() {
                     
             System.out.println("uploaded Image");
         } catch (SQLException | FileNotFoundException ex) {
+            DB.con=null;
+            DB.getConnection();
             Logger.getLogger(Contact.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
@@ -300,7 +302,8 @@ void fetchData() {
             getUserData.isset=0;
             Userprofile.main();
             dispose();
-        } catch (SQLException ex) {
+        } catch (SQLException ex) {DB.con=null;
+            DB.getConnection();
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_up3ActionPerformed
@@ -339,7 +342,8 @@ void fetchData() {
             getUserData.isset=0;
             Userprofile.main();
             dispose();
-        } catch (SQLException ex) {
+        } catch (SQLException ex) {DB.con=null;
+            DB.getConnection();
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_up1ActionPerformed
@@ -352,7 +356,8 @@ void fetchData() {
             getUserData.isset=0;
             Userprofile.main();
             dispose();
-        } catch (SQLException ex) {
+        } catch (SQLException ex) {DB.con=null;
+            DB.getConnection();
             Logger.getLogger(Userprofile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_up2ActionPerformed

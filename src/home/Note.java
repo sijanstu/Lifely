@@ -310,7 +310,8 @@ public final class Note extends javax.swing.JFrame {
             subject.setText("");
             note.setText("");
         } catch (SQLException ex) {
-
+            DB.con=null;
+            DB.getConnection();
             System.err.println(ex);
         } catch (HeadlessException | NumberFormatException ex) {
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
@@ -341,7 +342,8 @@ public final class Note extends javax.swing.JFrame {
 
             }
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex) {DB.con=null;
+            DB.getConnection();
             System.err.println(ex);
 
         } catch (HeadlessException | NumberFormatException ex) {
@@ -376,7 +378,8 @@ public final class Note extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "New Note Added");
                 upDateDB();
             } //
-            catch (SQLException ex) {
+            catch (SQLException ex) {DB.con=null;
+            DB.getConnection();
                 System.err.println(ex);
             } catch (HeadlessException ex) {
                 Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
@@ -423,7 +426,8 @@ public final class Note extends javax.swing.JFrame {
                 RecordTable.addRow(columnData);
             }
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex) {DB.con=null;
+            DB.getConnection();
             JOptionPane.showMessageDialog(null, ex);
         }
 

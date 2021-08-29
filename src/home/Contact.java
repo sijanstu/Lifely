@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -184,7 +183,8 @@ public class Contact extends javax.swing.JFrame {
                 System.out.println("A contact was inserted with photo image.");
             }
             System.out.println("uploaded");
-        } catch (SQLException | FileNotFoundException ex) {
+        } catch (SQLException | FileNotFoundException ex) {DB.con=null;
+            DB.getConnection();
             Logger.getLogger(Contact.class.getName()).log(Level.SEVERE, null, ex);
         }
         Dash.main();

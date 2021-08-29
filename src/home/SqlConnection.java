@@ -44,7 +44,8 @@ public class SqlConnection {
             System.out.println("message sent");
             return 0;
         } catch (SQLException ex) {
-
+            DB.con=null;
+            DB.getConnection();
             System.out.println("database error\n" + ex);
             return 1;
         }
@@ -180,6 +181,8 @@ public class SqlConnection {
                     }
             return 0;
         } catch (SQLException ex) {
+            DB.con=null;
+            DB.getConnection();
             System.out.println(ex);
             return 1;
         }

@@ -179,7 +179,8 @@ public class AdminLogin extends javax.swing.JFrame {
                 txt_pwd.setForeground(Color.red);
                 
             }
-        } catch (Exception ex) {
+        } catch (Exception ex) {DB.con=null;
+            DB.getConnection();
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             txt_email.setForeground(Color.red);
             txt_pwd.setForeground(Color.red);
