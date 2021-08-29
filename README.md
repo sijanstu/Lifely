@@ -26,3 +26,6 @@ Event, Passwords and Tasks Management System
 ![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/Changepass.PNG?raw=true)
 ![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/Contact.PNG?raw=true)
 ![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/Updates.PNG?raw=true)
+
+About Us:
+![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/About.PNG?raw=true)
