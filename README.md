@@ -3,6 +3,11 @@ Event, Passwords and Tasks Management System
 ![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/Aboutt.PNG?raw=true)
 
 
+Use case Diagram:
+![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/usecase.png?raw=true)
+
+
+
 Start:
 
 ![alt text](https://github.com/sijanstu/Lifely/blob/main/Screenshots/Main.PNG?raw=true)
