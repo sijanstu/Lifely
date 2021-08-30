@@ -298,7 +298,7 @@ public class signup extends javax.swing.JFrame {
             inputStream = new ByteArrayInputStream(os.toByteArray());
         }else{
             try {
-                inputStream = new FileInputStream(new File("/icons/usrimg.png"));
+                inputStream = new FileInputStream(new File("/icons/usrimg.PNG"));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -35,7 +35,8 @@ public class Getuserpic {
                     image = new ImgUtils().scaleImage(190, 190, userimg.getPath());
                     //image = ImageIO.read(userimg);
                 } else {
-
+                    userimg=new File("/icons/usrimg.PNG");
+                    image=new ImgUtils().scaleImage(190, 190, userimg.getPath());
                     PreparedStatement ps;
                     String queryString = "SELECT Image from users Where ID=" + UserDB.getUserID();
                     ps = DB.getConnection().prepareStatement(queryString);
