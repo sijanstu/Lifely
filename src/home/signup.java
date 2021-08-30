@@ -75,6 +75,7 @@ public class signup extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         usri = new rojeru_san.rslabel.RSLabelBorderRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -234,14 +235,19 @@ public class signup extends javax.swing.JFrame {
         jLabel12.setText("First Name");
         login.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 70, 40));
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel3.setText("Click to Add Image");
+        login.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 120, 50));
+
         usri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        usri.setText("Click to Add Image");
+        usri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/usrimg.PNG"))); // NOI18N
         usri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 usriMouseClicked(evt);
             }
         });
-        login.add(usri, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 190, 190));
+        login.add(usri, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 180, 180));
 
         jPanel1.add(login, "card2");
 
@@ -296,12 +302,6 @@ public class signup extends javax.swing.JFrame {
                 Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
             }
             inputStream = new ByteArrayInputStream(os.toByteArray());
-        }else{
-            try {
-                inputStream = new FileInputStream(new File("/icons/usrimg.PNG"));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         Toaster toaster = new Toaster(login);
         int isempty = 0;
@@ -443,6 +443,7 @@ public class signup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

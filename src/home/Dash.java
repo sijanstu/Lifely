@@ -5,7 +5,6 @@
  */
 package home;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +27,7 @@ public final class Dash extends javax.swing.JFrame {
     public Dash() {
         this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         initComponents();
-         userpic = new Getuserpic();
+        userpic = new Getuserpic();
         avatar.setImage(new ImageIcon(Getuserpic.image));
         getUserData userData = new getUserData();
         name.setText(getUserData.fname + " " + getUserData.lname);
