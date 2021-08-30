@@ -23,7 +23,7 @@ import javax.imageio.ImageIO;
  */
 public class Getuserpic {
 
-    static File userimg;
+    static File userimg=new File("/icons/img.png");
     static int error = 0;
     static BufferedImage image;
     static int isset=0;
@@ -33,15 +33,15 @@ public class Getuserpic {
                 if (new File("user.png").exists()) {
                     userimg = new File("user.png");
                     image = new ImgUtils().scaleImage(190, 190, userimg.getPath());
-                    
                 } else {
-                    
                     PreparedStatement ps;
                     String queryString = "SELECT Image from users Where ID=" + UserDB.getUserID();
                     ps = DB.getConnection().prepareStatement(queryString);
                     try (ResultSet results = ps.executeQuery()) {
                         while (results.next()) {
                             if(results.getBlob("Image")==null){  
+                            image=new ImgUtils().scaleImage(190, 190, userimg.getPath());
+                            //ImageIO.write(image, "png", userimg);
                             }else{
                             Blob aBlob = results.getBlob("Image");
                             try (InputStream is = aBlob.getBinaryStream(1, aBlob.length())) {
