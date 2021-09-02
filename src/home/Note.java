@@ -375,7 +375,7 @@ public final class Note extends javax.swing.JFrame {
                 pst.setString(3, note.getText());
                 pst.setString(4, datee.getDatoFecha().getYear() + 1900 + "/" + (datee.getDatoFecha().getMonth() + 1) + "/" + datee.getDatoFecha().getDate());
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "New Note Added");
+                //JOptionPane.showMessageDialog(this, "New Note Added");
                 upDateDB();
             } //
             catch (SQLException ex) {DB.con=null;

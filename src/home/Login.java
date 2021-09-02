@@ -38,7 +38,6 @@ public class Login extends javax.swing.JFrame {
         pnl_bg = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         login = new javax.swing.JPanel();
-        rSButtonGradiente1 = new rojeru_san.rsbutton.RSButtonGradiente();
         txt_email = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -51,7 +50,8 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        rSButtonEffect1 = new rojeru_san.rsbutton.RSButtonEffect();
+        rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound10 = new rojeru_san.rsbutton.RSButtonRound();
         loader = new javax.swing.JPanel();
         img_loader = new javax.swing.JLabel();
         lbl_loader = new javax.swing.JLabel();
@@ -79,14 +79,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
         login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonGradiente1.setText("Database");
-        rSButtonGradiente1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonGradiente1ActionPerformed(evt);
-            }
-        });
-        login.add(rSButtonGradiente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 110, 40));
 
         txt_email.setForeground(new java.awt.Color(102, 102, 102));
         txt_email.setText("Username");
@@ -158,13 +150,25 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grap.png"))); // NOI18N
         login.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 360, 210));
 
-        rSButtonEffect1.setText("Create new");
-        rSButtonEffect1.addActionListener(new java.awt.event.ActionListener() {
+        rSButtonRound9.setText("Create New Account");
+        rSButtonRound9.setBorderPainted(false);
+        rSButtonRound9.setFocusable(false);
+        rSButtonRound9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonEffect1ActionPerformed(evt);
+                rSButtonRound9ActionPerformed(evt);
             }
         });
-        login.add(rSButtonEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 120, -1));
+        login.add(rSButtonRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 180, 40));
+
+        rSButtonRound10.setText("Reset Connection");
+        rSButtonRound10.setBorderPainted(false);
+        rSButtonRound10.setFocusable(false);
+        rSButtonRound10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound10ActionPerformed(evt);
+            }
+        });
+        login.add(rSButtonRound10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 150, 40));
 
         jPanel1.add(login, "card2");
 
@@ -198,7 +202,7 @@ public class Login extends javax.swing.JFrame {
         );
         pnl_bgLayout.setVerticalGroup(
             pnl_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -280,14 +284,26 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_emailActionPerformed
 
-    private void rSButtonGradiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonGradiente1ActionPerformed
-        Database.main();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonGradiente1ActionPerformed
+    private void rSButtonRound9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound9ActionPerformed
+signup.main();
+dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRound9ActionPerformed
 
-    private void rSButtonEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonEffect1ActionPerformed
-        signup.main();
-        dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonEffect1ActionPerformed
+    private void rSButtonRound10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound10ActionPerformed
+ DB.con=null;
+        DB.getConnection();
+        if(!DB.err){
+           rSButtonRound10.setColorText(Color.green);
+        rSButtonRound10.setText("Connected"); 
+        }else{
+            rSButtonRound10.setColorText(Color.red);
+        rSButtonRound10.setText("Connection error"); 
+        }
+        
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRound10ActionPerformed
 
     /**
      */
@@ -340,8 +356,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel loader;
     private javax.swing.JPanel login;
     private javax.swing.JPanel pnl_bg;
-    private rojeru_san.rsbutton.RSButtonEffect rSButtonEffect1;
-    private rojeru_san.rsbutton.RSButtonGradiente rSButtonGradiente1;
+    private rojeru_san.rsbutton.RSButtonRound rSButtonRound10;
+    private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
     private javax.swing.JTextField txt_email;
     private javax.swing.JPasswordField txt_pwd;
     // End of variables declaration//GEN-END:variables

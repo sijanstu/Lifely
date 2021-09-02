@@ -26,7 +26,6 @@ public class SqlConnection {
     static String database;
     static String user;
     static String pass;
-    static config conf = new config();
 
     String Response() {
         return response;

@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -36,7 +37,8 @@ public final class Userprofile extends javax.swing.JFrame {
      * Creates new form Userprofile
      */
     public Userprofile() {
-        initComponents();this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
+        initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         EditMode(false);
         ImageIcon im=new ImageIcon(Getuserpic.image);
         avatar.setImage(im);
@@ -49,6 +51,7 @@ public final class Userprofile extends javax.swing.JFrame {
             email = getUserData.email;
             ee.setText(email);
             name.setText(fname+" "+lname);
+            fetchData();
     }
 
     /**
@@ -78,6 +81,10 @@ public final class Userprofile extends javax.swing.JFrame {
         up4 = new rojeru_san.rsbutton.RSButtonRoundEffect();
         up3 = new rojeru_san.rsbutton.RSButtonRoundEffect();
         rSButtonRoundEffect2 = new rojeru_san.rsbutton.RSButtonRoundEffect();
+        jLabel4 = new javax.swing.JLabel();
+        taskd = new RSMaterialComponent.RSButtonMaterialRipple();
+        passd = new RSMaterialComponent.RSButtonMaterialRipple();
+        eventd = new RSMaterialComponent.RSButtonMaterialRipple();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Profile");
@@ -95,7 +102,7 @@ public final class Userprofile extends javax.swing.JFrame {
 
         rSButtonRound9.setText("Back");
         rSButtonRound9.setBorderPainted(false);
-        rSButtonRound9.setFocusable(false);
+        rSButtonRound9.setFocusPainted(false);
         rSButtonRound9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonRound9ActionPerformed(evt);
@@ -110,31 +117,33 @@ public final class Userprofile extends javax.swing.JFrame {
                 usriMouseClicked(evt);
             }
         });
-        jPanel1.add(usri, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 190, 190));
+        jPanel1.add(usri, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 190, 190));
 
         ee.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.EMAIL);
         ee.setPlaceholder("Email");
-        jPanel1.add(ee, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
+        jPanel1.add(ee, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, -1, -1));
 
         ll.setPlaceholder("Last Name");
-        jPanel1.add(ll, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
+        jPanel1.add(ll, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
 
         logout.setBackground(new java.awt.Color(0, 153, 153));
         logout.setText("Log Out");
+        logout.setFocusPainted(false);
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutActionPerformed(evt);
             }
         });
-        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 110, -1));
+        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 110, -1));
 
         up1.setText("Update");
+        up1.setFocusPainted(false);
         up1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 up1ActionPerformed(evt);
             }
         });
-        jPanel1.add(up1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 110, -1));
+        jPanel1.add(up1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 110, -1));
 
         title.setFont(new java.awt.Font("Aharoni", 1, 18)); // NOI18N
         title.setForeground(new java.awt.Color(29, 161, 255));
@@ -143,15 +152,16 @@ public final class Userprofile extends javax.swing.JFrame {
         jPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 60, 50));
 
         ff.setPlaceholder("First Name");
-        jPanel1.add(ff, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
+        jPanel1.add(ff, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, -1));
 
         up2.setText("Update");
+        up2.setFocusPainted(false);
         up2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 up2ActionPerformed(evt);
             }
         });
-        jPanel1.add(up2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 130, 110, -1));
+        jPanel1.add(up2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 110, -1));
 
         name.setFont(new java.awt.Font("Aharoni", 0, 18)); // NOI18N
         name.setForeground(new java.awt.Color(29, 161, 255));
@@ -168,36 +178,72 @@ public final class Userprofile extends javax.swing.JFrame {
                 edtActionPerformed(evt);
             }
         });
-        jPanel1.add(edt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 130, 30));
+        jPanel1.add(edt, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 130, 30));
 
         jLabel3.setForeground(new java.awt.Color(62, 1, 1));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-400, 30, 1170, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-400, 140, 990, 30));
 
         up4.setText("Upload");
+        up4.setFocusPainted(false);
         up4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 up4ActionPerformed(evt);
             }
         });
-        jPanel1.add(up4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 110, -1));
+        jPanel1.add(up4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 110, -1));
 
         up3.setText("Update");
+        up3.setFocusPainted(false);
         up3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 up3ActionPerformed(evt);
             }
         });
-        jPanel1.add(up3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 110, -1));
+        jPanel1.add(up3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 110, -1));
 
         rSButtonRoundEffect2.setBackground(new java.awt.Color(255, 102, 153));
         rSButtonRoundEffect2.setText("Change Password");
+        rSButtonRoundEffect2.setFocusPainted(false);
         rSButtonRoundEffect2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonRoundEffect2ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRoundEffect2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 160, -1));
+        jPanel1.add(rSButtonRoundEffect2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 160, -1));
+
+        jLabel4.setForeground(new java.awt.Color(62, 1, 1));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-400, 30, 990, 40));
+
+        taskd.setBackground(new java.awt.Color(102, 102, 255));
+        taskd.setText("0 Tasks");
+        taskd.setFocusPainted(false);
+        taskd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taskdActionPerformed(evt);
+            }
+        });
+        jPanel1.add(taskd, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 180, 70));
+
+        passd.setBackground(new java.awt.Color(0, 204, 204));
+        passd.setText("0 Passwords");
+        passd.setFocusPainted(false);
+        passd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passdActionPerformed(evt);
+            }
+        });
+        jPanel1.add(passd, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 180, 70));
+
+        eventd.setText("0 Events");
+        eventd.setFocusPainted(false);
+        eventd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eventdActionPerformed(evt);
+            }
+        });
+        jPanel1.add(eventd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,14 +253,53 @@ public final class Userprofile extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-void fetchData() {
-
+    int noten,eventn,passn;
+    void fetchData() {
+        try {
+            PreparedStatement ps;
+            String queryString = "SELECT * from notes Where UserID=" + UserDB.getUserID();
+            ps = DB.getConnection().prepareStatement(queryString);
+            try (ResultSet results = ps.executeQuery()) {
+                while (results.next()) {
+                    noten++;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            PreparedStatement ps;
+            String queryString = "SELECT * from events Where UID=" + UserDB.getUserID();
+            ps = DB.getConnection().prepareStatement(queryString);
+            try (ResultSet results = ps.executeQuery()) {
+                while (results.next()) {
+                    eventn++;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         try {
+            PreparedStatement ps;
+            String queryString = "SELECT * from passwords Where UID=" + UserDB.getUserID();
+            ps = DB.getConnection().prepareStatement(queryString);
+            try (ResultSet results = ps.executeQuery()) {
+                while (results.next()) {
+                    passn++;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Dash.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        passd.setText(passn+" Passwords");
+        eventd.setText(eventn+" Events");
+        taskd.setText(noten+" Tasks");
     }
     private void rSButtonRound9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound9ActionPerformed
 
@@ -371,6 +456,22 @@ dispose();// TODO add your handling code here:
         Userprofile.main();
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_avatarMouseClicked
+
+    private void eventdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventdActionPerformed
+Events.main();
+dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_eventdActionPerformed
+
+    private void taskdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskdActionPerformed
+Note.main();
+dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_taskdActionPerformed
+
+    private void passdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passdActionPerformed
+Passwords.main();
+dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_passdActionPerformed
     public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -401,15 +502,19 @@ dispose();// TODO add your handling code here:
     private home.ImageAvatar avatar;
     private rojerusan.RSCheckBox edt;
     private RSMaterialComponent.RSTextFieldIconUno ee;
+    private RSMaterialComponent.RSButtonMaterialRipple eventd;
     private RSMaterialComponent.RSTextFieldIconUno ff;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private RSMaterialComponent.RSTextFieldIconUno ll;
     private rojeru_san.rsbutton.RSButtonRoundEffect logout;
     private javax.swing.JLabel name;
+    private RSMaterialComponent.RSButtonMaterialRipple passd;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
     private rojeru_san.rsbutton.RSButtonRoundEffect rSButtonRoundEffect2;
+    private RSMaterialComponent.RSButtonMaterialRipple taskd;
     private javax.swing.JLabel title;
     private rojeru_san.rsbutton.RSButtonRoundEffect up1;
     private rojeru_san.rsbutton.RSButtonRoundEffect up2;

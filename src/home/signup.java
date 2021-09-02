@@ -53,7 +53,6 @@ public class signup extends javax.swing.JFrame {
         pnl_bg = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         login = new javax.swing.JPanel();
-        rSButtonGradiente1 = new rojeru_san.rsbutton.RSButtonGradiente();
         jLabel6 = new javax.swing.JLabel();
         txt_lname = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -97,14 +96,6 @@ public class signup extends javax.swing.JFrame {
             }
         });
         login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonGradiente1.setText("Database");
-        rSButtonGradiente1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonGradiente1ActionPerformed(evt);
-            }
-        });
-        login.add(rSButtonGradiente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 100, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -212,13 +203,13 @@ public class signup extends javax.swing.JFrame {
         error.setText("Error Detected");
         login.add(error, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, -1, -1));
 
-        rSButtonEffect1.setText("Login Instead");
+        rSButtonEffect1.setText("Already a User");
         rSButtonEffect1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonEffect1ActionPerformed(evt);
             }
         });
-        login.add(rSButtonEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 130, -1));
+        login.add(rSButtonEffect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 200, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
@@ -380,10 +371,6 @@ public class signup extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txt_emailActionPerformed
 
-    private void rSButtonGradiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonGradiente1ActionPerformed
-        Database.main();
-    }//GEN-LAST:event_rSButtonGradiente1ActionPerformed
-
     private void rSButtonEffect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonEffect1ActionPerformed
         Login.main();
         dispose();
@@ -457,7 +444,6 @@ public class signup extends javax.swing.JFrame {
     private javax.swing.JPanel login;
     private javax.swing.JPanel pnl_bg;
     private rojeru_san.rsbutton.RSButtonEffect rSButtonEffect1;
-    private rojeru_san.rsbutton.RSButtonGradiente rSButtonGradiente1;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_fnamee;
     private javax.swing.JTextField txt_lname;

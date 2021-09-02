@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +24,6 @@ import java.util.logging.Logger;
  * @author Sijan
  */
 public class DB {
-
-    final static config conf = new config();
     //static String server= conf.dbhost;
 
     //static String port= conf.dbport;
@@ -33,18 +32,33 @@ public class DB {
     // static String pass= conf.dbpassword;
     static int isconf = 0;
     static Connection con = null;
-
+    static boolean err=false;
+    static Date startDate;
+    static Date endDate;
+    int t;
     public static Connection getConnection() {
-        if (con != null) {
-            return con;
+       endDate = new Date();
+        if(con!=null){
+            if((int)((endDate.getTime() - startDate.getTime()) / 1000)>10){
+                System.out.print("Connection Auto reset");
+                return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
+            }else{
+            return con;}
+        }else{
+            return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
         }
-        return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
+    
+        
+        
     }
 
     private static Connection getConnection(String server, String db_name, String user_name, String password) {
+        startDate = new Date();
         try {
             con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + db_name + "?user=" + user_name + "&password=" + password);
+            err=false;
         } catch (SQLException ex) {
+            err=true;
             if (isconf == 0) {
                 System.err.println(ex);
             }

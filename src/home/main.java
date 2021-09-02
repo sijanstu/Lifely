@@ -1,17 +1,7 @@
 package home;
 import java.awt.AWTException;
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 
 /**
  *
@@ -141,6 +129,9 @@ public class main extends javax.swing.JFrame {
     private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
        // SqlThread sq = new SqlThread();
        DB.getConnection();
+       if(DB.err){
+           
+       }
         File f1 = new File("user.txt");
         String gett;
         if (f1.exists()) {

@@ -174,7 +174,7 @@ void resetpn(){
         ps1i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps1i.setForeground(new java.awt.Color(39, 144, 250));
         ps1i.setText("*********************************");
-        p1.add(ps1i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
+        p1.add(ps1i, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 260, 40));
 
         ps1.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps1.setForeground(new java.awt.Color(39, 144, 250));
@@ -230,12 +230,12 @@ void resetpn(){
 
         ps4.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps4.setForeground(new java.awt.Color(39, 144, 250));
-        p4.add(ps4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 160, 40));
+        p4.add(ps4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 250, 40));
 
         ps4i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps4i.setForeground(new java.awt.Color(39, 144, 250));
         ps4i.setText("*********************************");
-        p4.add(ps4i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 230, 40));
+        p4.add(ps4i, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 250, 40));
 
         jPanel1.add(p4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 700, 60));
 
@@ -280,12 +280,12 @@ void resetpn(){
 
         ps2.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps2.setForeground(new java.awt.Color(39, 144, 250));
-        p2.add(ps2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
+        p2.add(ps2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 250, 40));
 
         ps2i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps2i.setForeground(new java.awt.Color(39, 144, 250));
         ps2i.setText("*********************************");
-        p2.add(ps2i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 240, 40));
+        p2.add(ps2i, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 260, 40));
 
         jPanel1.add(p2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 700, 60));
 
@@ -348,12 +348,12 @@ void resetpn(){
 
         ps3.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps3.setForeground(new java.awt.Color(39, 144, 250));
-        p3.add(ps3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 170, 40));
+        p3.add(ps3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 260, 40));
 
         ps3i.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
         ps3i.setForeground(new java.awt.Color(39, 144, 250));
         ps3i.setText("*********************************");
-        p3.add(ps3i, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 230, 40));
+        p3.add(ps3i, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 250, 40));
 
         jPanel1.add(p3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 700, 60));
 

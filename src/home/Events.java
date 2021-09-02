@@ -814,7 +814,7 @@ int id;
                // pst.setString(3, note.getText());
                 pst.setString(3, datee.getDatoFecha().getYear() + 1900 + "/" + (datee.getDatoFecha().getMonth() + 1) + "/" + datee.getDatoFecha().getDate());
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "New Event Added");
+               // JOptionPane.showMessageDialog(this, "New Event Added");
                 upDateDB();
             } //
             catch (SQLException ex) {
@@ -838,7 +838,7 @@ int id;
             pst.setInt(3, eventid);
 
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Event Updated");
+            //JOptionPane.showMessageDialog(this, "Event Updated");
             upDateDB();
             subject.setText("");
            // note.setText("");

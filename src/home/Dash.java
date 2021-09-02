@@ -5,6 +5,7 @@
  */
 package home;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +65,7 @@ public final class Dash extends javax.swing.JFrame {
         notification = new javax.swing.JLabel();
         rSButtonRound8 = new rojeru_san.rsbutton.RSButtonRound();
         prof = new rojeru_san.rsbutton.RSButtonRound();
+        rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +95,7 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound6ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 130, 30));
+        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 130, 30));
 
         jLabel5.setForeground(new java.awt.Color(62, 1, 1));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
@@ -119,7 +121,7 @@ public final class Dash extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/output-onlinepngtools.png"))); // NOI18N
         jLabel2.setMaximumSize(new java.awt.Dimension(1829, 509));
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 710, 240));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 690, 240));
 
         rSButtonRound3.setBackground(new java.awt.Color(0, 153, 255));
         rSButtonRound3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_schedule_80px.png"))); // NOI18N
@@ -171,6 +173,11 @@ public final class Dash extends javax.swing.JFrame {
         notification.setForeground(new java.awt.Color(29, 161, 255));
         notification.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         notification.setText("You have 0 Task ToDo");
+        notification.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notificationMouseClicked(evt);
+            }
+        });
         jPanel1.add(notification, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 230, 30));
 
         rSButtonRound8.setText("About");
@@ -192,6 +199,16 @@ public final class Dash extends javax.swing.JFrame {
             }
         });
         jPanel1.add(prof, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 80, 30));
+
+        rSButtonRound9.setText("Reset Connection");
+        rSButtonRound9.setBorderPainted(false);
+        rSButtonRound9.setFocusable(false);
+        rSButtonRound9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonRound9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rSButtonRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 150, 30));
 
         jScrollPane2.setViewportView(jPanel1);
 
@@ -274,6 +291,20 @@ Connection con;
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_profActionPerformed
 
+    private void rSButtonRound9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound9ActionPerformed
+DB.con=null;
+DB.getConnection();
+rSButtonRound9.setColorText(Color.green);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonRound9ActionPerformed
+
+    private void notificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationMouseClicked
+Note.main(); 
+dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_notificationMouseClicked
+
     /**
      */
     public static void main() {
@@ -324,5 +355,6 @@ Connection con;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound6;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound8;
+    private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
     // End of variables declaration//GEN-END:variables
 }

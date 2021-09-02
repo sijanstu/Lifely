@@ -28,9 +28,6 @@ public class Database extends javax.swing.JFrame {
      */
     public Database() {
          initComponents();
-         if(!config.islocal){
-             dbs.setText("You're using Online database");
-         }
          this.setIconImage(new ImageIcon(getClass().getResource("/icons/icon.png")).getImage());
         BufferedReader bw;
         try {
