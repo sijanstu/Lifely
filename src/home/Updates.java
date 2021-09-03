@@ -164,6 +164,8 @@ String[] mes;int i=0;
         }
     
 }       catch (SQLException ex) {
+            Database.main();
+            dispose();
             Logger.getLogger(Updates.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(Updates.class.getName()).log(Level.SEVERE, null, ex);

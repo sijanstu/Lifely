@@ -104,7 +104,7 @@ public class SqlConnection {
                     id = results.getInt("ID");
                     lname = results.getString("LastName");
                     fname = results.getString("FirstName");
-
+                    new File("user.txt").createNewFile();
                     try (BufferedWriter fw = new BufferedWriter(new FileWriter(new File("user.txt")))) {
                         fw.write(Crypt.encrypt(Integer.toString(id)));
                         fw.newLine();

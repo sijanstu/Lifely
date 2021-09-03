@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
+import mdlaf.MaterialLookAndFeel;
 
 /**
  *
  * @author Sijan
  */
+
 public class About extends javax.swing.JFrame {
 
     /**
@@ -111,8 +113,10 @@ public class About extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 150, -1));
 
+        rSButtonRound6.setForeground(new java.awt.Color(0, 204, 204));
         rSButtonRound6.setText("Back");
         rSButtonRound6.setBorderPainted(false);
+        rSButtonRound6.setColorText(new java.awt.Color(255, 51, 102));
         rSButtonRound6.setFocusable(false);
         rSButtonRound6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,11 +220,11 @@ try {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    javax.swing.UIManager.setLookAndFeel(new MaterialLookAndFeel ());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(About.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

@@ -39,7 +39,7 @@ public class DB {
     public static Connection getConnection() {
        endDate = new Date();
         if(con!=null){
-            if((int)((endDate.getTime() - startDate.getTime()) / 1000)>10){
+            if((int)((endDate.getTime() - startDate.getTime()) / 1000)>30){
                 System.out.print("Connection Auto reset");
                 return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
             }else{
@@ -59,10 +59,10 @@ public class DB {
             err=false;
         } catch (SQLException ex) {
             err=true;
-            if (isconf == 0) {
+            if (isconf == 1) {
                 System.err.println(ex);
-            }
-            Database.main();
+            }else{
+            Database.main();}
         }
         return con;
     }
