@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import mdlaf.MaterialLookAndFeel;
 
 /**
  *
@@ -66,7 +65,6 @@ public final class Dash extends javax.swing.JFrame {
         notification = new javax.swing.JLabel();
         rSButtonRound8 = new rojeru_san.rsbutton.RSButtonRound();
         prof = new rojeru_san.rsbutton.RSButtonRound();
-        rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,7 +94,7 @@ public final class Dash extends javax.swing.JFrame {
                 rSButtonRound6ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 130, 30));
+        jPanel1.add(rSButtonRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 130, 30));
 
         jLabel5.setForeground(new java.awt.Color(62, 1, 1));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line.png"))); // NOI18N
@@ -201,16 +199,6 @@ public final class Dash extends javax.swing.JFrame {
         });
         jPanel1.add(prof, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 80, 30));
 
-        rSButtonRound9.setText("Reset Connection");
-        rSButtonRound9.setBorderPainted(false);
-        rSButtonRound9.setFocusable(false);
-        rSButtonRound9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonRound9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 150, 30));
-
         jScrollPane2.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,7 +261,7 @@ Connection con;
     }//GEN-LAST:event_rSButtonRound5ActionPerformed
 
     private void rSButtonRound2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound2ActionPerformed
-        Updates.main();
+        new Updates().main();
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound2ActionPerformed
 
@@ -291,14 +279,6 @@ Connection con;
         Userprofile.main();
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_profActionPerformed
-
-    private void rSButtonRound9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonRound9ActionPerformed
-DB.con=null;
-DB.getConnection();
-rSButtonRound9.setColorText(Color.green);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonRound9ActionPerformed
 
     private void notificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationMouseClicked
 Note.main(); 
@@ -358,6 +338,5 @@ dispose();
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound6;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound7;
     private rojeru_san.rsbutton.RSButtonRound rSButtonRound8;
-    private rojeru_san.rsbutton.RSButtonRound rSButtonRound9;
     // End of variables declaration//GEN-END:variables
 }

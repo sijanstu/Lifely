@@ -24,12 +24,6 @@ import java.util.logging.Logger;
  * @author Sijan
  */
 public class DB {
-    //static String server= conf.dbhost;
-
-    //static String port= conf.dbport;
-    //static String database = conf.dbname;
-    // static String user= conf.dbusername;
-    // static String pass= conf.dbpassword;
     static int isconf = 0;
     static Connection con = null;
     static boolean err=false;
@@ -37,21 +31,25 @@ public class DB {
     static Date endDate;
     int t;
     public static Connection getConnection() {
-       endDate = new Date();
-        if(con!=null){
-            if((int)((endDate.getTime() - startDate.getTime()) / 1000)>30){
-                System.out.print("Connection Auto reset");
-                return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
+          
+          endDate = new Date();
+          if(con!=null){
+              
+              if((int)((endDate.getTime() - startDate.getTime()) / 1000)>100){
+                   System.out.print("Connection reset");
+                    return getConnection("localhost", "lifely", "root", "");
+                   //return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
+                  //return getConnection("bxabsomezdrn1nv4jpvi-mysql.services.clever-cloud.com", "bxabsomezdrn1nv4jpvi", "uwudbzxg1zyeerfd", "CgZaj3EtXvVS2A530ytn");
+                }else{
+                  startDate = new Date();
+                   return con;}
             }else{
-            return con;}
-        }else{
-            return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
+              return getConnection("localhost", "lifely", "root", "");
+                //return getConnection("bxabsomezdrn1nv4jpvi-mysql.services.clever-cloud.com", "bxabsomezdrn1nv4jpvi", "uwudbzxg1zyeerfd", "CgZaj3EtXvVS2A530ytn");
+               // return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
+            }
         }
-    
-        
-        
-    }
-
+       
     private static Connection getConnection(String server, String db_name, String user_name, String password) {
         startDate = new Date();
         try {
@@ -59,29 +57,15 @@ public class DB {
             err=false;
         } catch (SQLException ex) {
             err=true;
-            if (isconf == 1) {
-                System.err.println(ex);
-            }else{
-            Database.main();}
-        }
+           
+            ConError.main();
+        return con;
+    }
         return con;
     }
 }
 
 class UserDB {
-
-    static boolean tableExistsSQL(Connection connection, String tableName) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*) "
-                + "FROM information_schema.tables "
-                + "WHERE table_name = ?"
-                + "LIMIT 1;");
-        preparedStatement.setString(1, tableName);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        return resultSet.getInt(1) != 0;
-    }
-
     Connection sqlConn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -92,12 +76,12 @@ class UserDB {
         try {
             bf = new BufferedReader(new FileReader(new File("user.txt")));
             int id = Integer.parseInt(Crypt.decrypt(bf.readLine()));
-            System.err.println("returned ID:" + id);
+            //System.err.println("returned ID:" + id);
             bf.close();
             return id;
 
         } catch (FileNotFoundException ex) {
-
+          //  JOptionPane.showMessageDialog(this,"Profile Picture Updated, Relogin to see changes");
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Note.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "546131839283",
+    "firebase_url": "https://jmav-2bc1e.firebaseio.com",
+    "project_id": "jmav-2bc1e",
+    "storage_bucket": "jmav-2bc1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546131839283:android:67650d9e71a6fd5ed01646",
+        "android_client_info": {
+          "package_name": "com.updater.sijan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546131839283-ejgmkc7jb9qab1u33k5v2c1nnsb24563.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMnakj06Kje4TdPPZhgs0-gZL24fgTVcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546131839283-ejgmkc7jb9qab1u33k5v2c1nnsb24563.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

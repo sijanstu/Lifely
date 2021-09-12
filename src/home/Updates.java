@@ -26,6 +26,7 @@ public final class Updates extends javax.swing.JFrame {
     avatar.setImage(new ImageIcon(Getuserpic.image));
         
         FetchUpdate();
+      
     }
 
     /**
@@ -130,6 +131,9 @@ public final class Updates extends javax.swing.JFrame {
         Dash.main();
         this.removeAll();
         dispose();
+        
+        
+       
         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonRound6ActionPerformed
 
@@ -143,9 +147,10 @@ public final class Updates extends javax.swing.JFrame {
     }//GEN-LAST:event_avatarMouseClicked
 String[] mes;int i=0;
     void FetchUpdate(){
+        Toaster t =new Toaster(jPanel2);
         try {
             i=0;
-            t=new Toaster(jPanel2);
+            
             PreparedStatement ps;
             String queryString = "SELECT * FROM `updates`";
             ps = DB.getConnection().prepareStatement(queryString);
@@ -164,17 +169,18 @@ String[] mes;int i=0;
         }
     
 }       catch (SQLException ex) {
-            Database.main();
+            //Database.main();
             dispose();
             Logger.getLogger(Updates.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(Updates.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-}Toaster t;
+}
+    
     /**
      */
-    public static void main() {
+    public void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

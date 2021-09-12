@@ -94,7 +94,7 @@ public class main extends javax.swing.JFrame {
                 contActionPerformed(evt);
             }
         });
-        jPanel1.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 200, 40));
+        jPanel1.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 200, 40));
 
         agree.setBackground(new java.awt.Color(21, 198, 254));
         agree.setForeground(new java.awt.Color(215, 39, 31));

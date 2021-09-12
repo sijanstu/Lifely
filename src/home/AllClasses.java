@@ -224,10 +224,10 @@ class Offline {
 
 
 class Toaster {
-    private static final int STARTING_Y_POS = 15;
-    private static final int SPACER_DISTANCE = 15;
-    private static final ArrayList<ToasterBody> toasterBodies = new ArrayList<>();
-    private final static AtomicInteger CURRENT_Y_OFFSET = new AtomicInteger();
+    private  final int STARTING_Y_POS = 15;
+    private  final int SPACER_DISTANCE = 15;
+    private  final ArrayList<ToasterBody> toasterBodies = new ArrayList<>();
+    private final AtomicInteger CURRENT_Y_OFFSET = new AtomicInteger();
     private final JPanel panelToToastOn;
 
     public Toaster(JPanel panelToToastOn) {

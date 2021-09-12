@@ -96,7 +96,7 @@ public class SqlConnection {
             return 0;
         } else {
             PreparedStatement ps;
-            String queryString = "SELECT *From users WHERE Email='" + user + "' and Password='" + Crypt.passcrypt(pass)+"'";
+            String queryString = "SELECT * From users WHERE Email='" + user + "' and Password='" + Crypt.passcrypt(pass)+"'";
             ps = DB.getConnection().prepareStatement(queryString);
             try (ResultSet results = ps.executeQuery()) {
                 if (results.next()) {

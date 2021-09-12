@@ -65,6 +65,7 @@ public final class Userprofile extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         avatar = new home.ImageAvatar();
+        jLabel1 = new javax.swing.JLabel();
         rSButtonRound9 = new rojeru_san.rsbutton.RSButtonRound();
         usri = new rojeru_san.rslabel.RSLabelBorderRound();
         ee = new RSMaterialComponent.RSTextFieldIconUno();
@@ -99,6 +100,16 @@ public final class Userprofile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(avatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 40, 40));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel1.setText("Click to Change");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 140, -1));
 
         rSButtonRound9.setText("Back");
         rSButtonRound9.setBorderPainted(false);
@@ -308,7 +319,11 @@ public final class Userprofile extends javax.swing.JFrame {
     }//GEN-LAST:event_rSButtonRound9ActionPerformed
     File usrimg;
     private void usriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usriMouseClicked
-        JFileChooser jf = new JFileChooser();
+selectpic();
+
+    }//GEN-LAST:event_usriMouseClicked
+void selectpic(){
+            JFileChooser jf = new JFileChooser();
         usrimg = jf.getSelectedFile();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -323,9 +338,7 @@ public final class Userprofile extends javax.swing.JFrame {
             BufferedImage img = new ImgUtils().scaleImage(190, 190, usrimg.getPath());
             usri.setIcon(new ImageIcon(img));
         }
-
-    }//GEN-LAST:event_usriMouseClicked
-
+}
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         File f = new File("user.txt");
         File fff=new File("user.png");
@@ -472,6 +485,10 @@ dispose();
 Passwords.main();
 dispose();// TODO add your handling code here:
     }//GEN-LAST:event_passdActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+selectpic();
+    }//GEN-LAST:event_jLabel1MouseClicked
     public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -504,6 +521,7 @@ dispose();// TODO add your handling code here:
     private RSMaterialComponent.RSTextFieldIconUno ee;
     private RSMaterialComponent.RSButtonMaterialRipple eventd;
     private RSMaterialComponent.RSTextFieldIconUno ff;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -99,7 +99,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="190" y="290" width="130" height="30"/>
+                  <AbsoluteConstraints x="30" y="290" width="130" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -312,21 +312,6 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="430" y="10" width="80" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="rojeru_san.rsbutton.RSButtonRound" name="rSButtonRound9">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reset Connection"/>
-                <Property name="borderPainted" type="boolean" value="false"/>
-                <Property name="focusable" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rSButtonRound9ActionPerformed"/>
-              </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="290" width="150" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
