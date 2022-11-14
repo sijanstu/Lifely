@@ -38,16 +38,12 @@ public class DB {
               if((int)((endDate.getTime() - startDate.getTime()) / 1000)>100){
                    System.out.print("Connection reset");
                     return getConnection("localhost", "lifely", "root", "");
-                   //return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
-                  //return getConnection("bxabsomezdrn1nv4jpvi-mysql.services.clever-cloud.com", "bxabsomezdrn1nv4jpvi", "uwudbzxg1zyeerfd", "CgZaj3EtXvVS2A530ytn");
-                }else{
+                   }else{
                   startDate = new Date();
                    return con;}
             }else{
               return getConnection("localhost", "lifely", "root", "");
-                //return getConnection("bxabsomezdrn1nv4jpvi-mysql.services.clever-cloud.com", "bxabsomezdrn1nv4jpvi", "uwudbzxg1zyeerfd", "CgZaj3EtXvVS2A530ytn");
-               // return getConnection("remotemysql.com", "7MEZWTYhdr", "7MEZWTYhdr", "4GKnHiR6Lr");
-            }
+                 }
         }
        
     private static Connection getConnection(String server, String db_name, String user_name, String password) {
